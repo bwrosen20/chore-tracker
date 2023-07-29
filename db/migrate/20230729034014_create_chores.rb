@@ -8,7 +8,6 @@ class CreateChores < ActiveRecord::Migration[7.0]
       t.integer :point_value
       t.integer :user_id
       t.integer :repeat_chore_id
-      t.integer :admin_id
 
       t.timestamps
     end
