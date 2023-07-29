@@ -1,0 +1,2 @@
+class RepeatChoresController < ApplicationController
+end

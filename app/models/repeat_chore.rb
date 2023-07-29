@@ -1,0 +1,2 @@
+class RepeatChore < ApplicationRecord
+end
