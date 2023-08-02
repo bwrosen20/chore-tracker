@@ -4,4 +4,5 @@ class User < ApplicationRecord
 
     has_many :chores
     has_many :prizes
+    has_many :repeat_chores, through: :chores
 end

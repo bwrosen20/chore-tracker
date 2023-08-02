@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  post '/createAccount', to: 'users#createAccount'
+  post '/signup', to: 'users#signup'
   resources :repeat_prizes
   resources :repeat_chores
   resources :checks
