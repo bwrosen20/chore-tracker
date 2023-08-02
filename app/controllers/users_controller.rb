@@ -23,7 +23,7 @@ class UsersController < ApplicationController
     end
 
     def index
-        users = User.all
+        users = User.where(group_name:params[:group])
         render json: users
     end
 

@@ -12,6 +12,7 @@ export const UserContext = React.createContext()
 function App() {
 
   const [user,setUser]=useState(null)
+  const [users,setUsers]=useState([])
 
   useEffect(()=>{
     fetch('/me')
@@ -20,16 +21,17 @@ function App() {
         r.json().then((user)=>setUser(user))
       }
     })
-    fetch('/users')
-          .then(r=>{
-              r.json().then((users=>console.log(users)))
-          })
+    
   },[])
 
   if (!user) return <CreateAccount onLogin={handleLogin} />
 
   function handleLogin(user){
     setUser(user)
+    fetch(`/users/${user.group_name}`)
+          .then(r=>{
+              r.json().then((users=>setUsers(users)))
+          })
   }
 
   function handleLogout(){

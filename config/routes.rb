@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   post '/createAccount', to: 'users#createAccount'
   post '/signup', to: 'users#signup'
   get '/me', to: 'users#show'
-  get '/users', to: 'users#index'
+  get '/users/:group', to: 'users#index'
   post '/login', to: 'sessions#create'
   delete '/logout', to: 'sessions#destroy'
   resources :repeat_prizes
