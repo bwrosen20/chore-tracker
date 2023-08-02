@@ -1,20 +1,27 @@
 import {NavLink} from 'react-router-dom'
 
-function NavBar() {
+function NavBar({handleLogout}) {
     return <div>
-      <NavLink
-         to="login"
-         exact
-      >
-       Login
-      </NavLink>
 
       <NavLink
-        to="home"
+        to="/"
         exact
       >
         Home
       </NavLink>
+      <NavLink
+        to="prizes"
+        exact
+      >
+        Prizes
+      </NavLink>
+      <NavLink
+        to="chores"
+        exact
+      >
+        Chores
+      </NavLink>
+      <button onClick={handleLogout}>Logout</button>
       </div>
   }
   

@@ -22,6 +22,11 @@ class UsersController < ApplicationController
             end
     end
 
+    def index
+        users = User.all
+        render json: users
+    end
+
     def show
         current_user = User.find(session[:user_id])
         render json: current_user
