@@ -4,7 +4,6 @@ class CreateChores < ActiveRecord::Migration[7.0]
       t.string :title
       t.text :description
       t.boolean :completed
-      t.string :comment
       t.integer :point_value
       t.integer :user_id
       t.integer :repeat_chore_id

@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :repeat_prizes
   resources :repeat_chores
   resources :checks
   resources :chores
