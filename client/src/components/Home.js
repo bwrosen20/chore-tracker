@@ -12,7 +12,14 @@ function Home(){
 
 
     return <div>
-        <h1>Home</h1>   
+        {user.admin?
+        <div>
+            <h1>I'm an admin and this is home</h1>
+        </div>:
+        
+        <div>
+        <h1>Home</h1> 
+        <img src={user.profile_image} alt={user.id}/>  
         <h3>You have {user.points} points</h3>
 
         <h2>Recently Claimed Prizes</h2>
@@ -32,6 +39,8 @@ function Home(){
                     <button>I did it</button>
                 </div>
             ))}
+        </div>
+        }
     </div>
 }
 
