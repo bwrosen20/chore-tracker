@@ -63,7 +63,7 @@ function CreateAccount({onLogin}){
         <form onSubmit={onFormSubmit}>
             <input
             type="text"
-            placeholder="userName"
+            placeholder="Name"
             name="userName"
             autoComplete="off"
             value={data.username}
@@ -71,7 +71,7 @@ function CreateAccount({onLogin}){
 
             <input
             type="text"
-            placeholder="email"
+            placeholder="Email Address"
             name="email"
             autoComplete="off"
             value={data.email}

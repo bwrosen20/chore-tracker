@@ -15,13 +15,13 @@ RepeatChore.destroy_all
 Prize.destroy_all
 RepeatPrize.destroy_all
 
-mom=User.create(username:"Mom",email:"bwrosen20@gmail.com",password:"password",password_confirmation:"password",admin:true,group_name:"Rosen")
+mom=User.create(username:"Mom",email:"bwrosen20@gmail.com",password:"password",password_confirmation:"password",admin:true,group_name:"Rosen",points:0)
 
 mom.profile_image.attach(io: File.open(Rails.root.join('db/images/mom.jpeg')),filename:'mom.jpeg')
 
-adam=User.create(username:"Adam",email:"bwrosen20@gmail.com",password:"password",password_confirmation:"password",admin:false,group_name:"Rosen")
-brian=User.create(username:"Brian",email:"bwrosen20@gmail.com",password:"password",password_confirmation:"password",admin:false,group_name:"Rosen")
-brandon=User.create(username:"Brandon",email:"bwrosen20@gmail.com",password:"password",password_confirmation:"password",admin:false,group_name:"Rosen")
+adam=User.create(username:"Adam",email:"brianrosen20@yahoo.com",password:"password",password_confirmation:"password",admin:false,group_name:"Rosen",points:0)
+brian=User.create(username:"Brian",email:"brianrosen20@aol.com",password:"password",password_confirmation:"password",admin:false,group_name:"Rosen",points:0)
+brandon=User.create(username:"Brandon",email:"bwrosen20@icloud.com",password:"password",password_confirmation:"password",admin:false,group_name:"Rosen",points:0)
 
 adam.profile_image.attach(io: File.open(Rails.root.join('db/images/pabloSanchez.jpeg')),filename:'pabloSanchez.jpeg')
 brian.profile_image.attach(io: File.open(Rails.root.join('db/images/ronSwanson.jpeg')),filename:'ronSwanson.jpeg')

@@ -28,10 +28,13 @@ function App() {
 
   function handleLogin(user){
     setUser(user)
-    fetch(`/users/${user.group_name}`)
+    if (user){
+      fetch(`/users/${user.group_name}`)
           .then(r=>{
-              r.json().then((users=>setUsers(users)))
+              r.json().then((users=>console.log(users)))
           })
+    }
+    
   }
 
   function handleLogout(){

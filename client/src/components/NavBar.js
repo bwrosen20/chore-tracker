@@ -1,7 +1,14 @@
 import {NavLink} from 'react-router-dom'
+import {useContext} from 'react'
+import {UserContext} from './App'
 
 function NavBar({handleLogout}) {
+
+    const user = useContext(UserContext)
+
     return <div>
+
+      {user ? <h3>Hi {user.username}!</h3> : null}
 
       <NavLink
         to="/"

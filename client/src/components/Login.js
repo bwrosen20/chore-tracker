@@ -3,9 +3,8 @@ import {useState} from 'react'
 function Login({onLoginClick,onLogin}){
 
     const [formData,setFormData]=useState({
-        username:"",
-        password:"",
-        group_name:""
+        email:"",
+        password:""
     })
     const [errors,setErrors]=useState([])
 
@@ -37,10 +36,10 @@ function Login({onLoginClick,onLogin}){
         <form onSubmit={handleLogin}>
             <input
                 type="text"
-                placeholder="Username"
-                name="username"
+                placeholder="Email"
+                name="email"
                 autoComplete="off"
-                value={formData.username}
+                value={formData.email}
                 onChange={handleChange}
             />
             <input
@@ -49,14 +48,6 @@ function Login({onLoginClick,onLogin}){
                 name="password"
                 autoComplete="off"
                 value={formData.password}
-                onChange={handleChange}
-            />
-             <input
-                type="text"
-                placeholder="Group Name"
-                name="group_name"
-                autoComplete="off"
-                value={formData.group_name}
                 onChange={handleChange}
             />
             <button>Login</button>
