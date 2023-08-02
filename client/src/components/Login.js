@@ -23,7 +23,7 @@ function Login({onLoginClick,onLogin}){
         })
         .then((r)=>{
             if (r.ok){
-                r.json().then((user)=>onLogin(user))
+                r.json().then((data)=>onLogin(data,formData.email))
             }
             else{
                 r.json().then((err)=>setErrors(err.errors))

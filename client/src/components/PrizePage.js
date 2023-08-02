@@ -1,6 +1,14 @@
-function PrizePage(){
+import Prize from './Prize'
+
+function PrizePage({users}){
+
+    const admin = users.find((member)=>(member.admin))
+
     return <div>
-        <h1>Prize Page</h1>
+        <h1>Available Prizes</h1>
+        {admin.prizes.map((prize)=>(
+            <Prize prize={prize} />
+        ))}
     </div>
 }
 

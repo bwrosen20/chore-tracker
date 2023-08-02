@@ -5,7 +5,6 @@ class CreateRepeatChores < ActiveRecord::Migration[7.0]
       t.text :description
       t.integer :point_value
       t.string :repeat_every
-      t.integer :which_users
 
       t.timestamps
     end

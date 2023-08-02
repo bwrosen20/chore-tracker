@@ -18,7 +18,10 @@ function App() {
     fetch('/me')
     .then(r=>{
       if (r.ok){
-        r.json().then((user)=>setUser(user))
+        r.json().then((data)=>{
+          setUser(data[0])
+          setUsers(data.slice(1))
+        })
       }
     })
     
@@ -26,14 +29,10 @@ function App() {
 
   if (!user) return <CreateAccount onLogin={handleLogin} />
 
-  function handleLogin(user){
-    setUser(user)
-    if (user){
-      fetch(`/users/${user.group_name}`)
-          .then(r=>{
-              r.json().then((users=>console.log(users)))
-          })
-    }
+  function handleLogin(data,email){
+
+    setUser(data.find((member)=>(email.toString()===(member.email.toString()))))
+    setUsers(data)
     
   }
 
@@ -44,6 +43,9 @@ function App() {
       }
     })
   }
+
+
+  console.log(users)
   return (
     <div>
       <UserContext.Provider value={user}>
@@ -53,10 +55,10 @@ function App() {
             <CreateAccount onLogin={handleLogin}/>
           </Route>
           <Route exact path="/chores">
-            <ChorePage />
+            <ChorePage users={users}/>
           </Route>
           <Route exact path="/prizes">
-            <PrizePage />
+            <PrizePage users={users}/>
           </Route>
           <Route path="/">
             <Home />

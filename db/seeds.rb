@@ -39,13 +39,13 @@ disney.image.attach(io: File.open(Rails.root.join('db/images/disney.jpeg')),file
 chilis.image.attach(io: File.open(Rails.root.join('db/images/chilis.jpeg')),filename:'chilis.jpeg')
 dave.image.attach(io: File.open(Rails.root.join('db/images/davebusters.jpeg')),filename:'davebusters.jpeg')
 
-repeat_chore_token=RepeatChore.create(title:"Any Single Chore",description:"Use this if you don't want to repeat",point_value:0,repeat_every:"never",which_users:nil)
-clean=RepeatChore.create(title:"Clean your room",description:"Clean your room",point_value:20,repeat_every:"month",which_users:[adam.id,brian.id,brandon.id])
-trash=RepeatChore.create(title:"Take out the trash",description:"Take the garbage out to the curb",point_value:10,repeat_every:["tuesday","friday"],which_users:[adam.id,brian.id])
-plants=RepeatChore.create(title:"Water Plants",description:"Water all the plants in the kitchen",point_value:10,repeat_every:"week",which_users:brandon.id)
+repeat_chore_token=RepeatChore.create(title:"Any Single Chore",description:"Use this if you don't want to repeat",point_value:0,repeat_every:"never")
+clean=RepeatChore.create(title:"Clean your room",description:"Clean your room",point_value:20,repeat_every:"month")
+trash=RepeatChore.create(title:"Take out the trash",description:"Take the garbage out to the curb",point_value:10,repeat_every:["tuesday","friday"])
+plants=RepeatChore.create(title:"Water Plants",description:"Water all the plants in the kitchen",point_value:10,repeat_every:"week")
 brians=Chore.create(title:"Set Table",description:"Set the dining room table for thanksgiving",point_value:15,completed:0,user_id:brian.id,repeat_chore_id:repeat_chore_token.id)
 adams=Chore.create(title:"Grocery Shopping",description:"List: milk, eggs, bread, cheez its",point_value:15,completed:0,user_id:adam.id,repeat_chore_id:repeat_chore_token.id)
-brandons=Chore.create(title:"Help dad change tire",description:"Go to garage at noon, dad needs help",point_value:20,completed:0,user_id:brandon.id,repeat_chore_id:repeat_chore_token.id)
+brandons=Chore.create(title:"Help dad change tire",description:"Go to garage at noon, dad needs help",point_value:20,completed:0,user_id:mom.id,repeat_chore_id:repeat_chore_token.id)
 
 clean.image.attach(io: File.open(Rails.root.join('db/images/broom.jpeg')),filename:'broom.jpeg')
 trash.image.attach(io: File.open(Rails.root.join('db/images/trash.jpeg')),filename:'trash.jpeg')

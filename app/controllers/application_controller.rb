@@ -15,6 +15,6 @@ class ApplicationController < ActionController::API
     end
   
     def render_not_found_response
-      render json: {errors: ["Unauthorized"]}, status: :not_found
+      render json: {errors: ["Cannot find object"]}, status: :not_found
     end
 end
