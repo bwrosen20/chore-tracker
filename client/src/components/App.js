@@ -44,8 +44,6 @@ function App() {
     })
   }
 
-
-  console.log(users)
   return (
     <div>
       <UserContext.Provider value={user}>
@@ -61,7 +59,7 @@ function App() {
             <PrizePage users={users}/>
           </Route>
           <Route path="/">
-            <Home />
+            <Home users={users}/>
           </Route>
        </Switch>
        </UserContext.Provider>

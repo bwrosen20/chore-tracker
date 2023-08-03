@@ -55,6 +55,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_29_152005) do
     t.text "description"
     t.boolean "completed"
     t.integer "point_value"
+    t.datetime "due_date"
     t.integer "user_id"
     t.integer "repeat_chore_id"
     t.datetime "created_at", null: false

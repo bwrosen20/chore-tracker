@@ -31,8 +31,7 @@ class UsersController < ApplicationController
     end
 
     def show
-        # current_user = User.find(session[:user_id])
-        current_user = User.find(1)
+        current_user = User.find(session[:user_id])
         users = User.all
         render json: [current_user,*users]
     end

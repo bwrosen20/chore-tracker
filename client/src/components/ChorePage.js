@@ -8,19 +8,23 @@ function ChorePage({users}){
     const admin=users.find((member)=>member.admin)
 
     return <div>
-        {user.admin?
+        
         <div>
-            <h1>I'm an admin and this is chores</h1>
-            </div>:
+        
+
+        {admin.chores.length>0 ? 
         <div>
-        <h1>Get Some Extra Points</h1>
-        {admin.chores.map((chore)=>(
+            <h1>Get Some Extra Points</h1>
+            {admin.chores.map((chore)=>(
             <div>
                 <Chore chore={chore}/>
             </div>
         ))}
+        </div>: 
+        <h1>There are currently no extra chores available</h1>}
+       
         </div>
-        }
+    
     </div>
 }
 
