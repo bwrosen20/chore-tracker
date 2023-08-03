@@ -30,10 +30,8 @@ function App() {
   if (!user) return <CreateAccount onLogin={handleLogin} />
 
   function handleLogin(data,email){
-
     setUser(data.find((member)=>(email.toString()===(member.email.toString()))))
     setUsers(data)
-    
   }
 
   function handleLogout(){
@@ -42,6 +40,14 @@ function App() {
         setUser(null)
       }
     })
+  }
+
+  function handleEditPrize(data){
+    console.log(data)
+    setUsers(users.map((member)=>{
+    return {...member,prizes:member.prizes.map((prize)=>(prize.id===data.id ? data : prize))}
+    }))
+    setUser(users.find((member)=>member.admin))
   }
 
   return (
@@ -56,7 +62,7 @@ function App() {
             <ChorePage users={users}/>
           </Route>
           <Route exact path="/prizes">
-            <PrizePage users={users}/>
+            <PrizePage users={users} handleEditPrize={handleEditPrize}/>
           </Route>
           <Route path="/">
             <Home users={users}/>

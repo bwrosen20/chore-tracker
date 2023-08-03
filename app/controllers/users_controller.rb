@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-    skip_before_action :authorized, only: [:createAccount, :signup, :show]
+    skip_before_action :authorized, only: [:createAccount, :signup]
 
     def createAccount
         new_admin = User.new(user_params)

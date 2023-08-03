@@ -16,7 +16,7 @@ function ChorePage({users}){
         <div>
             <h1>Get Some Extra Points</h1>
             {admin.chores.map((chore)=>(
-            <div>
+            <div key={chore.id}>
                 <Chore chore={chore}/>
             </div>
         ))}
