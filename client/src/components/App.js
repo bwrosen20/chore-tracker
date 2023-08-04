@@ -47,7 +47,7 @@ function App() {
     setUsers(users.map((member)=>{
     return {...member,prizes:member.prizes.map((prize)=>(prize.id===data.id ? data : prize))}
     }))
-    setUser(users.find((member)=>member.admin))
+    setUser(users.find((member)=>{return member.admin}))
   }
 
   return (
