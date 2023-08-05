@@ -7,9 +7,9 @@ function Signup({onSignupClick, onLogin}){
         email:"",
         groupName:"",
         password:"",
-        confirmPassword:"",
-        profileImage:null
+        confirmPassword:""
     })
+    const [profileImage,setProfileImage]=useState(null)
     const [errors,setErrors]=useState([])
 
     function handleChange(event){
@@ -25,7 +25,7 @@ function Signup({onSignupClick, onLogin}){
         formData.append('group_name',data.groupName)
         formData.append('password',data.password)
         formData.append('password_confirmation',data.confirmPassword)
-        if (data.profileImage){formData.append('profile_image',data.profileImage)}
+        if (profileImage){formData.append('profile_image',profileImage)}
         fetch("/signup",{
             method: "POST",
             body: formData,
@@ -90,7 +90,7 @@ function Signup({onSignupClick, onLogin}){
             placeholder="Profile Image"
             name="profileImage"
             value={data.profileImage}
-            onChange={handleChange}/>
+            onChange={(e)=>setProfileImage(e.target.files[0])}/>
             <button>Create Account</button>
         </form>
         {errors.map((error)=>(<error key={error}>{error}</error>))}
