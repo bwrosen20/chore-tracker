@@ -1,17 +1,28 @@
+import EditChore from './EditChore'
 import {UserContext} from './App'
-import {useContext} from 'react'
+import {useContext, useState} from 'react'
 
 function Chore({chore}){
 
     const user = useContext(UserContext)
+    const [showEditChore,setShowEditChore]=useState(false)
+
+    function onEditChore(){
+        setShowEditChore(!showEditChore)
+    }
 
     return <div>
-        <div>
-                <img src={chore.image} alt={chore.id}/>
-                <h3>{user.admin ? chore.kid : null}{user.admin ? ":": null} {chore.title}</h3>
-                <h3>{chore.point_value} points</h3>
+                {showEditChore ? 
+                <EditChore onEditChore={onEditChore} chore={chore}/>:
+                <div>
+                    <img src={chore.image} alt={chore.id}/>
+                    <h3>{(user.admin && chore.completed)? `${chore.kid}: ` : null} {chore.title}</h3>
+                    <h3>{chore.point_value} points</h3>
+                    {user.admin ? <button onClick={()=>setShowEditChore(!showEditChore)}>Edit Chore</button> : null}
+                </div>
+                
+                }   
             </div>
-    </div>
 }
 
 export default Chore

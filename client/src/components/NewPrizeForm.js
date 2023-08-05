@@ -1,6 +1,6 @@
 import {useState} from 'react'
 
-function NewPrizeForm({handleNewPrize}){
+function NewPrizeForm({onNewPrize}){
     const [formData,setFormData]=useState({
         title:"",
         description:"",
@@ -24,13 +24,13 @@ function NewPrizeForm({handleNewPrize}){
         data.append('point_value',parseInt(formData.point_value))
         data.append('how_many_claims',formData.how_many_claims)
         if (image){data.append('image',image)}
-        fetch("/repeat_prizes",{
+        fetch("/prizes",{
             method: "POST",
             body: data,
         })
             .then((r)=>{
                 if (r.ok){
-                    r.json().then((data)=>console.log(data))
+                    r.json().then((data)=>onNewPrize(data))
                 }
                 else{
                     r.json().then((err)=>setErrors(err.errors))
@@ -87,7 +87,6 @@ function NewPrizeForm({handleNewPrize}){
             />
             <button>Submit</button>
         </form>
-        <button onClick={handleNewPrize}>Return</button>
     </div>
 }
 

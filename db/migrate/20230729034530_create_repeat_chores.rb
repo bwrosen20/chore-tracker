@@ -4,7 +4,7 @@ class CreateRepeatChores < ActiveRecord::Migration[7.0]
       t.string :title
       t.text :description
       t.integer :point_value
-      t.string :repeat_every
+      t.text :repeat_every, array: true, default: []
 
       t.timestamps
     end

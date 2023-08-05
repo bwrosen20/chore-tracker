@@ -76,7 +76,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_29_152005) do
     t.string "title"
     t.text "description"
     t.integer "point_value"
-    t.string "repeat_every"
+    t.text "repeat_every", default: [], array: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

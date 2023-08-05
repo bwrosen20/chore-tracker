@@ -43,12 +43,26 @@ function App() {
   }
 
   function handleEditPrize(data){
-    console.log(data)
     setUsers(users.map((member)=>{
     return {...member,prizes:member.prizes.map((prize)=>(prize.id===data.id ? data : prize))}
     }))
     setUser(users.find((member)=>{return member.admin}))
   }
+
+  function handleNewPrize(data){
+    setUsers(users.map((member)=>{
+      return(member.admin ? {...member,prizes:[...(member.prizes),data]} : member)
+    }))
+    setUser(users.find((member)=>{return member.admin}))
+  }
+
+  function handleNewChore(data){
+    setUsers(users.map((member)=>{
+      return(member.admin ? {...member,chores:[...(member.chores),data]}: member)
+    }))
+    setUser(users.find((member)=>{return member.admin}))
+  }
+
 
   return (
     <div>
@@ -59,10 +73,10 @@ function App() {
             <CreateAccount onLogin={handleLogin}/>
           </Route>
           <Route exact path="/chores">
-            <ChorePage users={users}/>
+            <ChorePage users={users} handleNewChore={handleNewChore}/>
           </Route>
           <Route exact path="/prizes">
-            <PrizePage users={users} handleEditPrize={handleEditPrize}/>
+            <PrizePage users={users} handleEditPrize={handleEditPrize} handleNewPrize={handleNewPrize}/>
           </Route>
           <Route path="/">
             <Home users={users}/>
