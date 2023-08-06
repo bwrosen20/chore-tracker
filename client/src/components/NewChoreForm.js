@@ -12,6 +12,7 @@ const [formData,setFormData]=useState({
     repeat_every:""
 })
 const [image,setImage]=useState(null)
+const [errors,setErrors]=useState([])
 
 function handleOptionChange(event){
     console.log(event.target.value)
@@ -47,10 +48,10 @@ function handleSubmit(event){
     })
     .then(r=>{
         if ((r).ok){
-            r.json().then((data)=>onNewChore(data))
+            r.json().then((res)=>onNewChore(res))
         }
         else{
-            r.json().then((err)=>console.log(err.errors))
+            r.json().then((err)=>setErrors(err.errors))
         }
     })
 }
@@ -140,6 +141,7 @@ return <div>
    />
    <button>Submit</button>
    </form>
+   {errors.map((error)=>(<error key={error}>{error}</error>))}
 </div>
 
 }

@@ -4,6 +4,7 @@ import CreateAccount from './CreateAccount'
 import Home from './Home'
 import ChorePage from './ChorePage'
 import PrizePage from './PrizePage'
+import UsersPage from './UsersPage'
 import React, {useState, useEffect} from 'react'
 import {Route,Switch} from 'react-router-dom'
 
@@ -63,6 +64,19 @@ function App() {
     setUser(users.find((member)=>{return member.admin}))
   }
 
+  function handleEditChore(data){
+    setUsers(users.map((member)=>{
+      return {...member,chores:member.chores.map((chore)=>(chore.id===data.id ? data : chore))}
+      }))
+      setUser(users.find((member)=>{return member.admin}))
+  }
+
+  function handleCheckChore(data){
+    setUsers(users.map((member)=>{
+      return member.id===data[1].id ? data[1] : {...member,chores:member.chores.map((chore)=>(chore.id===data[0].id ? data[0] : chore))}
+      }))
+  }
+
 
   return (
     <div>
@@ -73,13 +87,16 @@ function App() {
             <CreateAccount onLogin={handleLogin}/>
           </Route>
           <Route exact path="/chores">
-            <ChorePage users={users} handleNewChore={handleNewChore}/>
+            <ChorePage users={users} handleNewChore={handleNewChore} handleEditChore={handleEditChore}/>
           </Route>
           <Route exact path="/prizes">
             <PrizePage users={users} handleEditPrize={handleEditPrize} handleNewPrize={handleNewPrize}/>
           </Route>
+          <Route path="/users">
+            <UsersPage users={users}/>
+          </Route>
           <Route path="/">
-            <Home users={users}/>
+            <Home users={users} handleCheckChore={handleCheckChore}/>
           </Route>
        </Switch>
        </UserContext.Provider>

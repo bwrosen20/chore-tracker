@@ -1,20 +1,22 @@
 import Chore from './Chore'
 import Prize from './Prize'
-import {useContext} from 'react'
+import {useContext,useState} from 'react'
 import {UserContext} from './App'
 
-function Home({users}){
+function Home({users,handleCheckChore}){
 
     const user = useContext(UserContext)
 
 
     const completedChores=user.chores.filter((chore)=>(chore.completed))
     const toDoList = user.chores.filter((chore)=>(!chore.completed))
+    
 
         const choreArray=[]
         users.forEach((member)=>(choreArray.push(...(member.chores))))
-        const toBeChecked=choreArray.filter((chore)=>chore.completed && chore.check.approved===0)
+        const toBeChecked=choreArray.filter((chore)=>chore.completed && !chore.check.approved)
 
+   
 
 
     return <div>
@@ -23,7 +25,7 @@ function Home({users}){
             <img src={user.profile_image} alt={user.username} />
             <h1>Chores that need to be checked</h1>
             {toBeChecked.map((chore)=>(
-                <Chore chore={chore} />
+                <Chore chore={chore} handleCheckChore={handleCheckChore}/> 
             ))}
         </div>:
         

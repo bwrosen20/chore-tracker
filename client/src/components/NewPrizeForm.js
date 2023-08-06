@@ -30,7 +30,7 @@ function NewPrizeForm({onNewPrize}){
         })
             .then((r)=>{
                 if (r.ok){
-                    r.json().then((data)=>onNewPrize(data))
+                    r.json().then((res)=>onNewPrize(res))
                 }
                 else{
                     r.json().then((err)=>setErrors(err.errors))
@@ -87,6 +87,7 @@ function NewPrizeForm({onNewPrize}){
             />
             <button>Submit</button>
         </form>
+        {errors.map((error)=>(<error key={error}>{error}</error>))}
     </div>
 }
 

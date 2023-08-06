@@ -2,18 +2,20 @@ import {useState} from 'react'
 
 function EditChore({onEditChore, chore}){
 
-    
+    const date=chore.due_date.split("").slice(0,16).join("")
     const dayArray=["once","day","week","month"]
     const [formData,setFormData]=useState({
         title:chore.title,
         description:chore.description,
         point_value:chore.point_value,
-        due_date:chore.due_date,
+        due_date:date,
         repeat_every:chore.repeat_every
     })
     const [image,setImage]=useState(null)
+    const [errors,setErrors]=useState([])
     const [days,setDays]=useState(!dayArray.includes(chore.repeat_every[0]))
 
+    console.log(chore)
     console.log(formData)
 
     function handleOptionChange(event){
@@ -35,15 +37,37 @@ function EditChore({onEditChore, chore}){
     }
 
     function handleChange(event){
-
+        setFormData({...formData,[event.target.name]:event.target.value})
     }
 
     function handleSubmit(event){
-
+        event.preventDefault()
+        const data = new FormData()
+        data.append('title',formData.title)
+        data.append('description',formData.description)
+        data.append('point_value',parseInt(formData.point_value))
+        data.append('due_date',formData.due_date)
+        for (let i = 0; i<(formData.repeat_every).length; i++){
+            data.append('repeat_every[]',formData.repeat_every[i])
+        }
+        if (image){data.append('image',image)}
+        fetch(`/chores/${chore.id}`,{
+            method:"PATCH",
+            body:data
+        })
+        .then(r=>{
+            if (r.ok){
+                r.json().then(res=>onEditChore(res))
+            }
+            else{
+                r.json().then(err=>setErrors(err.errors))
+            }
+        })
     }
 
     return <div>
         <form onSubmit={handleSubmit}>
+    <label>Title</label>
     <input
     type="text"
     name="title"
@@ -51,6 +75,7 @@ function EditChore({onEditChore, chore}){
     placeholder="Title"
     onChange={handleChange}
     />
+    <label>Description</label>
      <input
     rows="5"
     name="description"
@@ -58,6 +83,7 @@ function EditChore({onEditChore, chore}){
     placeholder="Description"
     onChange={handleChange}
     />
+    <label>Point Value</label>
     <input
     type="text"
     name="point_value"
@@ -147,6 +173,7 @@ function EditChore({onEditChore, chore}){
    <label for="specificDays">Choose Days</label>
    </fieldset>
    }
+   <label>New Image</label>
    <input
     type="file"
     accept="image/*"
@@ -155,6 +182,7 @@ function EditChore({onEditChore, chore}){
    <button>Submit</button>
    </form>
         <button onClick={onEditChore}>Return</button>
+        {errors.map((error)=>(<error key={error}>{error}</error>))}
     </div>
 }
 

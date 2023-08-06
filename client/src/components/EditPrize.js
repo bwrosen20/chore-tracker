@@ -7,6 +7,7 @@ function EditPrize({prize,onEditPrize}){
         point_value:prize.point_value,
         image:null
     })
+    const [errors,setErrors]=useState([])
 
     function handleEditChange(event){
         setFormData({...formData,[event.target.name]:event.target.value})
@@ -24,10 +25,10 @@ function EditPrize({prize,onEditPrize}){
         })
         .then((r)=>{
             if (r.ok){
-                r.json().then(data=>onEditPrize(data))
+                r.json().then(res=>onEditPrize(res))
             }
             else{
-                r.json().then(err=>console.log(err.errors))
+                r.json().then(err=>setErrors(err.errors))
             }
         })
     }
@@ -50,7 +51,7 @@ function EditPrize({prize,onEditPrize}){
             onChange={handleEditChange}/>
             <button>Confirm</button>
         </form>
-
+        {errors.map((error)=>(<error key={error}>{error}</error>))}
 
         
             

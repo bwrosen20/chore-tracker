@@ -44,7 +44,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_29_152005) do
 
   create_table "checks", force: :cascade do |t|
     t.string "comment"
-    t.integer "approved"
+    t.boolean "approved"
     t.integer "chore_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

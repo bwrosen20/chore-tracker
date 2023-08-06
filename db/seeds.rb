@@ -49,7 +49,7 @@ clean=RepeatChore.create(title:"Clean your room",description:"Clean your room",p
     adams_room=Chore.create(title:"Clean your room",description:"Clean your room",point_value:20,completed:0,user_id:adam.id,repeat_chore_id:clean.id,due_date:"2023-08-31 23:59:59.0000000 -0400")
     brandons_room=Chore.create(title:"Clean your room",description:"Clean your room",point_value:20,completed:1,user_id:brandon.id,repeat_chore_id:clean.id,due_date:"2023-08-31 23:59:59.0000000 -0400")
 trash=RepeatChore.create(title:"Take out the trash",description:"Take the garbage out to the curb",point_value:10,repeat_every:["tuesday","friday"])
-    trash_one=Chore.create(title:"Water Plants",description:"Water all the plants in the kitchen",point_value:10,completed:0,user_id:mom.id,repeat_chore_id:trash.id,due_date:"2023-08-11 23:59:59.0000000 -0400")
+    trash_one=Chore.create(title:"Take out trash",description:"Take out the trash",point_value:10,completed:0,user_id:mom.id,repeat_chore_id:trash.id,due_date:"2023-08-11 20:00:00.0000000 -0400")
 plants=RepeatChore.create(title:"Water Plants",description:"Water all the plants in the kitchen",point_value:10,repeat_every:["week"])
     plants_one=Chore.create(title:"Water Plants",description:"Water all the plants in the kitchen",point_value:10,completed:1,user_id:brandon.id,repeat_chore_id:plants.id,due_date:"2023-08-11 23:59:59.0000000 -0400")
 brians=Chore.create(title:"Set Table",description:"Set the dining room table",point_value:15,completed:1,user_id:brian.id,repeat_chore_id:repeat_chore_token.id,due_date:"2023-08-10 17:00:00.0000000 -0400")
@@ -76,9 +76,9 @@ Check.create(comment:nil,approved:0,chore_id:brandons_room.id)
 Check.create(comment:nil,approved:0,chore_id:plants_one.id)
 Check.create(comment:nil,approved:0,chore_id:extra_chore.id)
 
-Check.create(comment:"Looks perfect",approved:1,chore_id:brians.id)
-Check.create(comment:"Good job",approved:1,chore_id:adams.id)
-Check.create(comment:"Dad had to do it himself",approved:-1,chore_id:brandons.id)
+Check.create(comment:"Looks perfect",approved:true,chore_id:brians.id)
+Check.create(comment:"Good job",approved:true,chore_id:adams.id)
+Check.create(comment:"Dad had to do it himself",approved:false,chore_id:brandons.id)
 
 puts"The data has been seeded"
 

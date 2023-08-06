@@ -28,6 +28,12 @@ function NavBar({handleLogout}) {
       >
         Chores
       </NavLink>
+      <NavLink
+        to="users"
+        exact
+      >
+        Users
+      </NavLink>
       <button onClick={handleLogout}>Logout</button>
       </div>
   }
