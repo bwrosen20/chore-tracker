@@ -22,7 +22,7 @@ function NewPrizeForm({onNewPrize}){
         data.append('title',formData.title)
         data.append('description',formData.description)
         data.append('point_value',parseInt(formData.point_value))
-        data.append('how_many_claims',formData.how_many_claims)
+        data.append('how_many_claims',parseInt(formData.how_many_claims))
         if (image){data.append('image',image)}
         fetch("/prizes",{
             method: "POST",

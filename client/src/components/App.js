@@ -77,6 +77,10 @@ function App() {
       }))
   }
 
+  function handleClaimPrize(data){
+    console.log(data)
+  }
+
 
   return (
     <div>
@@ -90,7 +94,7 @@ function App() {
             <ChorePage users={users} handleNewChore={handleNewChore} handleEditChore={handleEditChore}/>
           </Route>
           <Route exact path="/prizes">
-            <PrizePage users={users} handleEditPrize={handleEditPrize} handleNewPrize={handleNewPrize}/>
+            <PrizePage users={users} handleEditPrize={handleEditPrize} handleNewPrize={handleNewPrize} handleClaimPrize={handleClaimPrize}/>
           </Route>
           <Route path="/users">
             <UsersPage users={users}/>

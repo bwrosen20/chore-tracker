@@ -36,6 +36,36 @@ class UsersController < ApplicationController
         render json: [current_user,*users]
     end
 
+    def update
+        user = User.find(session[:user_id])
+        admin = User.where("admin=? and group_name=?",true,"Rosen")[0]
+        prize = Prize.find(params[:prize_id])
+        repeat_prize = RepeatPrize.find(prize.repeat_prize_id)
+        user.prizes.push(prize)
+        if user.points > prize.point_value
+            user.points-=prize.point_value
+            user.save!
+            if repeat_prize.how_many_claims!=100
+                repeat_prize.how_many_claims-=1
+                repeat_prize.save!
+            end
+            if repeat_prize.how_many_claims>0
+                new_prize = admin.prizes.create({
+                    title:repeat_prize.title,
+                    description:repeat_prize.description,
+                    point_value:repeat_prize.point_value
+                })
+                new_prize.repeat_prize = repeat_prize
+                new_prize.save!
+            end
+            render json: ([user,admin,])
+        else
+            render json: {errors: ["Not enough points"]} 
+        
+        end
+        
+    end
+
 
     private
 
