@@ -6,7 +6,7 @@ import ChorePage from './ChorePage'
 import PrizePage from './PrizePage'
 import UsersPage from './UsersPage'
 import React, {useState, useEffect} from 'react'
-import {Route,Switch} from 'react-router-dom'
+import {Route,Switch,useHistory} from 'react-router-dom'
 
 export const UserContext = React.createContext()
 
@@ -14,6 +14,7 @@ function App() {
 
   const [user,setUser]=useState(null)
   const [users,setUsers]=useState([])
+  const history = useHistory()
 
   useEffect(()=>{
     fetch('/me')
@@ -78,7 +79,27 @@ function App() {
   }
 
   function handleClaimPrize(data){
-    console.log(data)
+    const admin = users.find((member)=>member.admin)
+    admin.prizes=admin.prizes.filter((prize)=>(prize.id!==data[0].id))
+    if (data[1]){
+      admin.prizes=[...admin.prizes,data[1]]
+      console.log(admin.prizes)
+    }
+    setUsers(users.map((member)=>{
+      if (member.id===user.id){
+        return {...user,prizes:[...(user.prizes),data[0]],points:user.points-data[0].point_value}
+      }
+      else if (member.admin){
+        return admin
+      }
+      else{
+        return member
+      }
+    }))
+    setUser({...user,prizes:[...(user.prizes),data[0]],points:user.points-data[0].point_value})
+    
+    // history.push('/')
+    console.log(users)
   }
 
 

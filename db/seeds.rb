@@ -21,13 +21,13 @@ mom.profile_image.attach(io: File.open(Rails.root.join('db/images/mom.jpeg')),fi
 
 adam=User.create(username:"Adam",email:"brianrosen20@yahoo.com",password:"password",password_confirmation:"password",admin:false,group_name:"Rosen",points:0)
 brian=User.create(username:"Brian",email:"brianrosen20@aol.com",password:"password",password_confirmation:"password",admin:false,group_name:"Rosen",points:0)
-brandon=User.create(username:"Brandon",email:"bwrosen20@icloud.com",password:"password",password_confirmation:"password",admin:false,group_name:"Rosen",points:100)
+brandon=User.create(username:"Brandon",email:"bwrosen20@icloud.com",password:"password",password_confirmation:"password",admin:false,group_name:"Rosen",points:500)
 
 adam.profile_image.attach(io: File.open(Rails.root.join('db/images/pabloSanchez.jpeg')),filename:'pabloSanchez.jpeg')
 brian.profile_image.attach(io: File.open(Rails.root.join('db/images/ronSwanson.jpeg')),filename:'ronSwanson.jpeg')
 brandon.profile_image.attach(io: File.open(Rails.root.join('db/images/draco.jpeg')),filename:'draco.jpeg')
 
-repeat_prize_token=RepeatPrize.create(title:"Any Single Prize",description:"Use this if you don't want to repeat",point_value:0,how_many_claims:100)
+repeat_prize_token=RepeatPrize.create(title:"Any Single Prize",description:"Use this if you don't want to repeat",point_value:0,how_many_claims:1)
 allowance=RepeatPrize.create(title:"$20 Allowance",description:"All three of you should be able to do enough to earn your allowance",point_value:20,how_many_claims:100)
     allowance_one=Prize.create(title:"$20 Allowance", description:"All three of you should be able to do enough to earn your allowance",point_value:20,user_id:mom.id,repeat_prize_id:allowance.id)
 disney=Prize.create(title:"Disney World", description:"We go to disney world",point_value:500,user_id:mom.id,repeat_prize_id:repeat_prize_token.id)

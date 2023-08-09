@@ -25,7 +25,7 @@ function Home({users,handleCheckChore}){
             <img src={user.profile_image} alt={user.username} />
             <h1>Chores that need to be checked</h1>
             {toBeChecked.map((chore)=>(
-                <Chore chore={chore} handleCheckChore={handleCheckChore}/> 
+                <Chore key={chore.id} chore={chore} handleCheckChore={handleCheckChore}/> 
             ))}
         </div>:
         
@@ -36,18 +36,18 @@ function Home({users,handleCheckChore}){
 
         <h2>Recently Claimed Prizes</h2>
         {user.prizes.map((prize)=>(
-           <Prize prize={prize}/>
+           <Prize key={prize.id} prize={prize}/>
         ))}
 
         <h2>Recently Completed Chores</h2>
         {completedChores.map((chore)=>(
-           <Chore chore={chore}/>
+           <Chore key={chore.id} chore={chore}/>
         ))}
 
         <h2>To Do List</h2>
             {toDoList.map((chore)=>(
                 <div>
-                    <Chore chore={chore} />
+                    <Chore key={chore.id} chore={chore} />
                     <button>I did it</button>
                 </div>
             ))}

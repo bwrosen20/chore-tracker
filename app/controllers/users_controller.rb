@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
     skip_before_action :authorized, only: [:createAccount, :signup]
+    include Rails.application.routes.url_helpers
 
     def createAccount
         new_admin = User.new(user_params)
@@ -38,12 +39,13 @@ class UsersController < ApplicationController
 
     def update
         user = User.find(session[:user_id])
-        admin = User.where("admin=? and group_name=?",true,"Rosen")[0]
+        admin = User.where("admin=? and group_name=?",true,user.group_name).first
         prize = Prize.find(params[:prize_id])
         repeat_prize = RepeatPrize.find(prize.repeat_prize_id)
-        user.prizes.push(prize)
-        if user.points > prize.point_value
+        if user.points >= prize.point_value
             user.points-=prize.point_value
+            prize.user = user
+            prize.save!
             user.save!
             if repeat_prize.how_many_claims!=100
                 repeat_prize.how_many_claims-=1
@@ -55,12 +57,13 @@ class UsersController < ApplicationController
                     description:repeat_prize.description,
                     point_value:repeat_prize.point_value
                 })
+                new_prize.image.attach(repeat_prize.image.blob) 
                 new_prize.repeat_prize = repeat_prize
                 new_prize.save!
             end
-            render json: ([user,admin,])
+            render json: [prize,new_prize]
         else
-            render json: {errors: ["Not enough points"]} 
+            render json: {errors: ["Not enough points"]}, status: :unprocessable_entity 
         
         end
         

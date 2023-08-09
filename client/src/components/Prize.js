@@ -13,7 +13,8 @@ function Prize({prize,handleEditPrize,handleClaimPrize}){
         handleEditPrize(data)
     }
 
-    function onClaimPrize(){
+    function onClaimPrize(event){
+        event.preventDefault()
         fetch(`/users/${user.id}`,{
             method:"PATCH",
             headers:{
@@ -41,10 +42,11 @@ function Prize({prize,handleEditPrize,handleClaimPrize}){
                 <h4>{prize.point_value} Points</h4>
                 {user.admin?  
             <button onClick={()=>setEditPrize(!editPrize)}>Edit Prize</button>: 
-            <button onClick={onClaimPrize}>Claim Prize</button>
+            user.prizes.includes(prize) ? null : <button onClick={onClaimPrize}>Claim Prize</button>
             }
             </div>
-    }
+        }
+        {errors.map((error)=>(<error key={error}>{error}</error>))}
     </div>
 }
 
