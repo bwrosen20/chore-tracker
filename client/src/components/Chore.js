@@ -2,9 +2,8 @@ import EditChore from './EditChore'
 import CheckChore from './CheckChore'
 import {UserContext} from './App'
 import {useContext, useState} from 'react'
-import Prize from './Prize'
 
-function Chore({chore,handleEditChore,handleCheckChore,handleChoreClaim,handleNevermind}){
+function Chore({chore,handleEditChore,handleCheckChore,handleChoreClaim}){
 
     const user = useContext(UserContext)
     const [showEditChore,setShowEditChore]=useState(false)
@@ -42,27 +41,6 @@ function Chore({chore,handleEditChore,handleCheckChore,handleChoreClaim,handleNe
     }
 
 
-    function nevermind(){
-        fetch('chores/nevermind',{
-            method:"PATCH",
-            headers:{
-                "Content-type":"application/json"
-            },
-            body:JSON.stringify({
-                chore_id:chore.id
-            })
-        })
-        .then(r=>{
-            if (r.ok){
-                r.json().then(data=>handleNevermind(data))
-            }
-            else{
-                r.json().then(err=>console.log(err.errors))
-            }
-        })
-    }
-
-
     return <div>
                 {showEditChore ? 
                 <EditChore onEditChore={onEditChore} chore={chore}/>:
@@ -70,15 +48,17 @@ function Chore({chore,handleEditChore,handleCheckChore,handleChoreClaim,handleNe
                     <img src={chore.image} alt={chore.id}/>
                     <h3>{(user.admin && chore.completed)? `${chore.kid}: ` : null} {chore.title}</h3>
                     <h3>{chore.point_value} points</h3>
-                    {user.admin ? !chore.completed ?
-                    <button onClick={()=>setShowEditChore(!showEditChore)}>Edit Chore</button> :
-                    checkChore ?
-                    <CheckChore onCheckChore={onCheckChore} chore={chore}/>:
-                    <button onClick={()=>setCheckChore(!checkChore)}>Check Chore</button>: 
-                    chore.completed ? null : user.chores.includes(chore) ? <div>  
-                        <button onClick={nevermind}>Nevermind</button>
-                        <button>I did it</button>
-                        </div> : <button onClick={illDoIt}>I'll do it</button>}
+                    {user.admin ? 
+                        !chore.completed ?
+                            <button onClick={()=>setShowEditChore(!showEditChore)}>Edit Chore</button> :
+                            checkChore ?
+                                <CheckChore onCheckChore={onCheckChore} chore={chore}/>:
+                                <button onClick={()=>setCheckChore(!checkChore)}>Check Chore</button>: 
+                                    chore.completed ? 
+                                        null : 
+                                            user.chores.includes(chore) ? 
+                                                <button>I did it</button>
+                                             : <button onClick={illDoIt}>I'll do it</button>}
                 </div>
                 }   
             </div>

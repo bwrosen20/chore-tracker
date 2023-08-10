@@ -3,7 +3,7 @@ import Prize from './Prize'
 import {useContext,useState} from 'react'
 import {UserContext} from './App'
 
-function Home({users,handleCheckChore,handleNevermind}){
+function Home({users,handleCheckChore}){
 
     const user = useContext(UserContext)
 
@@ -46,7 +46,7 @@ function Home({users,handleCheckChore,handleNevermind}){
 
         <h2>To Do List</h2>
             {toDoList.map((chore)=>(
-                    <Chore key={chore.id} chore={chore} handleNevermind={handleNevermind}/>
+                    <Chore key={chore.id} chore={chore}/>
             ))}
         </div>
         }

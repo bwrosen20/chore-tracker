@@ -116,21 +116,6 @@ function App() {
     setUser({...user,chores:[...(user.chores),data]})
   }
 
-  function handleNevermind(data){
-    setUsers(users.map((member)=>{
-      if (member.id===user.id){
-        return {...member,chores:(member.chores.filter((chore)=>(data.id!==chore.id)))}
-      }
-      else if (member.admin){
-        return {...member,chores:[...(member.chores),data]}
-      }
-      else{
-        return member
-      }
-    }))
-    setUser({...user,chores:(user.chores.filter((chore)=>(data.id!==chore.id)))})
-  }
-
 
   return (
     <div>
@@ -150,7 +135,7 @@ function App() {
             <UsersPage users={users}/>
           </Route>
           <Route path="/">
-            <Home users={users} handleCheckChore={handleCheckChore} handleNevermind={handleNevermind}/>
+            <Home users={users} handleCheckChore={handleCheckChore}/>
           </Route>
        </Switch>
        </UserContext.Provider>
