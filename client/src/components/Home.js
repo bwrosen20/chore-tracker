@@ -14,7 +14,7 @@ function Home({users,handleCheckChore}){
 
         const choreArray=[]
         users.forEach((member)=>(choreArray.push(...(member.chores))))
-        const toBeChecked=choreArray.filter((chore)=>chore.completed && !chore.check.approved)
+        const toBeChecked=choreArray.filter((chore)=>chore.completed && !chore.check)
 
    
 

@@ -5,6 +5,10 @@ import {useContext, useState} from 'react'
 
 function Chore({chore,handleEditChore,handleCheckChore,handleChoreClaim}){
 
+    if (chore.check){
+        console.log(chore.check)
+    }
+
     const user = useContext(UserContext)
     const [showEditChore,setShowEditChore]=useState(false)
     const [checkChore,setCheckChore]=useState(false)
@@ -55,7 +59,8 @@ function Chore({chore,handleEditChore,handleCheckChore,handleChoreClaim}){
                                 <CheckChore onCheckChore={onCheckChore} chore={chore}/>:
                                 <button onClick={()=>setCheckChore(!checkChore)}>Check Chore</button>: 
                                     chore.completed ? 
-                                        null : 
+                                        typeof(chore.check)===null ? <h3>Pending</h3> : 
+                                        chore.check ? <h3>Approved</h3> : <h3>Rejected</h3>: 
                                             user.chores.includes(chore) ? 
                                                 <button>I did it</button>
                                              : <button onClick={illDoIt}>I'll do it</button>}

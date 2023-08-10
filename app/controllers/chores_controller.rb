@@ -1,4 +1,10 @@
 class ChoresController < ApplicationController
+    skip_before_action :authorized, only: :index
+
+    def index
+        chores = Chore.all
+        render json: chores
+    end
 
     def create
         user = User.find(session[:user_id])

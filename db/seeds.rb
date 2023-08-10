@@ -70,11 +70,6 @@ adams.image.attach(io: File.open(Rails.root.join('db/images/groceries.jpeg')),fi
 brandons.image.attach(io: File.open(Rails.root.join('db/images/tire.jpeg')),filename:'tire.jpeg')
 extra_chore.image.attach(io: File.open(Rails.root.join('db/images/broom.jpeg')),filename:'broom.jpeg')
 
-Check.create(comment:nil,approved:0,chore_id:brians_room.id)
-Check.create(comment:nil,approved:0,chore_id:adams_room.id)
-Check.create(comment:nil,approved:0,chore_id:brandons_room.id)
-Check.create(comment:nil,approved:0,chore_id:plants_one.id)
-Check.create(comment:nil,approved:0,chore_id:extra_chore.id)
 
 Check.create(comment:"Looks perfect",approved:true,chore_id:brians.id)
 Check.create(comment:"Good job",approved:true,chore_id:adams.id)
