@@ -5,10 +5,6 @@ import {useContext, useState} from 'react'
 
 function Chore({chore,handleEditChore,handleCheckChore,handleChoreClaim}){
 
-    if (chore.check){
-        console.log(chore.check)
-    }
-
     const user = useContext(UserContext)
     const [showEditChore,setShowEditChore]=useState(false)
     const [checkChore,setCheckChore]=useState(false)
@@ -53,18 +49,27 @@ function Chore({chore,handleEditChore,handleCheckChore,handleChoreClaim}){
                     <h3>{(user.admin && chore.completed)? `${chore.kid}: ` : null} {chore.title}</h3>
                     <h3>{chore.point_value} points</h3>
                     {user.admin ? 
-                        !chore.completed ?
+                    //if user is admin
+                        (!chore.completed ?
                             <button onClick={()=>setShowEditChore(!showEditChore)}>Edit Chore</button> :
                             checkChore ?
                                 <CheckChore onCheckChore={onCheckChore} chore={chore}/>:
-                                <button onClick={()=>setCheckChore(!checkChore)}>Check Chore</button>: 
-                                    chore.completed ? 
-                                        typeof(chore.check)===null ? <h3>Pending</h3> : 
-                                        chore.check ? <h3>Approved</h3> : <h3>Rejected</h3>: 
-                                            user.chores.includes(chore) ? 
-                                                <button>I did it</button>
-                                             : <button onClick={illDoIt}>I'll do it</button>}
-                </div>
+                                <button onClick={()=>setCheckChore(!checkChore)}>Check Chore</button>): 
+
+
+                    //if user is not admin
+                                    chore.check ? 
+                                //if chore has a check
+                                    chore.check.approved==="approved"?<h3>Approved</h3>: 
+                                        chore.check.approved==="rejected"?<div><h3>Rejected</h3><button>Try Again</button></div>:<h3>Pending</h3>:
+                                    
+                                //chore does not have a check    
+                                        user.chores.includes(chore) ?
+                                    //if chore is claimed    
+                                         <button>I did it</button>:
+                                    //if a chore is not claimed
+                                        <button onClick={illDoIt}>I'll do it</button>}
+                </div>      
                 }   
             </div>
 }

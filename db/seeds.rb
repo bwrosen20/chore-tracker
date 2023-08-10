@@ -14,6 +14,7 @@ Chore.destroy_all
 RepeatChore.destroy_all
 Prize.destroy_all
 RepeatPrize.destroy_all
+Check.destroy_all
 
 mom=User.create(username:"Mom",email:"bwrosen20@gmail.com",password:"password",password_confirmation:"password",admin:true,group_name:"Rosen",points:0)
 
@@ -54,7 +55,7 @@ plants=RepeatChore.create(title:"Water Plants",description:"Water all the plants
     plants_one=Chore.create(title:"Water Plants",description:"Water all the plants in the kitchen",point_value:10,completed:1,user_id:brandon.id,repeat_chore_id:plants.id,due_date:"2023-08-11 23:59:59.0000000 -0400")
 brians=Chore.create(title:"Set Table",description:"Set the dining room table",point_value:15,completed:1,user_id:brian.id,repeat_chore_id:repeat_chore_token.id,due_date:"2023-08-10 17:00:00.0000000 -0400")
 adams=Chore.create(title:"Grocery Shopping",description:"List: milk, eggs, bread, cheez its",point_value:15,completed:1,user_id:adam.id,repeat_chore_id:repeat_chore_token.id,due_date:"2023-08-10 17:00:00.0000000 -0400")
-brandons=Chore.create(title:"Help dad change tire",description:"Go to garage at noon, dad needs help",point_value:20,completed:1,user_id:brandon.id,repeat_chore_id:repeat_chore_token.id,due_date:"2023-08-10 15:00:00.0000000 -0400")
+brandons=Chore.create(title:"Help dad change tire",description:"Go to garage at noon, dad needs help",point_value:20,completed:0,user_id:brandon.id,repeat_chore_id:repeat_chore_token.id,due_date:"2023-08-10 15:00:00.0000000 -0400")
         extra_chore=Chore.create(title:"Clean Garage",description:"Reorganize and vacuum the garage",point_value:75,completed:0,user_id:mom.id,repeat_chore_id:repeat_chore_token.id,due_date:"2023-08-31 23:59:59.0000000 -0400")
 
 clean.image.attach(io: File.open(Rails.root.join('db/images/broom.jpeg')),filename:'broom.jpeg')
@@ -71,9 +72,12 @@ brandons.image.attach(io: File.open(Rails.root.join('db/images/tire.jpeg')),file
 extra_chore.image.attach(io: File.open(Rails.root.join('db/images/broom.jpeg')),filename:'broom.jpeg')
 
 
-Check.create(comment:"Looks perfect",approved:true,chore_id:brians.id)
-Check.create(comment:"Good job",approved:true,chore_id:adams.id)
-Check.create(comment:"Dad had to do it himself",approved:false,chore_id:brandons.id)
+Check.create(comment:"Looks perfect",approved:"approved",chore_id:brians.id)
+Check.create(comment:"Good job",approved:"approved",chore_id:adams.id)
+Check.create(comment:"Dad had to do it himself",approved:"rejected",chore_id:brandons.id)
+Check.create(comment:"Looks amazing",approved:"approved",chore_id:brians_room.id)
+Check.create(comment:"Wow, even better than I expected",approved:"approved",chore_id:brandons_room.id)
+Check.create(comment:"Nice and watery",approved:"approved",chore_id:plants_one.id)
 
 puts"The data has been seeded"
 

@@ -10,9 +10,12 @@ class ChecksController < ApplicationController
             else
                 check = chore.check.create!(check_params)
             end
-            if params[:approved]
+            if params[:approved]=="approved"
                 user.points+=20
                 user.save!
+            else
+                chore.completed=false
+                chore.save!
             end
             render json: ([chore,user]), status: :created
         else
