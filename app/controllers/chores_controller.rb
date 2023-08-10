@@ -55,6 +55,19 @@ class ChoresController < ApplicationController
         render json: chore
     end
 
+    def finished
+        user = User.find(session[:user_id])
+        chore = Chore.find(params[:chore_id])
+        if chore.check
+            check = chore.check
+            chore.check.approved="pending"
+            check.save!
+        end
+        chore.completed=1
+        chore.save!
+        render json: chore
+    end
+
     private
 
     def chore_params

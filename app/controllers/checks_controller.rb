@@ -8,7 +8,9 @@ class ChecksController < ApplicationController
             if chore.check
                 check = chore.check.update!(check_params)
             else
-                check = chore.check.create!(check_params)
+                check = Check.create(check_params)
+                check.chore=chore
+                check.save!
             end
             if params[:approved]=="approved"
                 user.points+=20

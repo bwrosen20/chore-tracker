@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   post '/login', to: 'sessions#create'
   delete '/logout', to: 'sessions#destroy'
   patch '/chores/claim', to:'chores#claim'
+  patch '/chores/finished', to:'chores#finished'
   resources :repeat_prizes
   resources :repeat_chores
   resources :checks

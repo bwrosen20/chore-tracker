@@ -116,6 +116,13 @@ function App() {
     setUser({...user,chores:[...(user.chores),data]})
   }
 
+  function handleFinishedChore(data){
+    setUsers(users.map((member)=>{
+      return {...member,chores:member.chores.map((chore)=>(chore.id===data.id ? data : chore))}
+      }))
+      setUser({...user,chores:user.chores.map((chore)=>(chore.id===data.id? data : chore))})
+  }
+
 
   return (
     <div>
@@ -135,7 +142,7 @@ function App() {
             <UsersPage users={users}/>
           </Route>
           <Route path="/">
-            <Home users={users} handleCheckChore={handleCheckChore}/>
+            <Home users={users} handleCheckChore={handleCheckChore} handleFinishedChore={handleFinishedChore}/>
           </Route>
        </Switch>
        </UserContext.Provider>

@@ -3,11 +3,12 @@ import CheckChore from './CheckChore'
 import {UserContext} from './App'
 import {useContext, useState} from 'react'
 
-function Chore({chore,handleEditChore,handleCheckChore,handleChoreClaim}){
+function Chore({chore,handleEditChore,handleCheckChore,handleChoreClaim,handleFinishedChore}){
 
     const user = useContext(UserContext)
     const [showEditChore,setShowEditChore]=useState(false)
     const [checkChore,setCheckChore]=useState(false)
+    const [errors,setErrors]=useState([])
 
     function onEditChore(data){
         setShowEditChore(!showEditChore)
@@ -40,6 +41,26 @@ function Chore({chore,handleEditChore,handleCheckChore,handleChoreClaim}){
         })
     }
 
+    function iDidIt(){
+        fetch ('chores/finished',{
+            method:"PATCH",
+            headers:{
+                "Content-type":"application/json"
+            },
+            body:JSON.stringify({
+                chore_id:chore.id
+            })
+        })
+        .then(r=>{
+            if (r.ok){
+                r.json().then(res=>handleFinishedChore(res))
+            }
+            else{
+                r.json().then(err=>console.log(err.errors))
+            }
+        })
+    }
+
 
     return <div>
                 {showEditChore ? 
@@ -61,16 +82,21 @@ function Chore({chore,handleEditChore,handleCheckChore,handleChoreClaim}){
                                     chore.check ? 
                                 //if chore has a check
                                     chore.check.approved==="approved"?<h3>Approved</h3>: 
-                                        chore.check.approved==="rejected"?<div><h3>Rejected</h3><button>Try Again</button></div>:<h3>Pending</h3>:
+                                        chore.check.approved==="rejected"?<div><h3>Rejected</h3><button onClick={iDidIt}>Try Again</button></div>:<h3>Pending</h3>:
                                     
                                 //chore does not have a check    
+                                        chore.completed ?
+                                        //if chore is completed
+                                        <h3>Pending</h3>:
+                                        //if chore is not completed
                                         user.chores.includes(chore) ?
-                                    //if chore is claimed    
-                                         <button>I did it</button>:
-                                    //if a chore is not claimed
-                                        <button onClick={illDoIt}>I'll do it</button>}
+                                            //if chore is claimed    
+                                                <button onClick={iDidIt}>I did it</button>:
+                                            //if a chore is not claimed
+                                                <button onClick={illDoIt}>I'll do it</button>}
                 </div>      
                 }   
+                {errors.map((error)=>(<error key={error}>{error}</error>))}
             </div>
 }
 
