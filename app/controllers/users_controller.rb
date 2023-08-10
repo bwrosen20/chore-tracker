@@ -66,7 +66,6 @@ class UsersController < ApplicationController
             render json: {errors: ["Not enough points"]}, status: :unprocessable_entity 
         
         end
-        
     end
 
 

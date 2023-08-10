@@ -6,6 +6,8 @@ Rails.application.routes.draw do
   patch '/users/:id', to: 'users#update'
   post '/login', to: 'sessions#create'
   delete '/logout', to: 'sessions#destroy'
+  patch '/chores/claim', to:'chores#claim'
+  patch '/chores/nevermind',to:'chores#nevermind'
   resources :repeat_prizes
   resources :repeat_chores
   resources :checks

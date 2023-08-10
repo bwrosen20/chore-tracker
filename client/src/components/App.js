@@ -98,8 +98,37 @@ function App() {
     }))
     setUser({...user,prizes:[...(user.prizes),data[0]],points:user.points-data[0].point_value})
     
-    // history.push('/')
-    console.log(users)
+    history.push('/')
+  }
+
+  function handleChoreClaim(data){
+    setUsers(users.map((member)=>{
+      if (member.admin){
+        return {...member,chores:(member.chores.filter((chore)=>(data.id!==chore.id)))}
+      }
+      else if (member.id===user.id){
+        return {...member,chores:[...(member.chores),data]}
+      }
+      else{
+        return member
+      }
+    }))
+    setUser({...user,chores:[...(user.chores),data]})
+  }
+
+  function handleNevermind(data){
+    setUsers(users.map((member)=>{
+      if (member.id===user.id){
+        return {...member,chores:(member.chores.filter((chore)=>(data.id!==chore.id)))}
+      }
+      else if (member.admin){
+        return {...member,chores:[...(member.chores),data]}
+      }
+      else{
+        return member
+      }
+    }))
+    setUser({...user,chores:(user.chores.filter((chore)=>(data.id!==chore.id)))})
   }
 
 
@@ -112,7 +141,7 @@ function App() {
             <CreateAccount onLogin={handleLogin}/>
           </Route>
           <Route exact path="/chores">
-            <ChorePage users={users} handleNewChore={handleNewChore} handleEditChore={handleEditChore}/>
+            <ChorePage users={users} handleNewChore={handleNewChore} handleEditChore={handleEditChore} handleChoreClaim={handleChoreClaim}/>
           </Route>
           <Route exact path="/prizes">
             <PrizePage users={users} handleEditPrize={handleEditPrize} handleNewPrize={handleNewPrize} handleClaimPrize={handleClaimPrize}/>
@@ -121,7 +150,7 @@ function App() {
             <UsersPage users={users}/>
           </Route>
           <Route path="/">
-            <Home users={users} handleCheckChore={handleCheckChore}/>
+            <Home users={users} handleCheckChore={handleCheckChore} handleNevermind={handleNevermind}/>
           </Route>
        </Switch>
        </UserContext.Provider>

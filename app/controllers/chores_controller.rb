@@ -41,6 +41,23 @@ class ChoresController < ApplicationController
         end 
     end
 
+    def claim
+        user = User.find(session[:user_id])
+        chore = Chore.find(params[:chore_id])
+        chore.user = user
+        chore.save!
+        render json: chore
+    end
+
+    def nevermind
+        user = User.find(session[:user_id])
+        chore = Chore.find(params[:chore_id])
+        admin = User.where("admin=? and group_name=?",true,user.group_name).first
+        chore.user = admin
+        chore.save!
+        render json: chore
+    end
+
     private
 
     def chore_params
