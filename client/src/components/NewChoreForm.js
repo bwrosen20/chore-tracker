@@ -1,5 +1,4 @@
 import {useState} from 'react'
-import UsersPage from './UsersPage'
 
 function NewChoreForm({onNewChore,users}){
 
@@ -15,6 +14,7 @@ const [formData,setFormData]=useState({
     participants:""
 })
 const [showParticipants,setShowParticipants]=useState(false)
+const [showCycle,setShowCycle]=useState(true)
 const userArray=users.filter((member)=>(!member.admin))
 const [image,setImage]=useState(null)
 const [errors,setErrors]=useState([])
@@ -25,6 +25,7 @@ function handleOptionChange(event){
     }
     else{
         setShowParticipants(false)
+        setShowCycle(false)
     }
     console.log(event.target.value)
     if (event.target.value==="specificDays"){
@@ -46,14 +47,18 @@ function handleOptionChange(event){
 
 function handleParticipantChange(event){
     if (showParticipants){
-        if (event.target.value==="upForGrabs")
+        if (event.target.value==="upForGrabs"){
             setFormData({...formData,participants:["upForGrabs"]})
+            setShowCycle(false)
+        }
         else if (formData.participants.includes(event.target.value)){
             setFormData({...formData,participants:formData.participants.filter((participant)=>(participant!=(event.target.value)))})
+            
         }
         else{
             const participantArray=formData.participants.filter((participant)=>participant!=="upForGrabs")
             setFormData({...formData,participants:[...participantArray,event.target.value]})
+            setShowCycle(true)
         }
     }
     else{
@@ -72,8 +77,13 @@ function handleSubmit(event){
         data.append('description',formData.description)
         data.append('point_value',parseInt(formData.point_value))
         data.append('due_date',formData.due_date)
-        data.append('repeat_every',formData.repeat_every)
-        data.append('participants',formData.participants)
+        for (let i = 0; i<(formData.repeat_every).length; i++){
+            data.append('repeat_every[]',formData.repeat_every[i])
+        }
+        for (let i = 0; i<(formData.participants).length; i++){
+            data.append('participants[]',formData.participants[i])
+        }
+        data.append('cycle_between',(formData.cycle_between==="true"?true:false))
         if (image){data.append('image',image)}
     fetch('/chores',{
         method:"POST",
@@ -217,6 +227,7 @@ return <div>
     ))}
    
    </fieldset>
+   {showCycle?
    <fieldset
    name="cycle_between"
    onChange={handleChange}
@@ -235,7 +246,8 @@ return <div>
     value="false"
     />
     <label>Assign to all users at once</label>
-    </fieldset>
+    </fieldset>:null
+}
    </div> :  
    <fieldset
     value={formData.participants}

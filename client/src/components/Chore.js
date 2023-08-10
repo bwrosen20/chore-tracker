@@ -3,7 +3,7 @@ import CheckChore from './CheckChore'
 import {UserContext} from './App'
 import {useContext, useState} from 'react'
 
-function Chore({chore,handleEditChore,handleCheckChore,handleChoreClaim,handleFinishedChore}){
+function Chore({chore,users,handleEditChore,handleCheckChore,handleChoreClaim,handleFinishedChore}){
 
     const user = useContext(UserContext)
     const [showEditChore,setShowEditChore]=useState(false)
@@ -36,7 +36,7 @@ function Chore({chore,handleEditChore,handleCheckChore,handleChoreClaim,handleFi
                 r.json().then(data=>handleChoreClaim(data))
             }
             else{
-                r.json().then(err=>console.log(err.errors))
+                r.json().then(err=>setErrors(err.errors))
             }
         })
     }
@@ -64,7 +64,7 @@ function Chore({chore,handleEditChore,handleCheckChore,handleChoreClaim,handleFi
 
     return <div>
                 {showEditChore ? 
-                <EditChore onEditChore={onEditChore} chore={chore}/>:
+                <EditChore onEditChore={onEditChore} chore={chore} users={users}/>:
                 <div>
                     <img src={chore.image} alt={chore.id}/>
                     <h3>{(user.admin && chore.completed)? `${chore.kid}: ` : null} {chore.title}</h3>

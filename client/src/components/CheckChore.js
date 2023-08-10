@@ -24,7 +24,7 @@ function CheckChore({chore,onCheckChore}){
             body:JSON.stringify({
                 comment:formData.comment,
                 chore_id:chore.id,
-                approved:parseInt(formData.approved)})
+                approved:formData.approved})
         })
         .then(r=>{
             if (r.ok){

@@ -14,11 +14,12 @@ class ChecksController < ApplicationController
             end
             if params[:approved]=="approved"
                 user.points+=20
+                chore.completed=1
                 user.save!
             else
-                chore.completed=false
-                chore.save!
+                chore.completed=0
             end
+            chore.save!
             render json: ([chore,user]), status: :created
         else
             render json: {errors: ["Unauthorized"]}

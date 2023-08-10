@@ -7,7 +7,6 @@ class ChoresController < ApplicationController
     end
 
     def create
-        byebug
         user = User.find(session[:user_id])
         if user.admin
             chore = Chore.new(chore_params)
@@ -76,6 +75,6 @@ class ChoresController < ApplicationController
     end
 
     def repeat_chore_params
-        params.permit(:title, :description, :image, :point_value, :repeat_every=>[], :participants=>[])
+        params.permit(:title, :description, :image, :point_value, :cycle_between, :repeat_every=>[], :participants=>[])
     end
 end

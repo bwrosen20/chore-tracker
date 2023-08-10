@@ -30,7 +30,7 @@ function ChorePage({users,handleNewChore,handleEditChore,handleChoreClaim}){
         }
             
             {admin.chores.map((chore)=>(
-                <Chore chore={chore} key={chore.id} handleEditChore={handleEditChore} handleChoreClaim={handleChoreClaim}/>
+                <Chore chore={chore} key={chore.id} handleEditChore={handleEditChore} handleChoreClaim={handleChoreClaim} users={users}/>
         ))}
         </div>: 
         <h1>There are currently no extra chores available</h1>}
