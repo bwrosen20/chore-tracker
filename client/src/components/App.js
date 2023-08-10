@@ -14,16 +14,22 @@ function App() {
 
   const [user,setUser]=useState(null)
   const [users,setUsers]=useState([])
+  const [loading,setLoading]=useState(false)
   const history = useHistory()
 
   useEffect(()=>{
+    setLoading(true)
     fetch('/me')
     .then(r=>{
       if (r.ok){
         r.json().then((data)=>{
           setUser(data[0])
           setUsers(data.slice(1))
+          setLoading(false)
         })
+      }
+      else{
+        setLoading(false)
       }
     })
     
@@ -125,27 +131,29 @@ function App() {
 
 
   return (
-    <div>
-      <UserContext.Provider value={user}>
-       <NavBar handleLogout={handleLogout}/>
-       <Switch>
-          <Route exact path="/login">
-            <CreateAccount onLogin={handleLogin}/>
-          </Route>
-          <Route exact path="/chores">
-            <ChorePage users={users} handleNewChore={handleNewChore} handleEditChore={handleEditChore} handleChoreClaim={handleChoreClaim}/>
-          </Route>
-          <Route exact path="/prizes">
-            <PrizePage users={users} handleEditPrize={handleEditPrize} handleNewPrize={handleNewPrize} handleClaimPrize={handleClaimPrize}/>
-          </Route>
-          <Route path="/users">
-            <UsersPage users={users}/>
-          </Route>
-          <Route path="/">
-            <Home users={users} handleCheckChore={handleCheckChore} handleFinishedChore={handleFinishedChore}/>
-          </Route>
-       </Switch>
-       </UserContext.Provider>
+    <div>{loading ? <h3>Loading...</h3>:
+      <div>
+        <UserContext.Provider value={user}>
+        <NavBar handleLogout={handleLogout}/>
+        <Switch>
+            <Route exact path="/login">
+              <CreateAccount onLogin={handleLogin}/>
+            </Route>
+            <Route exact path="/chores">
+              <ChorePage users={users} handleNewChore={handleNewChore} handleEditChore={handleEditChore} handleChoreClaim={handleChoreClaim}/>
+            </Route>
+            <Route exact path="/prizes">
+              <PrizePage users={users} handleEditPrize={handleEditPrize} handleNewPrize={handleNewPrize} handleClaimPrize={handleClaimPrize}/>
+            </Route>
+            <Route path="/users">
+              <UsersPage users={users}/>
+            </Route>
+            <Route path="/">
+              <Home users={users} handleCheckChore={handleCheckChore} handleFinishedChore={handleFinishedChore}/>
+            </Route>
+        </Switch>
+        </UserContext.Provider>
+      </div>}
     </div>
   );
 }

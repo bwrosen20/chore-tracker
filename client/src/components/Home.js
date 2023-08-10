@@ -8,13 +8,15 @@ function Home({users,handleCheckChore,handleFinishedChore}){
     const user = useContext(UserContext)
 
 
-    const completedChores=user.chores.filter((chore)=>(chore.completed)).slice(0,3)
+    const completedChores=user.chores.filter((chore)=>(chore.completed)).sort((a,b)=>(new Date(b.updated_at)-new Date(a.updated_at))).slice(0,3)
+    const recentPrizes=user.prizes.sort((a,b)=>(new Date(b.updated_at)-new Date(a.updated_at))).slice(0,3)
     const toDoList = user.chores.filter((chore)=>(!chore.completed))
     
 
         const choreArray=[]
         users.forEach((member)=>(choreArray.push(...(member.chores))))
         const toBeChecked=choreArray.filter((chore)=>chore.completed && (!chore.check||chore.check.approved!=="approved"))
+        const userArray=users.filter((member)=>(!member.admin))
 
    
 
@@ -27,6 +29,17 @@ function Home({users,handleCheckChore,handleFinishedChore}){
             {toBeChecked.map((chore)=>(
                 <Chore key={chore.id} chore={chore} handleCheckChore={handleCheckChore}/> 
             ))}
+            <div>
+                <h2>User To Do Lists</h2>
+                {userArray.map((member)=>(
+                    <div>
+                        <h4>{member.username}</h4>
+                        {member.chores.filter((chore)=>!chore.completed).map((chore)=>(
+                            <Chore key={chore.id} chore={chore}/>
+                        ))}
+                    </div>
+                ))}
+            </div>
         </div>:
         
         <div>
@@ -35,7 +48,7 @@ function Home({users,handleCheckChore,handleFinishedChore}){
         <h3>You have {user.points} points</h3>
 
         <h2>Recently Claimed Prizes</h2>
-        {(user.prizes.slice(0,3)).map((prize)=>(
+        {recentPrizes.map((prize)=>(
            <Prize key={prize.id} prize={prize}/>
         ))}
 
@@ -45,9 +58,9 @@ function Home({users,handleCheckChore,handleFinishedChore}){
         ))}
 
         <h2>To Do List</h2>
-            {toDoList.map((chore)=>(
-                    <Chore key={chore.id} chore={chore} handleFinishedChore={handleFinishedChore}/>
-            ))}
+        {toDoList.map((chore)=>(
+            <Chore key={chore.id} chore={chore} handleFinishedChore={handleFinishedChore}/>
+        ))}
         </div>
         }
     </div>
