@@ -22,7 +22,7 @@ function ChorePage({users,handleNewChore,handleEditChore,handleChoreClaim}){
             {user.admin ? 
             <div>
                 {newChoreForm ? 
-        <NewChoreForm onNewChore={onNewChore}/> : 
+        <NewChoreForm onNewChore={onNewChore} users={users}/> : 
         <button onClick={()=>setNewChoreForm(!newChoreForm)}>Add New Chore</button>}
             <h2>Unnasigned Chores</h2>
             </div>

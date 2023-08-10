@@ -5,7 +5,6 @@ class CreateRepeatPrizes < ActiveRecord::Migration[7.0]
       t.text :description
       t.integer :point_value
       t.integer :how_many_claims
-
       t.timestamps
     end
   end
