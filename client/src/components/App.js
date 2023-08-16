@@ -129,6 +129,15 @@ function App() {
       setUser({...user,chores:user.chores.map((chore)=>(chore.id===data.id? data : chore))})
   }
 
+  function handleDelete(data){
+    setUsers(users.map((member)=>{
+      return {...member,chores:member.chores.filter((chore)=>(chore.id!==data[0].id))}
+      }))
+    if (data[1]){
+      setUser({...user,chores:[...user.chores,data[1]].filter((chore)=>chore.id!==data[0].id)})
+    }
+  }
+
 
   return (
     <div>{loading ? <h3>Loading...</h3>:
@@ -149,7 +158,7 @@ function App() {
               <UsersPage users={users}/>
             </Route>
             <Route path="/">
-              <Home users={users} handleCheckChore={handleCheckChore} handleFinishedChore={handleFinishedChore}/>
+              <Home users={users} handleCheckChore={handleCheckChore} handleFinishedChore={handleFinishedChore} handleDelete={handleDelete} handleEditChore={handleEditChore}/>
             </Route>
         </Switch>
         </UserContext.Provider>

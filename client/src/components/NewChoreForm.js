@@ -20,6 +20,7 @@ const [image,setImage]=useState(null)
 const [errors,setErrors]=useState([])
 
 function handleOptionChange(event){
+    console.log(formData.repeat_every)
     if (event.target.value!="once"){
         setShowParticipants(true)
     }
@@ -27,7 +28,6 @@ function handleOptionChange(event){
         setShowParticipants(false)
         setShowCycle(false)
     }
-    console.log(event.target.value)
     if (event.target.value==="specificDays"){
         setDays(!days)
     }
@@ -137,38 +137,38 @@ return <div>
     onChange={handleOptionChange}>
        <input 
        type="checkbox"
-       value="monday"
-       checked={formData.repeat_every.includes('monday') ? true : false}/>
+       value={1}
+       checked={formData.repeat_every.includes('1') ? true : false}/>
        <label>Monday</label>
        <input 
        type="checkbox"
-       value="tuesday"
-       checked={formData.repeat_every.includes('tuesday') ? true : false}/>
+       value={2}
+       checked={formData.repeat_every.includes('2') ? true : false}/>
        <label>Tuesday</label>
        <input 
        type="checkbox"
-       value="wednesday"
-       checked={formData.repeat_every.includes('wednesday') ? true : false}/>
+       value={3}
+       checked={formData.repeat_every.includes('3') ? true : false}/>
        <label>Wednesday</label>
       <input 
        type="checkbox"
-       value="thursday"
-       checked={formData.repeat_every.includes('thursday') ? true : false}/>
+       value={4}
+       checked={formData.repeat_every.includes('4') ? true : false}/>
        <label>Thursday</label>
        <input 
        type="checkbox"
-       value="friday"
-       checked={formData.repeat_every.includes('friday') ? true : false}/>
+       value={5}
+       checked={formData.repeat_every.includes('5') ? true : false}/>
        <label>Friday</label>
        <input 
        type="checkbox"
-       value="saturday"
-       checked={formData.repeat_every.includes('saturday') ? true : false}/>
+       value={6}
+       checked={formData.repeat_every.includes('6') ? true : false}/>
        <label>Saturday</label>
        <input 
        type="checkbox"
-       value="sunday"
-       checked={formData.repeat_every.includes('sunday') ? true : false}/>
+       value={7}
+       checked={formData.repeat_every.includes('7') ? true : false}/>
        <label>Sunday</label>
        <button onClick={()=>setDays(!days)}>Return</button>
    </fieldset>:

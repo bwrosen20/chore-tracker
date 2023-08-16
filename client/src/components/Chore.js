@@ -3,12 +3,23 @@ import CheckChore from './CheckChore'
 import {UserContext} from './App'
 import {useContext, useState} from 'react'
 
-function Chore({chore,users,handleEditChore,handleCheckChore,handleChoreClaim,handleFinishedChore}){
+function Chore({chore,users,handleEditChore,handleCheckChore,handleChoreClaim,handleFinishedChore,handleDelete}){
 
+
+    const date=new Date(chore.due_date)
+    const due_date = (date.toUTCString()).slice(0,16)
+    let hours = date.getHours()
+    let minutes = date.getMinutes()
+    const am_pm = hours >=12 ? "pm" : "am"
+    hours = hours % 12
+    hours = hours ? hours : 12
+    minutes = minutes < 10 ? '0'+minutes : minutes
+    const time = hours+':'+minutes+" "+am_pm
     const user = useContext(UserContext)
     const [showEditChore,setShowEditChore]=useState(false)
     const [checkChore,setCheckChore]=useState(false)
     const [errors,setErrors]=useState([])
+    const [deleteAll,setDeleteAll]=useState(false)
 
     function onEditChore(data){
         setShowEditChore(!showEditChore)
@@ -61,6 +72,18 @@ function Chore({chore,users,handleEditChore,handleCheckChore,handleChoreClaim,ha
         })
     }
 
+    function onDelete(event){
+        fetch(`chores/${chore.id}`,{
+            method:"DELETE",
+            headers:{
+                "Content-type":"application/json"
+            },
+            body:JSON.stringify({token:event.target.value})
+        })
+        .then(r=>r.json())
+        .then(data=>console.log(data))
+    }
+
 
     return <div>
                 {showEditChore ? 
@@ -69,14 +92,26 @@ function Chore({chore,users,handleEditChore,handleCheckChore,handleChoreClaim,ha
                     <img src={chore.image} alt={chore.id}/>
                     <h3>{(user.admin && chore.completed)? `${chore.kid}: ` : null} {chore.title}</h3>
                     <h3>{chore.point_value} points</h3>
+                    {chore.completed ? null : <h4>Due: {due_date} @{time}</h4>}
                     {user.admin ? 
                     //if user is admin
                         (!chore.completed ?
-                            <button onClick={()=>setShowEditChore(!showEditChore)}>Edit Chore</button> :
+                            <div>
+                                {deleteAll ? 
+                                <div>
+                                    <button onClick={onDelete} value="all">Delete Repeat Chore</button>
+                                    <button onClick={onDelete} value="one">Delete Only One</button>
+                                    <button onClick={()=>setDeleteAll(false)}>Cancel</button>
+                                </div>:
+                                <div>
+                                    <button onClick={()=>setShowEditChore(!showEditChore)}>Edit Chore</button>
+                                    {<button onClick={chore.repeat_every.includes("once")?onDelete:()=>setDeleteAll(true)} value="one">X</button>} 
+                                </div>
+                                }
+                            </div>:
                             checkChore ?
                                 <CheckChore onCheckChore={onCheckChore} chore={chore}/>:
                                 <button onClick={()=>setCheckChore(!checkChore)}>Check Chore</button>): 
-
 
                     //if user is not admin
                                     chore.check ? 

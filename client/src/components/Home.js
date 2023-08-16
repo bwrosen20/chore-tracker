@@ -3,7 +3,7 @@ import Prize from './Prize'
 import {useContext,useState} from 'react'
 import {UserContext} from './App'
 
-function Home({users,handleCheckChore,handleFinishedChore}){
+function Home({users,handleCheckChore,handleFinishedChore,handleDelete,handleEditChore}){
 
     const user = useContext(UserContext)
 
@@ -35,7 +35,7 @@ function Home({users,handleCheckChore,handleFinishedChore}){
                     <div>
                         <h4>{member.username}</h4>
                         {member.chores.filter((chore)=>!chore.completed).map((chore)=>(
-                            <Chore key={chore.id} chore={chore}/>
+                            <Chore key={chore.id} chore={chore} users={users} handleEditChore={handleEditChore} handleDelete={handleDelete}/>
                         ))}
                     </div>
                 ))}
