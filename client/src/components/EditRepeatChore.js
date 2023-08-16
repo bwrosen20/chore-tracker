@@ -22,15 +22,16 @@ function EditChore({chore, users, returnFromEditChore}){
     const [loading,setLoading]=useState(false)
 
     function handleOptionChange(event){
-        console.log(formData.repeat_every)
-        if (event.target.value!="once"){
+        
+        if (event.target.value!=="once"){
             setShowParticipants(true)
+            setShowCycle(true)
         }
         else{
+            handleParticipantChange(event)
             setShowParticipants(false)
             setShowCycle(false)
         }
-        console.log(event.target.value)
         if (event.target.value==="specificDays"){
             setDays(!days)
         }
@@ -49,6 +50,7 @@ function EditChore({chore, users, returnFromEditChore}){
     }
 
     function handleParticipantChange(event){
+        
         if (showParticipants){
             if (event.target.value==="upForGrabs"){
                 setFormData({...formData,participants:["upForGrabs"]})
@@ -67,6 +69,7 @@ function EditChore({chore, users, returnFromEditChore}){
         else{
             setFormData({...formData,participants:[event.target.value]})
         }
+        console.log(formData.participants)
     }
 
     function handleChange(event){
@@ -84,7 +87,7 @@ function EditChore({chore, users, returnFromEditChore}){
         //     for (let i = 0; i<(formData.repeat_every).length; i++){
         //         data.append('repeat_every[]',formData.repeat_every[i])
         //     }
-        //     for (let i = 0; i<(formData.participants).length; i++){
+        //     for (let i = 0; i<(formData.repeat_every[0]==="once"?1:formData.participants).length; i++){
         //         data.append('participants[]',formData.participants[i])
         //     }
         //     data.append('cycle_between',(formData.cycle_between==="true"?true:false))
@@ -269,7 +272,7 @@ function EditChore({chore, users, returnFromEditChore}){
             <div>
             <input
             type="radio"
-            checked={formData.participants.includes((member.id).toString()) ? true : false}
+            checked={formData.participants[0]===((member.id).toString()) ? true : false}
             value={member.id}/>
             <label>{member.username}</label>
             </div>
