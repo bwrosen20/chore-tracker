@@ -5,9 +5,8 @@ import {useContext, useState} from 'react'
 
 function Chore({chore,users,handleEditChore,handleCheckChore,handleChoreClaim,handleFinishedChore,handleDelete}){
 
-
     const date=new Date(chore.due_date)
-    const due_date = (date.toUTCString()).slice(0,16)
+    const due_date = (date.toString()).slice(0,16)
     let hours = date.getHours()
     let minutes = date.getMinutes()
     const am_pm = hours >=12 ? "pm" : "am"
@@ -19,7 +18,7 @@ function Chore({chore,users,handleEditChore,handleCheckChore,handleChoreClaim,ha
     const [showEditChore,setShowEditChore]=useState(false)
     const [checkChore,setCheckChore]=useState(false)
     const [errors,setErrors]=useState([])
-    const [deleteAll,setDeleteAll]=useState(false)
+    const [youSure,setYouSure]=useState(false)
 
     function onEditChore(data){
         setShowEditChore(!showEditChore)
@@ -29,6 +28,10 @@ function Chore({chore,users,handleEditChore,handleCheckChore,handleChoreClaim,ha
     function onCheckChore(data){
         setCheckChore(!checkChore)
         handleCheckChore(data)
+    }
+
+    function returnFromEditChore(){
+        setShowEditChore(!showEditChore)
     }
 
 
@@ -72,22 +75,17 @@ function Chore({chore,users,handleEditChore,handleCheckChore,handleChoreClaim,ha
         })
     }
 
-    function onDelete(event){
+    function onDelete(){
         fetch(`chores/${chore.id}`,{
-            method:"DELETE",
-            headers:{
-                "Content-type":"application/json"
-            },
-            body:JSON.stringify({token:event.target.value})
+            method:"DELETE"
         })
-        .then(r=>r.json())
         .then(data=>console.log(data))
     }
 
 
     return <div>
                 {showEditChore ? 
-                <EditChore onEditChore={onEditChore} chore={chore} users={users}/>:
+                <EditChore onEditChore={onEditChore} returnFromEditChore={returnFromEditChore} chore={chore} users={users}/>:
                 <div>
                     <img src={chore.image} alt={chore.id}/>
                     <h3>{(user.admin && chore.completed)? `${chore.kid}: ` : null} {chore.title}</h3>
@@ -97,15 +95,15 @@ function Chore({chore,users,handleEditChore,handleCheckChore,handleChoreClaim,ha
                     //if user is admin
                         (!chore.completed ?
                             <div>
-                                {deleteAll ? 
+                                {youSure ? 
                                 <div>
-                                    <button onClick={onDelete} value="all">Delete Repeat Chore</button>
-                                    <button onClick={onDelete} value="one">Delete Only One</button>
-                                    <button onClick={()=>setDeleteAll(false)}>Cancel</button>
+                                    <p>You Sure?</p>
+                                    <button onClick={onDelete} value="one">I'm Sure</button>
+                                    <button onClick={()=>setYouSure(false)}>Cancel</button>
                                 </div>:
                                 <div>
                                     <button onClick={()=>setShowEditChore(!showEditChore)}>Edit Chore</button>
-                                    {<button onClick={chore.repeat_every.includes("once")?onDelete:()=>setDeleteAll(true)} value="one">X</button>} 
+                                    {<button onClick={()=>setYouSure(true)} value="one">X</button>} 
                                 </div>
                                 }
                             </div>:

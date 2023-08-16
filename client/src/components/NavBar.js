@@ -26,14 +26,22 @@ function NavBar({handleLogout}) {
         to="chores"
         exact
       >
-        Chores
+        {user.admin ? "Single " : null }Chores
       </NavLink>
+      {user.admin ? 
+        <NavLink
+          to="repeat"
+          exact
+        >Repeating Chores
+        </NavLink>:null}
       <NavLink
         to="users"
         exact
-      >
-        Users
+      >Users
       </NavLink>
+       
+        
+      
       <button onClick={handleLogout}>Logout</button>
       </div>
   }

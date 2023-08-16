@@ -1,6 +1,6 @@
 class ChoreSerializer < ActiveModel::Serializer
   include Rails.application.routes.url_helpers
-  attributes :id, :title, :description, :completed, :point_value, :due_date, :updated_at, :image, :check, :kid, :repeat_every, :participants, :cycle_between
+  attributes :id, :title, :description, :completed, :point_value, :due_date, :updated_at, :image, :check, :kid, :repeat_every, :participants, :cycle_between, :repeat_chore_id, :user_id
 
   has_one :check
 
