@@ -7,6 +7,7 @@ class CreateRepeatChores < ActiveRecord::Migration[7.0]
       t.text :repeat_every, array: true, default: []
       t.string :participants, array:true, default:[]
       t.boolean :cycle_between
+      t.time :time_due
       t.timestamps
     end
   end

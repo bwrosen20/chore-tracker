@@ -1,5 +1,5 @@
 class RepeatChoresController < ApplicationController
-
+    skip_before_action :authorized, only: :create
 
     def update
         user = User.find(session[:user_id])
@@ -10,9 +10,7 @@ class RepeatChoresController < ApplicationController
         end
     end
 
-    def create
-
-    end
+    
 
     def destroy
         user = User.find(session[:user_id])
@@ -26,10 +24,106 @@ class RepeatChoresController < ApplicationController
         end
     end
 
+    def create
+        user = User.find(session[:user_id])
+        if user.admin
+            new_repeat_chore = RepeatChore.create!(repeat_chore_params)
+            # Time.now.strftime("%Y-%d-%m %H:%M:%S %Z")
+            time = Time.now
+            Chronic.time_class=Time.zone
+            new_time = new_repeat_chore.time_due.time.getlocal.strftime("%H:%M:%S")
+            if ["day","week","month"].include?(new_repeat_chore.repeat_every[0])
+                new_date = if new_repeat_chore.repeat_every[0]=="day"
+                                Chronic.parse("tomorrow at #{new_time}")
+                            else
+                                byebug
+                                Chronic.parse("next #{new_repeat_chore.repeat_every[0]} at #{new_time}")
+                            end
+                        
+            else
+                current_day = time.wday
+                day_array = ((new_repeat_chore.repeat_every).map{|day| day.to_i}).sort
+                next_chore_day = day_array.filter{|day|day>current_day}[0]? day_array.filter{|day|day>current_day}[0] : day_array[0]
+                new_date=case next_chore_day
+                when 1  
+                    Chronic.parse("monday #{new_time}")
+                when 2
+                    Chronic.parse("tuesday #{new_time}")
+                when 3
+                    Chronic.parse("wednesday #{new_time}")
+                when 4
+                    Chronic.parse("thursday #{new_time}")
+                when 5
+                    Chronic.parse("friday #{new_time}")
+                when 6
+                    Chronic.parse("saturday #{new_time}")
+                when 7
+                    Chronic.parse("sunday #{new_time}")
+                end
+                
+            end
+                if new_repeat_chore.participants.include?("upForGrabs") || new_repeat_chore.participants==[]
+                    new_chore = new_repeat_chore.chores.new(
+                        title:new_repeat_chore.title,
+                        description:new_repeat_chore.description,
+                        due_date:new_date,
+                        point_value:new_repeat_chore.point_value,
+                        completed:false
+                    )
+                    new_chore.user=user
+                    new_chore.image.attach(new_repeat_chore.image.blob)
+                    new_chore.repeat_chore = new_repeat_chore
+                    new_chore.save!
+                    render json: new_chore, status: :created
+
+                elsif new_repeat_chore.cycle_between
+                    new_chore = new_repeat_chore.chores.new(
+                        title:new_repeat_chore.title,
+                        description:new_repeat_chore.description,
+                        due_date:new_date,
+                        point_value:new_repeat_chore.point_value,
+                        completed:false
+                    )
+                    next_participant = User.find(new_repeat_chore.participants[0])
+                    new_chore.user=next_participant
+                    new_chore.image.attach(new_repeat_chore.image.blob)
+                    new_chore.repeat_chore = new_repeat_chore
+                    new_chore.save!
+                    render json: new_chore, status: :created
+
+                else
+                    new_chore_array = []
+                    for x in [*0..new_repeat_chore.participants.length-1] do
+                        new_chore = new_repeat_chore.chores.new(
+                                            title:new_repeat_chore.title,
+                                            description:new_repeat_chore.description,
+                                            point_value:new_repeat_chore.point_value,
+                                            due_date:new_date,
+                                            completed:0
+                                            )
+                        participant = User.find(new_repeat_chore.participants[x])     
+                        byebug                   
+                        new_chore.user=participant
+                        new_chore.image.attach(new_repeat_chore.image.blob)
+                        new_chore.save!
+                        new_chore_array << new_chore
+                    end
+
+                    render json: {response: "I hate this"}, status: :created
+                end  
+
+
+            end
+        end
 
     private
 
     def repeat_chore_params
-        params.permit(:title, :description ,:point_value, :cycle_between, :participants=>[], :repeat_every=>[])
+        params.permit(:title, :description ,:point_value, :cycle_between, :time_due, :image, :participants=>[], :repeat_every=>[])
     end
+
+    def chore_params
+        params.permit(:title, :description, :due_date, :image, :point_value)
+    end
+
 end

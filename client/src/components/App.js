@@ -209,7 +209,7 @@ function App() {
               <ChorePage users={users} handleNewChore={handleNewChore} handleEditChore={handleEditChore} handleChoreClaim={handleChoreClaim}/>
             </Route>
             <Route exact path="/repeat">
-              <RepeatChorePage handleEditRepeatChore={handleEditRepeatChore} handleDeleteRepeatChore={handleDeleteRepeatChore} repeatChoreArray={repeatChoreArray} users={users}/>
+              <RepeatChorePage handleNewChore={handleNewChore} handleEditRepeatChore={handleEditRepeatChore} handleDeleteRepeatChore={handleDeleteRepeatChore} repeatChoreArray={repeatChoreArray} users={users}/>
             </Route>
             <Route exact path="/prizes">
               <PrizePage users={users} handleEditPrize={handleEditPrize} handleNewPrize={handleNewPrize} handleClaimPrize={handleClaimPrize}/>

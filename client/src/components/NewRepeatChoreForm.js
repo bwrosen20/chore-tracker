@@ -8,10 +8,10 @@ const [formData,setFormData]=useState({
     title:"",
     description:"",
     point_value:"",
-    due_date:"",
-    repeat_every:"",
+    time_due:"",
+    repeat_every:[],
     cycle_between:"",
-    participants:""
+    participants:[]
 })
 const [showParticipants,setShowParticipants]=useState(false)
 const [showCycle,setShowCycle]=useState(true)
@@ -76,7 +76,7 @@ function handleSubmit(event){
         data.append('title',formData.title)
         data.append('description',formData.description)
         data.append('point_value',parseInt(formData.point_value))
-        data.append('due_date',formData.due_date)
+        data.append('time_due',formData.time_due)
         for (let i = 0; i<(formData.repeat_every).length; i++){
             data.append('repeat_every[]',formData.repeat_every[i])
         }
@@ -85,13 +85,13 @@ function handleSubmit(event){
         }
         data.append('cycle_between',(formData.cycle_between==="true"?true:false))
         if (image){data.append('image',image)}
-    fetch('/chores',{
+    fetch('/repeat_chores',{
         method:"POST",
         body:data
     })
     .then(r=>{
         if ((r).ok){
-            r.json().then((res)=>onNewChore(res))
+            r.json().then((res)=>console.log(res))
         }
         else{
             r.json().then((err)=>setErrors(err.errors))
@@ -124,9 +124,9 @@ return <div>
     />
     <label>Due Date</label>
     <input 
-    type="datetime-local"
-    name="due_date"
-    value={formData.due_date}
+    type="time"
+    name="time_due"
+    value={formData.time_Due}
     onChange={handleChange}
     />
     <label>Repeat</label>

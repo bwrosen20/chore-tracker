@@ -12,18 +12,12 @@ class ChoresController < ApplicationController
             chore = Chore.new(chore_params)
             chore.user = user
             chore.completed=false
-            if params[:repeat_every]=="once"
-                token = Chore.find_by(title:"Do not repeat")
-                chore.repeat_chore = token
-            else 
-                new_repeat = RepeatChore.create!(repeat_chore_params)
-                chore.repeat_chore = new_repeat
-            end
             chore.save!
+            render json: chore, status: :created
         else
             render json: {errors: ["Unauthorized"]}
         end
-        render json: chore, status: :created
+        
     end
 
     def update

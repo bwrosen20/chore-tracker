@@ -2,7 +2,7 @@ import RepeatChore from './RepeatChore'
 import NewRepeatChoreForm from './NewRepeatChoreForm'
 import {useState} from 'react'
 
-function RepeatChorePage({repeatChoreArray,users, handleEditRepeatChore, handleDeleteRepeatChore}){
+function RepeatChorePage({repeatChoreArray,users, handleEditRepeatChore, handleDeleteRepeatChore,handleNewChore}){
 
     const [showNewChore,setShowNewChore]=useState(false)
 
@@ -10,10 +10,15 @@ function RepeatChorePage({repeatChoreArray,users, handleEditRepeatChore, handleD
         setShowNewChore(!showNewChore)
     }
 
+    function onNewChore(data){
+        setShowNewChore(!showNewChore)
+        handleNewChore(data)
+    }
+
     console.log(repeatChoreArray)
     return <div>
             {showNewChore ? 
-            <NewRepeatChoreForm users={users} returnFromForm={returnFromForm}/> :
+            <NewRepeatChoreForm users={users} returnFromForm={returnFromForm} onNewChore={onNewChore}/> :
             <button onClick={()=>setShowNewChore(!showNewChore)}>Create New Repeating Chore</button>}
             {repeatChoreArray.map((chore)=>(
                 <RepeatChore chore={chore} users={users} handleEditRepeatChore={handleEditRepeatChore} handleDeleteRepeatChore={handleDeleteRepeatChore}/>
