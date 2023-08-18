@@ -3,7 +3,7 @@ import NewChoreForm from './NewChoreForm'
 import {UserContext} from './App'
 import {useContext, useState} from 'react'
 
-function ChorePage({users,handleNewChore,handleEditChore,handleChoreClaim}){
+function ChorePage({users,handleNewChore,handleEditChore,handleChoreClaim,handleDelete}){
 
     const user = useContext(UserContext)
     const admin=users.find((member)=>member.admin)
@@ -30,7 +30,7 @@ function ChorePage({users,handleNewChore,handleEditChore,handleChoreClaim}){
         }
             
             {admin.chores.map((chore)=>(
-                <Chore chore={chore} key={chore.id} handleEditChore={handleEditChore} handleChoreClaim={handleChoreClaim} users={users}/>
+                <Chore chore={chore} key={chore.id} handleEditChore={handleEditChore} handleChoreClaim={handleChoreClaim} handleDelete={handleDelete} users={users}/>
         ))}
         </div>: 
         <h1>There are currently no extra chores available</h1>}

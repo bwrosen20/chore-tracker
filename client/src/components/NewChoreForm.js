@@ -17,15 +17,21 @@ const [errors,setErrors]=useState([])
 
 function handleChange(event){
     setFormData({...formData,[event.target.name]:event.target.value})
+    console.log(formData)
 }
 
 function handleSubmit(event){
     event.preventDefault()
+    const newDate = new Date(formData.due_date)
+    const offset = (newDate.toString()).slice(28,33)
+    const date = `${formData.due_date} ${offset}`
+
+
     const data = new FormData()
         data.append('title',formData.title)
         data.append('description',formData.description)
         data.append('point_value',parseInt(formData.point_value))
-        data.append('due_date',formData.due_date)
+        data.append('due_date',date)
         for (let i = 0; i<(formData.repeat_every).length; i++){
             data.append('repeat_every[]',formData.repeat_every[i])
         }

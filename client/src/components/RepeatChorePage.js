@@ -14,14 +14,12 @@ function RepeatChorePage({repeatChoreArray,users, handleEditRepeatChore, handleD
         setShowNewChore(!showNewChore)
         handleNewChore(data)
     }
-
-    console.log(repeatChoreArray)
     return <div>
             {showNewChore ? 
             <NewRepeatChoreForm users={users} returnFromForm={returnFromForm} onNewChore={onNewChore}/> :
             <button onClick={()=>setShowNewChore(!showNewChore)}>Create New Repeating Chore</button>}
             {repeatChoreArray.map((chore)=>(
-                <RepeatChore chore={chore} users={users} handleEditRepeatChore={handleEditRepeatChore} handleDeleteRepeatChore={handleDeleteRepeatChore}/>
+                <RepeatChore key={chore.id} chore={chore} users={users} handleEditRepeatChore={handleEditRepeatChore} handleDeleteRepeatChore={handleDeleteRepeatChore}/>
             ))}
             
     </div>

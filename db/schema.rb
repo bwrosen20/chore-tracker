@@ -79,7 +79,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_29_152005) do
     t.text "repeat_every", default: [], array: true
     t.string "participants", default: [], array: true
     t.boolean "cycle_between"
-    t.time "time_due"
+    t.datetime "due_date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

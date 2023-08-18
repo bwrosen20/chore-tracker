@@ -8,12 +8,15 @@ class ChoresController < ApplicationController
 
     def create
         user = User.find(session[:user_id])
+        byebug
         if user.admin
             chore = Chore.new(chore_params)
+            repeat_chore = RepeatChore.find_by(title:"Do not repeat")
             chore.user = user
+            chore.repeat_chore=repeat_chore
             chore.completed=false
             chore.save!
-            render json: chore, status: :created
+            render json: [chore], status: :created
         else
             render json: {errors: ["Unauthorized"]}
         end

@@ -137,37 +137,37 @@ function EditChore({chore, users, returnFromEditChore, onEditRepeatChore}){
         <input 
         type="checkbox"
         value={1}
-        checked={formData.repeat_every.includes('1') ? true : false}/>
+        defaultChecked={formData.repeat_every.includes('1') ? true : false}/>
         <label>Monday</label>
         <input 
         type="checkbox"
         value={2}
-        checked={formData.repeat_every.includes('2') ? true : false}/>
+        defaultChecked={formData.repeat_every.includes('2') ? true : false}/>
         <label>Tuesday</label>
         <input 
         type="checkbox"
         value={3}
-        checked={formData.repeat_every.includes('3') ? true : false}/>
+        defaultChecked={formData.repeat_every.includes('3') ? true : false}/>
         <label>Wednesday</label>
         <input 
         type="checkbox"
         value={4}
-        checked={formData.repeat_every.includes('4') ? true : false}/>
+        defaultChecked={formData.repeat_every.includes('4') ? true : false}/>
         <label>Thursday</label>
         <input 
         type="checkbox"
         value={5}
-        checked={formData.repeat_every.includes('5') ? true : false}/>
+        defaultChecked={formData.repeat_every.includes('5') ? true : false}/>
         <label>Friday</label>
         <input 
         type="checkbox"
         value={6}
-        checked={formData.repeat_every.includes('6') ? true : false}/>
+        defaultChecked={formData.repeat_every.includes('6') ? true : false}/>
         <label>Saturday</label>
         <input 
         type="checkbox"
         value={7}
-        checked={formData.repeat_every.includes('7') ? true : false}/>
+        defaultChecked={formData.repeat_every.includes('7') ? true : false}/>
         <label>Sunday</label>
         <button onClick={()=>setDays(!days)}>Return</button>
     </fieldset>:
@@ -177,28 +177,28 @@ function EditChore({chore, users, returnFromEditChore, onEditRepeatChore}){
         name="repeat_every">
     <input
     type="radio"
-    checked = {(formData.repeat_every.includes("once")||formData.repeat_every==="") ? true : false}
+    defaultChecked = {(formData.repeat_every.includes("once")||formData.repeat_every==="") ? true : false}
     value="once"/>
         <label>Once</label>
     <input
     type="radio"
-    checked = {formData.repeat_every.includes("day") ? true : false}
+    defaultChecked = {formData.repeat_every.includes("day") ? true : false}
     value="day"/>
         <label>Daily</label>
     <input
     type="radio"
-    checked = {formData.repeat_every.includes("week") ? true : false}
+    defaultChecked = {formData.repeat_every.includes("week") ? true : false}
     value="week"/>
         <label>Weekly</label>
     <input
     type="radio"
-    checked = {formData.repeat_every.includes("month") ? true : false}
+    defaultChecked = {formData.repeat_every.includes("month") ? true : false}
     value="month"/>
     <label>Monthly</label>
     <input
     type="radio"
     id="specificDays"
-    checked={false}
+    defaultChecked={false}
     value="specificDays"/>
     <label for="specificDays">Choose Days</label>
     </fieldset>
@@ -212,14 +212,14 @@ function EditChore({chore, users, returnFromEditChore, onEditRepeatChore}){
             <input
             type="checkbox"
             value="upForGrabs"
-            checked={formData.participants.includes("upForGrabs")}
+            defaultChecked={formData.participants.includes("upForGrabs")}
             />
             <label>Put up for grabs</label>
         {userArray.map((member)=>(
             <div>
             <input
             type="checkbox"
-            checked={formData.participants.includes((member.id).toString()) ? true : false}
+            defaultChecked={formData.participants.includes((member.id).toString()) ? true : false}
             value={member.id}/>
             <label>{member.username}</label>
             </div>
@@ -234,14 +234,14 @@ function EditChore({chore, users, returnFromEditChore, onEditRepeatChore}){
     <input
         type="radio"
         name="cycle_between"
-        checked={formData.cycle_between==="true" ? true : false}
+        defaultChecked={formData.cycle_between==="true" ? true : false}
         value="true"
         />
         <label>Cycle between users</label>
         <input
         type="radio"
         name="cycle_between"
-        checked={formData.cycle_between==="false" ? true : false}
+        defaultChecked={formData.cycle_between==="false" ? true : false}
         value="false"
         />
         <label>Assign to all users at once</label>
@@ -255,14 +255,14 @@ function EditChore({chore, users, returnFromEditChore, onEditRepeatChore}){
             <input
             type="radio"
             value="upForGrabs"
-            checked={formData.participants.includes("upForGrabs")}
+            defaultChecked={formData.participants.includes("upForGrabs")}
             />
             <label>Put up for grabs</label>
         {userArray.map((member)=>(
             <div>
             <input
             type="radio"
-            checked={formData.participants[0]===((member.id).toString()) ? true : false}
+            defaultChecked={formData.participants[0]===((member.id).toString()) ? true : false}
             value={member.id}/>
             <label>{member.username}</label>
             </div>

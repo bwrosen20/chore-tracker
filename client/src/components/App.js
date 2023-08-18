@@ -75,10 +75,12 @@ function App() {
   }
 
   function handleNewChore(data){
+    for (let i=0;i<data.length;i++){
     setUsers(users.map((member)=>{
       return(member.admin ? {...member,chores:[...(member.chores),data]}: member)
     }))
     setUser(users.find((member)=>{return member.admin}))
+  }
   }
 
   function handleEditChore(data){
@@ -159,11 +161,9 @@ function App() {
 
   function handleDelete(data){
     setUsers(users.map((member)=>{
-      return {...member,chores:member.chores.filter((chore)=>(chore.id!==data[0].id))}
+      return {...member,chores:member.chores.filter((chore)=>(chore.id!==data))}
       }))
-    if (data[1]){
-      setUser({...user,chores:[...user.chores,data[1]].filter((chore)=>chore.id!==data[0].id)})
-    }
+      setUser({...user,chores:user.chores.filter((chore)=>chore.id!==data)})
   }
 
   function handleEditRepeatChore(data){
@@ -184,17 +184,17 @@ function App() {
     return (member.chores).filter((chore)=>!((chore.repeat_chore.repeat_every).includes("once")))
   }).flat().map((chore)=>({...chore.repeat_chore,image:chore.image}))
   
+console.log(repeatChoreArray)
+
   for (let i=0; i<repeatChoreArray.length; i++){
-    for (let j=1; j<(repeatChoreArray.length-1); j++){
+    for (let j=0; j<(repeatChoreArray.length); j++){
       if ((repeatChoreArray[i].id===repeatChoreArray[j].id)&&(i!==j)){
         repeatChoreArray.splice(i,1)
       }
     }
   }
 
- 
-
-  console.log(repeatChoreArray)
+ console.log(repeatChoreArray)
 
   return (
     <div>{loading ? <h3>Loading...</h3>:
@@ -206,7 +206,7 @@ function App() {
               <CreateAccount onLogin={handleLogin}/>
             </Route>
             <Route exact path="/chores">
-              <ChorePage users={users} handleNewChore={handleNewChore} handleEditChore={handleEditChore} handleChoreClaim={handleChoreClaim}/>
+              <ChorePage users={users} handleNewChore={handleNewChore} handleEditChore={handleEditChore} handleChoreClaim={handleChoreClaim} handleDelete={handleDelete}/>
             </Route>
             <Route exact path="/repeat">
               <RepeatChorePage handleNewChore={handleNewChore} handleEditRepeatChore={handleEditRepeatChore} handleDeleteRepeatChore={handleDeleteRepeatChore} repeatChoreArray={repeatChoreArray} users={users}/>

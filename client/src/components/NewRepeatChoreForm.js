@@ -8,7 +8,7 @@ const [formData,setFormData]=useState({
     title:"",
     description:"",
     point_value:"",
-    time_due:"",
+    due_date:"",
     repeat_every:[],
     cycle_between:"",
     participants:[]
@@ -73,10 +73,15 @@ function handleChange(event){
 function handleSubmit(event){
     event.preventDefault()
     const data = new FormData()
+    const newDate = new Date(formData.due_date.toString())
+    const offset = (newDate.toString()).slice(28,33)
+    const date = `${formData.due_date.toString()} ${offset}`
+    console.log(date)
+
         data.append('title',formData.title)
         data.append('description',formData.description)
         data.append('point_value',parseInt(formData.point_value))
-        data.append('time_due',formData.time_due)
+        data.append('time_due',date)
         for (let i = 0; i<(formData.repeat_every).length; i++){
             data.append('repeat_every[]',formData.repeat_every[i])
         }
@@ -91,7 +96,7 @@ function handleSubmit(event){
     })
     .then(r=>{
         if ((r).ok){
-            r.json().then((res)=>console.log(res))
+            r.json().then((res)=>onNewChore(res))
         }
         else{
             r.json().then((err)=>setErrors(err.errors))
@@ -124,9 +129,9 @@ return <div>
     />
     <label>Due Date</label>
     <input 
-    type="time"
-    name="time_due"
-    value={formData.time_Due}
+    type="datetime-local"
+    name="due_date"
+    value={formData.due_date}
     onChange={handleChange}
     />
     <label>Repeat</label>
