@@ -31,10 +31,13 @@ function EditChore({onEditChore, chore, returnFromEditChore,users}){
         setLoading(true)
         event.preventDefault()
         const data = new FormData()
+        const newDate = new Date(formData.due_date.toString())
+        const offset = (newDate.toString()).slice(28,33)
+        const date = `${formData.due_date.toString()} ${offset}`
             data.append('title',formData.title)
             data.append('description',formData.description)
             data.append('point_value',parseInt(formData.point_value))
-            data.append('due_date',formData.due_date)
+            data.append('due_date',date)
             data.append('participant',parseInt(formData.participant))
             if (image){data.append('image',image)}
         fetch( `chores/${chore.id}`,{

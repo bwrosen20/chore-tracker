@@ -6,12 +6,8 @@ import {useContext, useState} from 'react'
 function Chore({chore,users,handleEditChore,handleCheckChore,handleChoreClaim,handleFinishedChore,handleDelete}){
 
     const date=new Date(chore.due_date)
-    console.log(date)
-    console.log(chore.due_date)
     const offset = (date.toString()).slice(28,33)
-    console.log(offset)
     const due_date = (date.toString()).slice(0,16)
-    console.log(due_date)
     let hours = date.getHours()
     let minutes = date.getMinutes()
     const am_pm = hours >=12 ? "pm" : "am"

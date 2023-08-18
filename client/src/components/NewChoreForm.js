@@ -26,7 +26,6 @@ function handleSubmit(event){
     const offset = (newDate.toString()).slice(28,33)
     const date = `${formData.due_date} ${offset}`
 
-
     const data = new FormData()
         data.append('title',formData.title)
         data.append('description',formData.description)

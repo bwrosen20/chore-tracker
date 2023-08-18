@@ -109,9 +109,37 @@ function App() {
     }
 
   function handleCheckChore(data){
-    setUsers(users.map((member)=>{
-      return member.id===data[1].id ? data[1] : {...member,chores:member.chores.map((chore)=>(chore.id===data[0].id ? data[0] : chore))}
-      }))
+
+    console.log(data)
+    
+
+    if (data[1]){
+      users.map((member)=>{
+        if ((data[1].id===data[0].id) && (data[0].id===member.id)){
+          return {...member,chores:[...member.chores.map((chore)=>(chore.id===data[0].id ? data[0] : chore)),data[1]]}
+        }
+        else if (member.id===data[0].user_id){
+          return {...member,chores:member.chores.map((chore)=>(chore.id===data[0].id ? data[0] : chore))}
+        }
+        else if (member.id===data[1].user_id){
+          return {...member,chores:member.chores.map((chore)=>(chore.id===data[1].id ? data[1] : chore))}
+        }
+        else{
+          return member
+        }
+      })
+     
+    }
+    else{
+      users.map((member)=>{
+        if (member.id===data[0].user_id){
+          return {...member,chores:member.chores.map((chore)=>(chore.id===data[0].id ? data[0] : chore))}
+        }
+        else{
+          return member
+        }
+    })
+    }
   }
 
   function handleClaimPrize(data){
@@ -180,21 +208,27 @@ function App() {
     setUser({...user,chores:user.chores.map((chore)=>(chore.repeat_chore.id===id ? data : chore))})
   }
 
-  let repeatChoreArray = users.map((member)=>{
-    return (member.chores).filter((chore)=>!((chore.repeat_chore.repeat_every).includes("once")))
-  }).flat().map((chore)=>({...chore.repeat_chore,image:chore.image}))
-  
-console.log(repeatChoreArray)
+  let repeatChoreArray = users.map((member)=>{return member.chores}).flat()
+  .filter((chore)=>(!chore.repeat_chore.repeat_every.includes("once")))
+  .map((newChore)=>({...newChore.repeat_chore,image:newChore.image}))
 
-  for (let i=0; i<repeatChoreArray.length; i++){
-    for (let j=0; j<(repeatChoreArray.length); j++){
-      if ((repeatChoreArray[i].id===repeatChoreArray[j].id)&&(i!==j)){
-        repeatChoreArray.splice(i,1)
-      }
+  let uniqRepeatChores = []
+  let count = 0
+  let start = false
+
+  for (let i = 0; i < repeatChoreArray.length; i++) {
+    for (let j = 0; j < uniqRepeatChores.length; j++) {
+          if ( repeatChoreArray[i].id == uniqRepeatChores[j].id ) {
+              start = true
+          }
     }
+    count++
+  if (count == 1 && start == false) {
+      uniqRepeatChores.push(repeatChoreArray[i])
   }
-
- console.log(repeatChoreArray)
+  start = false;
+  count = 0;
+  }
 
   return (
     <div>{loading ? <h3>Loading...</h3>:
@@ -209,7 +243,7 @@ console.log(repeatChoreArray)
               <ChorePage users={users} handleNewChore={handleNewChore} handleEditChore={handleEditChore} handleChoreClaim={handleChoreClaim} handleDelete={handleDelete}/>
             </Route>
             <Route exact path="/repeat">
-              <RepeatChorePage handleNewChore={handleNewChore} handleEditRepeatChore={handleEditRepeatChore} handleDeleteRepeatChore={handleDeleteRepeatChore} repeatChoreArray={repeatChoreArray} users={users}/>
+              <RepeatChorePage handleNewChore={handleNewChore} handleEditRepeatChore={handleEditRepeatChore} handleDeleteRepeatChore={handleDeleteRepeatChore} uniqRepeatChores={uniqRepeatChores} users={users}/>
             </Route>
             <Route exact path="/prizes">
               <PrizePage users={users} handleEditPrize={handleEditPrize} handleNewPrize={handleNewPrize} handleClaimPrize={handleClaimPrize}/>

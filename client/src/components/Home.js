@@ -5,6 +5,9 @@ import {UserContext} from './App'
 
 function Home({users,handleCheckChore,handleFinishedChore,handleDelete,handleEditChore}){
 
+    console.log(users)
+    
+
     const user = useContext(UserContext)
 
 

@@ -39,7 +39,6 @@ class RepeatChoresController < ApplicationController
                     )
                     new_chore.user=user
                     new_chore.image.attach(new_repeat_chore.image.blob)
-                    new_chore.repeat_chore = new_repeat_chore
                     new_chore.save!
                     render json: [new_chore], status: :created
 
@@ -54,7 +53,6 @@ class RepeatChoresController < ApplicationController
                     next_participant = User.find(new_repeat_chore.participants[0])
                     new_chore.user=next_participant
                     new_chore.image.attach(new_repeat_chore.image.blob)
-                    new_chore.repeat_chore = new_repeat_chore
                     new_chore.save!
                     render json: [new_chore], status: :created
 

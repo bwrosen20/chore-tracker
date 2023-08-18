@@ -53,13 +53,13 @@ function CheckChore({chore,onCheckChore}){
                 <input
                 type="radio"
                 value="approved"
-                checked = {formData.approved==("approved") ? true : false}
+                defaultChecked = {formData.approved==("approved") ? true : false}
                 />
                 <label>Approve</label>
                 <input
                 type="radio"
                 value="rejected"
-                checked = {formData.approved==("rejected") ? true : false}
+                defaultChecked = {formData.approved==("rejected") ? true : false}
                 />
                 <label>Reject</label>
             </fieldset>
