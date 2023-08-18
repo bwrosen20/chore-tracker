@@ -33,8 +33,7 @@ class UsersController < ApplicationController
 
     def show
         current_user = User.find(session[:user_id])
-        users = User.all
-        render json: [current_user,*users]
+        render json: current_user
     end
 
     def update

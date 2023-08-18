@@ -1,8 +1,9 @@
 class ChoreSerializer < ActiveModel::Serializer
   include Rails.application.routes.url_helpers
-  attributes :id, :title, :description, :completed, :point_value, :due_date, :updated_at, :image, :check, :kid, :repeat_every, :participants, :cycle_between, :repeat_chore_id, :user_id
+  attributes :id, :title, :description, :completed, :point_value, :due_date, :updated_at, :image, :repeat_chore, :check, :kid, :user_id
 
   has_one :check
+  belongs_to :repeat_chore
 
   def image
     rails_blob_path(object.image, only_path: true) if object.image.attached?
@@ -10,18 +11,6 @@ class ChoreSerializer < ActiveModel::Serializer
 
   def kid
     object.user.username
-  end
-
-  def repeat_every
-   find_repeat.repeat_every
-  end
-
-  def participants
-    find_repeat.participants
-  end 
-
-  def cycle_between
-    find_repeat.cycle_between  
   end
 
   private

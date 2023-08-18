@@ -24,9 +24,18 @@ function App() {
     .then(r=>{
       if (r.ok){
         r.json().then((data)=>{
-          setUser(data[0])
-          setUsers(data.slice(1))
-          setLoading(false)
+          setUser(data)
+
+          fetch('/users')
+          .then(r=>{
+            if (r.ok){
+              r.json().then((res)=>{
+                setUsers(res)
+
+                setLoading(false)
+            })
+            }
+          })
         })
       }
       else{
@@ -157,19 +166,35 @@ function App() {
     }
   }
 
-  console.log(users)
+  function handleEditRepeatChore(data){
+    setUsers(users.map((member)=>{
+      return {...member,chores:member.chores.map((chore)=>(chore.repeat_chore.id===data.id ? {...chore,repeat_chore:data} : chore))}
+    }))
+    setUser({...user,chores:user.chores.map((chore)=>(chore.repeat_chore.id===data.id ? {...chore,repeat_chore:data} : chore))})
+  }
+
+  function handleDeleteRepeatChore(data,id){
+    setUsers(users.map((member)=>{
+      return {...member,chores:member.chores.map((chore)=>(chore.repeat_chore.id===id ? {...chore,repeat_chore:data} : chore))}
+    }))
+    setUser({...user,chores:user.chores.map((chore)=>(chore.repeat_chore.id===id ? data : chore))})
+  }
 
   let repeatChoreArray = users.map((member)=>{
-    return (member.chores).filter((chore)=>!chore.repeat_every.includes("once"))
-  }).flat()
+    return (member.chores).filter((chore)=>!((chore.repeat_chore.repeat_every).includes("once")))
+  }).flat().map((chore)=>({...chore.repeat_chore,image:chore.image}))
   
   for (let i=0; i<repeatChoreArray.length; i++){
     for (let j=1; j<(repeatChoreArray.length-1); j++){
-      if ((repeatChoreArray[i].repeat_chore_id===repeatChoreArray[j].repeat_chore_id)&&(i!==j)){
+      if ((repeatChoreArray[i].id===repeatChoreArray[j].id)&&(i!==j)){
         repeatChoreArray.splice(i,1)
       }
     }
   }
+
+ 
+
+  console.log(repeatChoreArray)
 
   return (
     <div>{loading ? <h3>Loading...</h3>:
@@ -184,7 +209,7 @@ function App() {
               <ChorePage users={users} handleNewChore={handleNewChore} handleEditChore={handleEditChore} handleChoreClaim={handleChoreClaim}/>
             </Route>
             <Route exact path="/repeat">
-              <RepeatChorePage repeatChoreArray={repeatChoreArray} users={users}/>
+              <RepeatChorePage handleEditRepeatChore={handleEditRepeatChore} handleDeleteRepeatChore={handleDeleteRepeatChore} repeatChoreArray={repeatChoreArray} users={users}/>
             </Route>
             <Route exact path="/prizes">
               <PrizePage users={users} handleEditPrize={handleEditPrize} handleNewPrize={handleNewPrize} handleClaimPrize={handleClaimPrize}/>

@@ -1,8 +1,7 @@
 import {useState} from 'react'
 
-function EditChore({chore, users, returnFromEditChore}){
+function EditChore({chore, users, returnFromEditChore, onEditRepeatChore}){
 
-    const date=chore.due_date.split("").slice(0,16).join("")
     const userArray=users.filter((member)=>(!member.admin))
     const dayArray=["once","day","week","month"]
     const [days,setDays]=useState(!dayArray.includes(chore.repeat_every[0]))
@@ -10,7 +9,6 @@ function EditChore({chore, users, returnFromEditChore}){
         title:chore.title,
         description:chore.description,
         point_value:chore.point_value,
-        due_date:date,
         repeat_every:chore.repeat_every,
         cycle_between:(chore.cycle_between ? "true" : "false"),
         participants:chore.participants
@@ -28,7 +26,7 @@ function EditChore({chore, users, returnFromEditChore}){
             setShowCycle(true)
         }
         else{
-            handleParticipantChange(event)
+            setFormData({...formData,participants:[]})
             setShowParticipants(false)
             setShowCycle(false)
         }
@@ -46,7 +44,7 @@ function EditChore({chore, users, returnFromEditChore}){
                 setFormData({...formData,repeat_every:[...(formData.repeat_every).filter((data)=>(!dayArray.includes(data))),(event.target.value)]})
             } 
         }
-        
+        console.log(formData.participants)
     }
 
     function handleParticipantChange(event){
@@ -77,35 +75,34 @@ function EditChore({chore, users, returnFromEditChore}){
     }
 
     function handleSubmit(event){
-        // setLoading(true)
-        // event.preventDefault()
-        // const data = new FormData()
-        //     data.append('title',formData.title)
-        //     data.append('description',formData.description)
-        //     data.append('point_value',parseInt(formData.point_value))
-        //     data.append('due_date',formData.due_date)
-        //     for (let i = 0; i<(formData.repeat_every).length; i++){
-        //         data.append('repeat_every[]',formData.repeat_every[i])
-        //     }
-        //     for (let i = 0; i<(formData.repeat_every[0]==="once"?1:formData.participants).length; i++){
-        //         data.append('participants[]',formData.participants[i])
-        //     }
-        //     data.append('cycle_between',(formData.cycle_between==="true"?true:false))
-        //     if (image){data.append('image',image)}
-        // fetch( `chores/${chore.id}`,{
-        //     method:"PATCH",
-        //     body:data
-        // })
-        // .then(r=>{
-        //     if ((r).ok){
-        //         r.json().then((res)=>onEditChore(res))
-        //         setLoading(false)
-        //     }
-        //     else{
-        //         r.json().then((err)=>setErrors(err.errors))
-        //         setLoading(false)
-        //     }
-        // })
+        setLoading(true)
+        event.preventDefault()
+        const data = new FormData()
+            data.append('title',formData.title)
+            data.append('description',formData.description)
+            data.append('point_value',parseInt(formData.point_value))
+            for (let i = 0; i<(formData.repeat_every).length; i++){
+                data.append('repeat_every[]',formData.repeat_every[i])
+            }
+            for (let i = 0; i<(formData.repeat_every[0]==="once"?1:(formData.participants.length)); i++){
+                data.append('participants[]',formData.participants[i])
+            }
+            data.append('cycle_between',(formData.cycle_between==="true"?true:false))
+            if (image){data.append('image',image)}
+        fetch( `repeat_chores/${chore.id}`,{
+            method:"PATCH",
+            body:data
+        })
+        .then(r=>{
+            if ((r).ok){
+                r.json().then((res)=>onEditRepeatChore(res))
+                setLoading(false)
+            }
+            else{
+                r.json().then((err)=>setErrors(err.errors))
+                setLoading(false)
+            }
+        })
     }
 
     return <div>
@@ -129,13 +126,6 @@ function EditChore({chore, users, returnFromEditChore}){
         name="point_value"
         value={formData.point_value}
         placeholder="Point Value"
-        onChange={handleChange}
-        />
-        <label>Due Date</label>
-        <input 
-        type="datetime-local"
-        name="due_date"
-        value={formData.due_date}
         onChange={handleChange}
         />
         <label>Repeat</label>
