@@ -1,18 +1,19 @@
-import {useState} from 'react'
+import {useState, useContext} from 'react'
+import {UserContext} from './App'
 
-function NewChoreForm({onNewChore}){
+function NewChoreForm({onNewChore, users}){
 
+const admin = useContext(UserContext)
 const [formData,setFormData]=useState({
     title:"",
     description:"",
     point_value:"",
     due_date:"",
-    repeat_every:"",
-    cycle_between:"",
-    participants:""
+    participant:admin.id
 })
 const [image,setImage]=useState(null)
 const [errors,setErrors]=useState([])
+const userArray=users.filter((member)=>(!member.admin))
 
 
 function handleChange(event){
@@ -31,13 +32,7 @@ function handleSubmit(event){
         data.append('description',formData.description)
         data.append('point_value',parseInt(formData.point_value))
         data.append('due_date',date)
-        for (let i = 0; i<(formData.repeat_every).length; i++){
-            data.append('repeat_every[]',formData.repeat_every[i])
-        }
-        for (let i = 0; i<(formData.participants).length; i++){
-            data.append('participants[]',formData.participants[i])
-        }
-        data.append('cycle_between',(formData.cycle_between==="true"?true:false))
+        data.append('participant',parseInt(formData.participant))
         if (image){data.append('image',image)}
     fetch('/chores',{
         method:"POST",
@@ -53,8 +48,10 @@ function handleSubmit(event){
     })
 }
 
-return <div>
+return <div className="newChoreForm">
 <form onSubmit={handleSubmit}>
+    <label>Title: </label>
+    <br></br>
     <input
     type="text"
     name="title"
@@ -62,13 +59,19 @@ return <div>
     placeholder="Title"
     onChange={handleChange}
     />
-     <input
-    rows="5"
+    <br></br>
+    <label>Description: </label>
+    <br></br>
+     <textarea
+    rows="3"
     name="description"
     value={formData.description}
     placeholder="Description"
     onChange={handleChange}
     />
+     <br></br>
+    <label>Point Value: </label>
+    <br></br>
     <input
     type="text"
     name="point_value"
@@ -76,20 +79,46 @@ return <div>
     placeholder="Point Value"
     onChange={handleChange}
     />
-    <label>Due Date</label>
+     <br></br>
+    <label>Due Date: </label>
+    <br></br>
     <input 
     type="datetime-local"
     name="due_date"
     value={formData.due_date}
     onChange={handleChange}
     />
-    
+    <br></br>
+    <label>Assign: </label>
+    <br></br>
+    <select
+    name="participant"
+    value={formData.participant}
+    onChange={handleChange}
+    >
+        <option
+        value={admin.id}
+        >
+            Up For Grabs
+        </option>
+    {userArray.map((member)=>(
+        <option
+        value={member.id}>
+            {member.username}
+        </option>
+    ))}
+    </select>
+    <br></br>
+    <label>Image: </label>
+    <br></br>
    <input
     type="file"
     accept="image/*"
     onChange={(e)=>setImage(e.target.files[0])}
    />
-   <button>Submit</button>
+   <br></br>
+   <br></br>
+   <a className="cardButton" onClick={handleSubmit}>Submit</a>
    </form>
    {errors.map((error)=>(<error key={error}>{error}</error>))}
 </div>

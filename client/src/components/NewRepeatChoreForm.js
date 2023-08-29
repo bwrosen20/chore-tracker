@@ -53,12 +53,16 @@ function handleParticipantChange(event){
         }
         else if (formData.participants.includes(event.target.value)){
             setFormData({...formData,participants:formData.participants.filter((participant)=>(participant!=(event.target.value)))})
-            
+            if (formData.participants.length<=2){
+                setShowCycle(false)
+            }
         }
         else{
             const participantArray=formData.participants.filter((participant)=>participant!=="upForGrabs")
             setFormData({...formData,participants:[...participantArray,event.target.value]})
-            setShowCycle(true)
+            if (formData.participants.length>0 && !formData.participants.includes("upForGrabs")){
+                setShowCycle(true)
+            }
         }
     }
     else{

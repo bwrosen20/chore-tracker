@@ -40,20 +40,28 @@ function NewPrizeForm({onNewPrize}){
     }
 
 
-    return <div>
+    return <div className="newPrizeForm">
         <form onSubmit={handleSubmit}>
+            <label>Title:</label>
+            <br></br>
             <input 
             type="text"
             name="title"
             placeholder="Title"
             value={formData.title}
             onChange={handleChange}/>
-            <input 
-            rows="5"
+            <br></br>
+            <label>Description:</label>
+            <br></br>
+            <textarea 
+            rows="3"
             name="description"
             placeholder="Description"
             value={formData.description}
             onChange={handleChange}/>
+            <br></br>
+            <label>Point Value:</label>
+            <br></br>
             <input 
             type="number"
             autoComplete="off"
@@ -61,7 +69,9 @@ function NewPrizeForm({onNewPrize}){
             placeholder="Point Value"
             value={formData.point_value}
             onChange={handleChange}/>
+            <br></br>
             <label>How many claims?</label>
+            <br></br>
             <select 
             name="how_many_claims"
             value={formData.how_many_claims}
@@ -80,12 +90,15 @@ function NewPrizeForm({onNewPrize}){
             <option value="9">9</option>
             <option value="10">10</option>
             </select>
+            <br></br>
+            <label>Image:</label>
+            <br></br>
             <input 
             type="file"
             accept="image/*"
             onChange={(e)=>setImage(e.target.files[0])}
             />
-            <button>Submit</button>
+            <a className="cardButton">Submit</a>
         </form>
         {errors.map((error)=>(<error key={error}>{error}</error>))}
     </div>

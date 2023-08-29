@@ -6,6 +6,7 @@ import ChorePage from './ChorePage'
 import PrizePage from './PrizePage'
 import UsersPage from './UsersPage'
 import RepeatChorePage from './RepeatChorePage'
+import Footer from './Footer'
 import React, {useState, useEffect} from 'react'
 import {Route,Switch,useHistory} from 'react-router-dom'
 
@@ -77,9 +78,9 @@ function App() {
   function handleNewChore(data){
     for (let i=0;i<data.length;i++){
     setUsers(users.map((member)=>{
-      return(member.admin ? {...member,chores:[...(member.chores),data]}: member)
+      return(member.admin ? {...member,chores:[...(member.chores),data[i]]}: member)
     }))
-    setUser(users.find((member)=>{return member.admin}))
+    setUser({...user,chores:[...(user.chores),data[i]]})
   }
   }
 
@@ -208,27 +209,9 @@ function App() {
     setUser({...user,chores:user.chores.map((chore)=>(chore.repeat_chore.id===id ? data : chore))})
   }
 
-  let repeatChoreArray = users.map((member)=>{return member.chores}).flat()
-  .filter((chore)=>(!chore.repeat_chore.repeat_every.includes("once")))
-  .map((newChore)=>({...newChore.repeat_chore,image:newChore.image}))
+  console.log(users)
 
-  let uniqRepeatChores = []
-  let count = 0
-  let start = false
-
-  for (let i = 0; i < repeatChoreArray.length; i++) {
-    for (let j = 0; j < uniqRepeatChores.length; j++) {
-          if ( repeatChoreArray[i].id == uniqRepeatChores[j].id ) {
-              start = true
-          }
-    }
-    count++
-  if (count == 1 && start == false) {
-      uniqRepeatChores.push(repeatChoreArray[i])
-  }
-  start = false;
-  count = 0;
-  }
+  
 
   return (
     <div>{loading ? <h3>Loading...</h3>:
@@ -243,7 +226,7 @@ function App() {
               <ChorePage users={users} handleNewChore={handleNewChore} handleEditChore={handleEditChore} handleChoreClaim={handleChoreClaim} handleDelete={handleDelete}/>
             </Route>
             <Route exact path="/repeat">
-              <RepeatChorePage handleNewChore={handleNewChore} handleEditRepeatChore={handleEditRepeatChore} handleDeleteRepeatChore={handleDeleteRepeatChore} uniqRepeatChores={uniqRepeatChores} users={users}/>
+              <RepeatChorePage handleNewChore={handleNewChore} handleEditRepeatChore={handleEditRepeatChore} handleDeleteRepeatChore={handleDeleteRepeatChore} users={users}/>
             </Route>
             <Route exact path="/prizes">
               <PrizePage users={users} handleEditPrize={handleEditPrize} handleNewPrize={handleNewPrize} handleClaimPrize={handleClaimPrize}/>
@@ -255,6 +238,7 @@ function App() {
               <Home users={users} handleCheckChore={handleCheckChore} handleFinishedChore={handleFinishedChore} handleDelete={handleDelete} handleEditChore={handleEditChore}/>
             </Route>
         </Switch>
+        <Footer />
         </UserContext.Provider>
       </div>}
     </div>

@@ -1,6 +1,6 @@
 import {useState} from 'react'
 
-function CheckChore({chore,onCheckChore}){
+function CheckChore({chore,onCheckChore,returnFromCheckChore}){
 
     const [formData,setFormData]=useState({
         comment:"",
@@ -45,7 +45,9 @@ function CheckChore({chore,onCheckChore}){
             onChange={(e)=>setFormData({...formData,comment:e.target.value})}
             placeholder="Comment"
             />
+            <br></br>
             <fieldset
+            style={{border:"none"}}
             name="approved"
             value={formData.approved}
             onChange={handleChange}
@@ -63,7 +65,11 @@ function CheckChore({chore,onCheckChore}){
                 />
                 <label>Reject</label>
             </fieldset>
-            <button>Submit</button>
+            <br></br>
+            <div onClick={returnFromCheckChore}className="return">
+                <i class="fa-solid fa-arrow-left"> Return</i>
+            </div>
+            <a className="cardButton" onClick={handleSubmit}>Submit</a>
         </form>
         {errors.map((error)=>(<error key={error}>{error}</error>))}
     </div>

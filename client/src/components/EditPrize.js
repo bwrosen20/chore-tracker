@@ -36,20 +36,29 @@ function EditPrize({prize,onEditPrize}){
     return <div>
 
         <form onSubmit={handleSubmit}>
-            <input 
-            type="file"
-            name="image"/>
+            <label>Title: </label>
              <input 
             type="text"
             name="title"
             value={formData.title}
             onChange={handleEditChange}/>
+            <br></br>
+            <label>Point Value: </label>
+            <br></br>
             <input 
             type="text"
             name="point_value"
             value={formData.point_value}
             onChange={handleEditChange}/>
-            <button>Confirm</button>
+            <br></br>
+            <label>New Image: </label>
+            <br></br>
+            <input 
+            type="file"
+            name="image"/>
+            <br></br>
+            <br></br>
+            <a className="cardButton" onClick={handleSubmit}>Confirm</a>
         </form>
         {errors.map((error)=>(<error key={error}>{error}</error>))}
 

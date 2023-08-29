@@ -14,27 +14,28 @@ function ChorePage({users,handleNewChore,handleEditChore,handleChoreClaim,handle
         handleNewChore(data)
     }
 
-    
 
-    return <div>
-        {admin.chores.length>0 ? 
-        <div>
-            {user.admin ? 
-            <div>
-                {newChoreForm ? 
-        <NewChoreForm onNewChore={onNewChore} users={users}/> : 
-        <button onClick={()=>setNewChoreForm(!newChoreForm)}>Add New Chore</button>}
-            <h2>Unnasigned Chores</h2>
-            </div>
-            :<h1>Get Some Extra Points</h1>
-        }
-            
-            {admin.chores.map((chore)=>(
-                <Chore chore={chore} key={chore.id} handleEditChore={handleEditChore} handleChoreClaim={handleChoreClaim} handleDelete={handleDelete} users={users}/>
-        ))}
-        </div>: 
-        <h1>There are currently no extra chores available</h1>}
-    </div>
+
+
+
+return <div>
+            {user.admin ? <div>
+                {newChoreForm ? <NewChoreForm onNewChore={onNewChore} users={users}/>:<div>
+                <h2 className="heading">Unnasigned Chores</h2>
+                <button className="PageHeading" onClick={()=>setNewChoreForm(!newChoreForm)}>Add new chore</button>
+                </div>}
+                </div>: 
+                    <div>
+                        {admin.chores.length>0 ? 
+                            <h1 className="heading">Get Some Extra Points</h1>:
+                            <h1 className="heading">There are currently no extra chores available</h1>}
+                    </div>}
+                    <div className="ChoreContainer">
+                        {admin.chores.map((chore)=>(
+                            <Chore chore={chore} key={chore.id} handleEditChore={handleEditChore} handleChoreClaim={handleChoreClaim} handleDelete={handleDelete} users={users}/>
+                        ))}
+                </div>
+        </div>
 }
 
 export default ChorePage

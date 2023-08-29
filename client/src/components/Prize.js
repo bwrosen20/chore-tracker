@@ -33,16 +33,16 @@ function Prize({prize,handleEditPrize,handleClaimPrize}){
     }
 
 
-    return <div>
+    return <div className="PrizeCard">
         {editPrize?
         <EditPrize prize={prize} onEditPrize={onEditPrize}/>:
         <div>
-                <img src={prize.image} alt={prize.id}/>
-                <h3>{prize.title}</h3>
-                <h4>{prize.point_value} Points</h4>
+                <img src={prize.image} alt={prize.id} className="PrizePicture"/>
+                <h3 className="CenteredWords">{prize.title}</h3>
+                <h4 className="CenteredWords">{prize.point_value} Points</h4>
                 {user.admin?  
-            <button onClick={()=>setEditPrize(!editPrize)}>Edit Prize</button>: 
-            user.prizes.includes(prize) ? null : <button onClick={onClaimPrize}>Claim Prize</button>
+            <a className="cardButton" onClick={()=>setEditPrize(!editPrize)}>Edit Prize</a>: 
+            user.prizes.includes(prize) ? null : <a className="cardButton" onClick={onClaimPrize}>Claim Prize</a>
             }
             </div>
         }

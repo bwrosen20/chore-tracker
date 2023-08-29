@@ -1,11 +1,12 @@
-import {useState} from 'react'
+import {useState, useContext} from 'react'
+import {UserContext} from './App'
 
-function EditChore({onEditChore, chore, returnFromEditChore,users}){
+function EditChore({onEditChore, chore, users}){
 
     const time=(new Date(chore.due_date)).toTimeString().slice(0,8)
     const date=(chore.due_date.slice(0,11)+time)
     const userArray=users.filter((member)=>(!member.admin))
-    const admin = users.find((member)=>member.admin)
+    const admin = useContext(UserContext)
 
     const [formData,setFormData]=useState({
         title:chore.title,
@@ -58,6 +59,8 @@ function EditChore({onEditChore, chore, returnFromEditChore,users}){
 
     return <div>
     <form onSubmit={handleSubmit}>
+        <label>Title: </label>
+        <br></br>
         <input
         type="text"
         name="title"
@@ -65,13 +68,19 @@ function EditChore({onEditChore, chore, returnFromEditChore,users}){
         placeholder="Title"
         onChange={handleChange}
         />
-        <input
-        rows="5"
+        <br></br>
+        <label>Description: </label>
+        <br></br>
+        <textarea
+        rows="3"
         name="description"
         value={formData.description}
         placeholder="Description"
         onChange={handleChange}
         />
+        <br></br>
+        <label>Point Value: </label>
+        <br></br>
         <input
         type="text"
         name="point_value"
@@ -79,14 +88,18 @@ function EditChore({onEditChore, chore, returnFromEditChore,users}){
         placeholder="Point Value"
         onChange={handleChange}
         />
-        <label>Due Date</label>
+        <br></br>
+        <label>Due Date: </label>
+        <br></br>
         <input 
         type="datetime-local"
         name="due_date"
         value={formData.due_date}
         onChange={handleChange}
         />
-        <label>Reassign</label>
+        <br></br>
+        <label>Reassign: </label>
+        <br></br>
         <select
         name="participant"
         value={formData.participant}
@@ -104,16 +117,20 @@ function EditChore({onEditChore, chore, returnFromEditChore,users}){
             </option>
         ))}
         </select>
-        <label>Choose new image</label>
+        <br></br>
+        <label>Choose new image: </label>
+        <br></br>
     <input
         type="file"
         accept="image/*"
         onChange={(e)=>setImage(e.target.files[0])}
     />
-    
-    <button>{loading ? "Loading..." : "Submit"}</button>
+    <br></br>
+     <br></br>
+    <a className="cardButton" onClick={handleSubmit}>{loading ? "Loading..." : "Submit"}</a>
     </form>
-    <button onClick={returnFromEditChore}>Return</button>
+    <br></br>
+   
     {errors.map((error)=>(<error key={error}>{error}</error>))}
     </div>
     

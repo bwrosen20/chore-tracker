@@ -18,15 +18,16 @@ function PrizePage({users,handleEditPrize,handleNewPrize,handleClaimPrize}){
 
     return <div>
     
-        <h1>Available Prizes</h1>
+        <h1 className="heading">Available Prizes</h1>
         {user.admin ? 
-        newPrize ? 
-        <NewPrizeForm onNewPrize={onNewPrize}/>
-        :<button onClick={()=>setNewPrize(!newPrize)}>Add new Prize</button> : null}
-        {prizes.map((prize)=>(
-            <Prize prize={prize} key={prize.id} handleEditPrize={handleEditPrize} handleClaimPrize={handleClaimPrize}/>
-        ))}
-        
+            newPrize ? 
+            <NewPrizeForm onNewPrize={onNewPrize}/>
+            :<a className="PageHeading" onClick={()=>setNewPrize(!newPrize)}>Add new Prize</a> : null}
+        <div className="PrizeContainer">
+            {prizes.map((prize)=>(
+                <Prize prize={prize} key={prize.id} handleEditPrize={handleEditPrize} handleClaimPrize={handleClaimPrize}/>
+            ))}
+        </div>
     </div>
 }
 

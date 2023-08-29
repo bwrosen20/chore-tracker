@@ -21,9 +21,13 @@ function EditChore({chore, users, returnFromEditChore, onEditRepeatChore}){
 
     function handleOptionChange(event){
         
-        if (event.target.value!=="once"){
+        if (event.target.value!=="once" && formData.participants.length>1){
             setShowParticipants(true)
             setShowCycle(true)
+        }
+        else if (event.target.value!=="once" && formData.participants.length<=1){
+            setShowParticipants(true)
+            setShowCycle(false)
         }
         else{
             setFormData({...formData,participants:[]})
@@ -56,18 +60,23 @@ function EditChore({chore, users, returnFromEditChore, onEditRepeatChore}){
             }
             else if (formData.participants.includes(event.target.value)){
                 setFormData({...formData,participants:formData.participants.filter((participant)=>(participant!=(event.target.value)))})
-                
+                if (formData.participants.length<=2){
+                    setShowCycle(false)
+                }
             }
             else{
                 const participantArray=formData.participants.filter((participant)=>participant!=="upForGrabs")
                 setFormData({...formData,participants:[...participantArray,event.target.value]})
-                setShowCycle(true)
+                if (formData.participants.length>0 && !formData.participants.includes("upForGrabs")){
+                    setShowCycle(true)
+                }
             }
         }
         else{
+
             setFormData({...formData,participants:[event.target.value]})
         }
-        console.log(formData.participants)
+       console.log(formData.participants)
     }
 
     function handleChange(event){
@@ -107,6 +116,9 @@ function EditChore({chore, users, returnFromEditChore, onEditRepeatChore}){
 
     return <div>
     <form onSubmit={handleSubmit}>
+        <br></br>
+        <label>Title: </label>
+        <br></br>
         <input
         type="text"
         name="title"
@@ -114,13 +126,19 @@ function EditChore({chore, users, returnFromEditChore, onEditRepeatChore}){
         placeholder="Title"
         onChange={handleChange}
         />
-        <input
-        rows="5"
+        <br></br>
+        <label>Description: </label>
+        <br></br>
+        <textarea
+        rows="3"
         name="description"
         value={formData.description}
         placeholder="Description"
         onChange={handleChange}
         />
+        <br></br>
+        <label>Point Value: </label>
+        <br></br>
         <input
         type="text"
         name="point_value"
@@ -128,7 +146,9 @@ function EditChore({chore, users, returnFromEditChore, onEditRepeatChore}){
         placeholder="Point Value"
         onChange={handleChange}
         />
-        <label>Repeat</label>
+        <br></br>
+        <label>Repeat Every: </label>
+        <br></br>
         {days ? <fieldset
         id="days"
         name="repeat_every"
@@ -137,38 +157,46 @@ function EditChore({chore, users, returnFromEditChore, onEditRepeatChore}){
         <input 
         type="checkbox"
         value={1}
-        defaultChecked={formData.repeat_every.includes('1') ? true : false}/>
+        checked={formData.repeat_every.includes('1') ? true : false}/>
         <label>Monday</label>
+        <br></br>
         <input 
         type="checkbox"
         value={2}
-        defaultChecked={formData.repeat_every.includes('2') ? true : false}/>
+        checked={formData.repeat_every.includes('2') ? true : false}/>
         <label>Tuesday</label>
+        <br></br>
         <input 
         type="checkbox"
         value={3}
-        defaultChecked={formData.repeat_every.includes('3') ? true : false}/>
+        checked={formData.repeat_every.includes('3') ? true : false}/>
         <label>Wednesday</label>
+        <br></br>
         <input 
         type="checkbox"
         value={4}
-        defaultChecked={formData.repeat_every.includes('4') ? true : false}/>
+        checked={formData.repeat_every.includes('4') ? true : false}/>
         <label>Thursday</label>
+        <br></br>
         <input 
         type="checkbox"
         value={5}
-        defaultChecked={formData.repeat_every.includes('5') ? true : false}/>
+        checked={formData.repeat_every.includes('5') ? true : false}/>
         <label>Friday</label>
+        <br></br>
         <input 
         type="checkbox"
         value={6}
-        defaultChecked={formData.repeat_every.includes('6') ? true : false}/>
+        checked={formData.repeat_every.includes('6') ? true : false}/>
         <label>Saturday</label>
+        <br></br>
         <input 
         type="checkbox"
         value={7}
-        defaultChecked={formData.repeat_every.includes('7') ? true : false}/>
-        <label>Sunday</label>
+        checked={formData.repeat_every.includes('7') ? true : false}/>
+        <label>Sunday </label>
+        <br></br>
+        
         <button onClick={()=>setDays(!days)}>Return</button>
     </fieldset>:
     <fieldset
@@ -177,34 +205,39 @@ function EditChore({chore, users, returnFromEditChore, onEditRepeatChore}){
         name="repeat_every">
     <input
     type="radio"
-    defaultChecked = {(formData.repeat_every.includes("once")||formData.repeat_every==="") ? true : false}
+    checked = {(formData.repeat_every.includes("once")||formData.repeat_every==="") ? true : false}
     value="once"/>
         <label>Once</label>
+        <br></br>
     <input
     type="radio"
-    defaultChecked = {formData.repeat_every.includes("day") ? true : false}
+    checked = {formData.repeat_every.includes("day") ? true : false}
     value="day"/>
         <label>Daily</label>
+        <br></br>
     <input
     type="radio"
-    defaultChecked = {formData.repeat_every.includes("week") ? true : false}
+    checked = {formData.repeat_every.includes("week") ? true : false}
     value="week"/>
         <label>Weekly</label>
+        <br></br>
     <input
     type="radio"
-    defaultChecked = {formData.repeat_every.includes("month") ? true : false}
+    checked = {formData.repeat_every.includes("month") ? true : false}
     value="month"/>
     <label>Monthly</label>
+    <br></br>
     <input
     type="radio"
     id="specificDays"
-    defaultChecked={false}
+    checked={false}
     value="specificDays"/>
     <label for="specificDays">Choose Days</label>
     </fieldset>
     }
         {showParticipants ?
         <div>
+            <label>Participants: </label>
     <fieldset
         value={formData.participants}
         onChange={handleParticipantChange}
@@ -212,14 +245,14 @@ function EditChore({chore, users, returnFromEditChore, onEditRepeatChore}){
             <input
             type="checkbox"
             value="upForGrabs"
-            defaultChecked={formData.participants.includes("upForGrabs")}
+            checked={formData.participants.includes("upForGrabs")}
             />
             <label>Put up for grabs</label>
         {userArray.map((member)=>(
             <div>
             <input
             type="checkbox"
-            defaultChecked={formData.participants.includes((member.id).toString()) ? true : false}
+            checked={formData.participants.includes((member.id).toString()) ? true : false}
             value={member.id}/>
             <label>{member.username}</label>
             </div>
@@ -227,6 +260,8 @@ function EditChore({chore, users, returnFromEditChore, onEditRepeatChore}){
     
     </fieldset>
     {showCycle?
+    <div>
+        <label>Cycle or Mass Assign?</label>
     <fieldset
     name="cycle_between"
     onChange={handleChange}
@@ -234,20 +269,24 @@ function EditChore({chore, users, returnFromEditChore, onEditRepeatChore}){
     <input
         type="radio"
         name="cycle_between"
-        defaultChecked={formData.cycle_between==="true" ? true : false}
+        checked={formData.cycle_between==="true" ? true : false}
         value="true"
         />
         <label>Cycle between users</label>
+        <br></br>
         <input
         type="radio"
         name="cycle_between"
-        defaultChecked={formData.cycle_between==="false" ? true : false}
+        checked={formData.cycle_between==="false" ? true : false}
         value="false"
         />
-        <label>Assign to all users at once</label>
-        </fieldset>:null
+        <label>Assign to all</label>
+        </fieldset></div>:null
     }
     </div> :  
+    <div>
+        <label>Participant:</label>
+        <br></br>
     <fieldset
         value={formData.participants}
         onChange={handleParticipantChange}
@@ -255,28 +294,35 @@ function EditChore({chore, users, returnFromEditChore, onEditRepeatChore}){
             <input
             type="radio"
             value="upForGrabs"
-            defaultChecked={formData.participants.includes("upForGrabs")}
+            checked={formData.participants.includes("upForGrabs")}
             />
             <label>Put up for grabs</label>
         {userArray.map((member)=>(
             <div>
             <input
             type="radio"
-            defaultChecked={formData.participants[0]===((member.id).toString()) ? true : false}
+            checked={formData.participants[0]===((member.id).toString()) ? true : false}
             value={member.id}/>
             <label>{member.username}</label>
             </div>
         ))}
     
     </fieldset>
+    </div>
     }
+    <br></br>
+    <label>New Image?</label>
+    <br></br>
     <input
         type="file"
         accept="image/*"
         onChange={(e)=>setImage(e.target.files[0])}
     />
+    <br></br>
+    <br></br>
     <button>{loading ? "Loading..." : "Submit"}</button>
     </form>
+    <br></br>
     <button onClick={returnFromEditChore}>Return</button>
     {errors.map((error)=>(<error key={error}>{error}</error>))}
     </div>
