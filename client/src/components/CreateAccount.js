@@ -1,11 +1,7 @@
 import {useState} from 'react'
-import Login from './Login'
-import Signup from './Signup'
 
 function CreateAccount({onLogin,onCreateClick}){
 
-    const [showLogin,setShowLogin]=useState(false)
-    const [showSignUp,setShowSignUp]=useState(false)
     const [data,setData]=useState({
         username:"",
         email:"",
@@ -16,14 +12,6 @@ function CreateAccount({onLogin,onCreateClick}){
     })
     const [errors,setErrors]=useState([])
     const [loading,setLoading]=useState(false)
-
-    function onLoginClick(){
-        setShowLogin(!showLogin)
-    }
-
-    function onSignupClick(){
-        setShowSignUp(!showSignUp)
-    }
 
     function handleChange(event){
         setData({...data,[event.target.name]:event.target.value})
@@ -65,7 +53,7 @@ function CreateAccount({onLogin,onCreateClick}){
             autoFocus
             type="text"
             placeholder="Name"
-            name="userName"
+            name="username"
             autoComplete="off"
             value={data.username}
             onChange={handleChange}/>
@@ -124,7 +112,7 @@ function CreateAccount({onLogin,onCreateClick}){
             <button className="cardButton" onClick={onFormSubmit}>{loading ? "Loading..." : "Create Account"}</button>
         </form>
         <div className="return" onClick={onCreateClick}>
-            <i class="fa-solid fa-arrow-left"></i>
+            <i className="fa-solid fa-arrow-left"></i>
         </div>
         <div className="errorContainer">
                 {errors.map((error)=>(<div className="error"><error key={error}>{error}</error><br/></div>))}

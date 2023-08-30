@@ -214,6 +214,7 @@ button{
 .HomeImage{
   height:200px;
   width:200px;
+  border-radius:30px;
 }
 
 .ChoreSection{
@@ -363,26 +364,7 @@ button{
   border-radius:20px;
 }
 
-.PageHeading{
-  display:block;
-  margin: 40px auto 40px;
-  text-align:center;
-  width:50%;
-  background-color:lightblue;
-  padding:0.5rem 1rem;
-  border:none;
-  outline:none;
-  border-radius:20px;
-  font-size:20px;
-  font-weight:bold;
-  cursor:pointer;
-  transition:width .2s cubic-bezier(0.075, 0.82, 0.165, 1)
-}
 
-    .PageHeading:hover{
-      box-shadow:1px 3px 3px 1px rgba(0,0,0,.3);
-      scale:1.05;
-    }
 
 .delete{
   position:absolute;
@@ -454,6 +436,7 @@ button{
   margin-left:auto;
   margin-right:auto;
   margin-top:5px;
+  border-radius:10px;
 }
 
 .userChoreImages{
@@ -491,6 +474,22 @@ button{
       min-height:200px;
       max-width:300px;
   }
+
+  .PageHeading{
+    display:block;
+    margin: 40px auto 40px;
+    text-align:center;
+    width:50%;
+    background-color:lightblue;
+    padding:0.5rem 1rem;
+    border:none;
+    outline:none;
+    border-radius:20px;
+    font-size:20px;
+    font-weight:bold;
+    cursor:pointer;
+    transition:width .2s cubic-bezier(0.075, 0.82, 0.165, 1)
+  }
 }
 
 @media(min-width:721px){
@@ -507,7 +506,30 @@ button{
     min-height:200px;
     max-width:300px;
   }
+
+  .PageHeading{
+    display:block;
+    margin: 40px auto 40px;
+    text-align:center;
+    width:30%;
+    background-color:lightblue;
+    padding:0.5rem 1rem;
+    border:none;
+    outline:none;
+    border-radius:20px;
+    font-size:20px;
+    font-weight:bold;
+    cursor:pointer;
+    transition:width .2s cubic-bezier(0.075, 0.82, 0.165, 1)
+  }
+  
 }
+
+
+    .PageHeading:hover{
+      box-shadow:1px 3px 3px 1px rgba(0,0,0,.3);
+      scale:1.05;
+    }
 
 
 

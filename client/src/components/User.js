@@ -1,9 +1,8 @@
 function User({user, users}){
 
-    console.log(users)
    const repeat_array = []
 
-   const chore_array = (users.filter((member)=>(!member.admin))).map((participant)=>(participant.chores)).flat()
+   const chore_array = users.map((participant)=>(participant.chores)).flat()
    console.log(chore_array)
 
    user.user_repeat_chores.forEach((repeat_chore)=>{

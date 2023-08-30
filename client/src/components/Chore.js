@@ -115,7 +115,7 @@ function Chore({chore,users,handleEditChore,handleCheckChore,handleChoreClaim,ha
                                 <div>
                                     <a className="deleteButton" onClick={onDelete} value="one">Delete</a>
                                     <div onClick={()=>{setYouSure(false)}}className="return">
-                                        <i class="fa-solid fa-arrow-left"></i>
+                                        <i className="fa-solid fa-arrow-left"></i>
                                     </div>
                                 </div>:
                                 <div>

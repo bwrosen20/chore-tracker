@@ -3,12 +3,13 @@ class UsersController < ApplicationController
     include Rails.application.routes.url_helpers
 
     def createAccount
+        byebug
         new_admin = User.new(user_params)
         new_admin.admin=true
         new_admin.save!
         session[:user_id]=new_admin.id
-        users = User.all
-        render json: users, status: :created
+        
+        render json: new_admin, status: :created
     end 
 
     def signup
@@ -18,8 +19,7 @@ class UsersController < ApplicationController
                 new_user.admin=false
                 new_user.save!
                 session[:user_id]=new_user.id
-                users = User.all
-                render json: users, status: :created
+                render json: new_user, status: :created
             else
                 render json: {errors: ["Group must have admin"]}, status: :not_found
             end

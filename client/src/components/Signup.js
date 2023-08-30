@@ -54,7 +54,7 @@ function Signup({onSignupClick, onLogin}){
             autoFocus
             type="text"
             placeholder="Name"
-            name="userName"
+            name="username"
             autoComplete="off"
             value={data.username}
             onChange={handleChange}/>
@@ -110,6 +110,7 @@ function Signup({onSignupClick, onLogin}){
             onChange={(e)=>setProfileImage(e.target.files[0])}/>
             <button className="cardButton" onClick={onFormSubmit}>{loading ? "Loading..." : "Create Account"}</button>
         </form>
+        <br></br>
         <div className="return" onClick={onSignupClick}>
             <i class="fa-solid fa-arrow-left"></i>
         </div>
