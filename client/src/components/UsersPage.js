@@ -8,13 +8,13 @@ function UsersPage({users}){
                 <div className="UserSection">
                     <h2 className="heading">Admins</h2>
                     {admins.map((user)=>(
-                        <User user={user}/>
+                        <User user={user} users={users}/>
                     ))}
                 </div>
                 <div className="UserSection">
                     <h2 className="heading">Users</h2>
                     {kids.map((user)=>
-                    <User user = {user}/>)}
+                    <User user={user} users={users}/>)}
                 </div>
     </div>
 }

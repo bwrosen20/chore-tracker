@@ -113,8 +113,10 @@ function Chore({chore,users,handleEditChore,handleCheckChore,handleChoreClaim,ha
                             <div>
                                 {youSure ? 
                                 <div>
-                                    <a className="deleteButton" onClick={onDelete} value="one">You Sure?</a>
-                                    <a className="return" onClick={()=>setYouSure(false)}>Cancel</a>
+                                    <a className="deleteButton" onClick={onDelete} value="one">Delete</a>
+                                    <div onClick={()=>{setYouSure(false)}}className="return">
+                                        <i class="fa-solid fa-arrow-left"></i>
+                                    </div>
                                 </div>:
                                 <div>
                                     <a className="cardButton" onClick={()=>setShowEditChore(!showEditChore)}>Edit Chore</a>
@@ -148,7 +150,9 @@ function Chore({chore,users,handleEditChore,handleCheckChore,handleChoreClaim,ha
                                                 <a className="cardButton" onClick={illDoIt}>I'll do it</a>}
                 </div>      
                 }   
-                {errors.map((error)=>(<error key={error}>{error}</error>))}
+                <div className="errorContainer">
+                        {errors.map((error)=>(<div className="error"><error key={error}>{error}</error><br/></div>))}
+                </div>
             </div>
 }
 

@@ -55,23 +55,25 @@ function CheckChore({chore,onCheckChore,returnFromCheckChore}){
                 <input
                 type="radio"
                 value="approved"
-                defaultChecked = {formData.approved==("approved") ? true : false}
+                checked = {formData.approved==("approved") ? true : false}
                 />
                 <label>Approve</label>
                 <input
                 type="radio"
                 value="rejected"
-                defaultChecked = {formData.approved==("rejected") ? true : false}
+                checked = {formData.approved==("rejected") ? true : false}
                 />
                 <label>Reject</label>
             </fieldset>
             <br></br>
             <div onClick={returnFromCheckChore}className="return">
-                <i class="fa-solid fa-arrow-left"> Return</i>
+                <i class="fa-solid fa-arrow-left"></i>
             </div>
-            <a className="cardButton" onClick={handleSubmit}>Submit</a>
+            <button className="cardButton" onClick={handleSubmit}>Submit</button>
         </form>
-        {errors.map((error)=>(<error key={error}>{error}</error>))}
+        <div className="errorContainer">
+        {errors.map((error)=>(<div className="error"><error key={error}>{error}</error><br/></div>))}
+   </div>
     </div>
 }
 

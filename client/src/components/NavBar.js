@@ -1,22 +1,15 @@
 import {NavLink} from 'react-router-dom'
-import {useContext} from 'react'
+import {useContext, useState} from 'react'
 import {UserContext} from './App'
 
 function NavBar({handleLogout}) {
 
     const user = useContext(UserContext)
-
-    const dropDownMenu = document.querySelector('.dropdownMenu')
-    const toggleButton = document.querySelector('.NavBars i')
+    const [isOpen,setIsOpen] = useState(false)
 
 
     function toggleClass(){
-      dropDownMenu.classList.toggle('open')
-
-      const isOpen = dropDownMenu.classList.contains('open')
-
-      toggleButton.classList = isOpen?
-      'fa-solid fa-xmark' : 'fa-solid fa-bars'
+      setIsOpen(!isOpen)
     }
 
     return <header>
@@ -74,10 +67,10 @@ function NavBar({handleLogout}) {
       </div>
       <a className="LogoutButton" onClick={handleLogout}>Logout</a>
       <div className="NavBars" class="NavBars" onClick={toggleClass}>
-      <i class='fa-solid fa-bars'></i>
+      <i class={isOpen ? 'fa-solid fa-xmark' : 'fa-solid fa-bars'}></i>
       </div>
       </div>
-      <div className="dropdownMenu" class="dropdownMenu" onClick={toggleClass}>
+      <div className={isOpen ? "dropdownMenu open" : "dropdownMenu"} class={isOpen ? "dropdownMenu open" : "dropdownMenu"} onClick={toggleClass}>
           <li>
             <NavLink
             className="NavOption"

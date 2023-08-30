@@ -98,9 +98,13 @@ function NewPrizeForm({onNewPrize}){
             accept="image/*"
             onChange={(e)=>setImage(e.target.files[0])}
             />
+            <br></br>
+            <br></br>
             <a className="cardButton">Submit</a>
         </form>
-        {errors.map((error)=>(<error key={error}>{error}</error>))}
+        <div className="errorContainer">
+                {errors.map((error)=>(<div className="error"><error key={error}>{error}</error><br/></div>))}
+        </div>
     </div>
 }
 

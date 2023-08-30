@@ -16,15 +16,15 @@ class ChecksController < ApplicationController
             if params[:approved]=="approved"
                 participant.points+=20
                 chore.completed=1
-                participant.save!
+                participant.save(validate: false)
             else
                 chore.completed=0
             end
-            chore.save!
+            chore.save(validate: false)
 
 
                 unless chore.repeat_chore.repeat_every.include?"once" || chore.check.accepted=="rejected"        
-                    time = Time.now
+                    time = chore.due_date
                     new_time = repeat_chore.due_date.to_s().slice(11,19)
                     if ["day","week","month"].include?(repeat_chore.repeat_every[0])
                         new_date = if repeat_chore.repeat_every[0]=="day"
@@ -86,7 +86,7 @@ class ChecksController < ApplicationController
                         new_chore.save!
                     end
 
-            render json: ([chore,new_chore])
+            render json: [chore,new_chore], root:false
         else
             render json: {errors: ["Unauthorized"]}
         end

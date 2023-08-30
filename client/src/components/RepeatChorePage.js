@@ -38,7 +38,7 @@ function RepeatChorePage({users, handleEditRepeatChore, handleDeleteRepeatChore,
     return <div>
             {showNewChore ? 
             <NewRepeatChoreForm users={users} returnFromForm={returnFromForm} onNewChore={onNewChore}/> :
-            <button className="PageHeading" onClick={()=>setShowNewChore(!showNewChore)}>Create New Repeating Chore</button>}
+            <a className="PageHeading" onClick={()=>setShowNewChore(!showNewChore)}>Create New Repeating Chore</a>}
             <div className="ChoreContainer">
             {uniqRepeatChores.map((chore)=>(
                 <RepeatChore key={chore.id} chore={chore} users={users} handleEditRepeatChore={handleEditRepeatChore} handleDeleteRepeatChore={handleDeleteRepeatChore}/>

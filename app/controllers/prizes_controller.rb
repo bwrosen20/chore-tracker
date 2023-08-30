@@ -3,6 +3,8 @@ class PrizesController < ApplicationController
     def update
         prize = Prize.find(params[:id])
         prize.update!(prize_params)
+        repeat_prize = RepeatPrize.find(prize.repeat_prize.id)
+        repeat_prize.update!(how_many_claims:params[:how_many_claims])
         render json: prize
     end
 

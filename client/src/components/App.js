@@ -1,12 +1,11 @@
 import '../App.css';
 import NavBar from './NavBar'
-import CreateAccount from './CreateAccount'
+import OpeningPage from './OpeningPage'
 import Home from './Home'
 import ChorePage from './ChorePage'
 import PrizePage from './PrizePage'
 import UsersPage from './UsersPage'
 import RepeatChorePage from './RepeatChorePage'
-import Footer from './Footer'
 import React, {useState, useEffect} from 'react'
 import {Route,Switch,useHistory} from 'react-router-dom'
 
@@ -46,7 +45,7 @@ function App() {
     
   },[])
 
-  if (!user) return <CreateAccount onLogin={handleLogin} />
+  if (!user) return <OpeningPage onLogin={handleLogin} />
 
   function handleLogin(data,email){
     setUser(data.find((member)=>(email.toString()===(member.email.toString()))))
@@ -113,9 +112,9 @@ function App() {
 
     console.log(data)
     
-
+    
     if (data[1]){
-      users.map((member)=>{
+      setUsers(users.map((member)=>{
         if ((data[1].id===data[0].id) && (data[0].id===member.id)){
           return {...member,chores:[...member.chores.map((chore)=>(chore.id===data[0].id ? data[0] : chore)),data[1]]}
         }
@@ -123,23 +122,24 @@ function App() {
           return {...member,chores:member.chores.map((chore)=>(chore.id===data[0].id ? data[0] : chore))}
         }
         else if (member.id===data[1].user_id){
-          return {...member,chores:member.chores.map((chore)=>(chore.id===data[1].id ? data[1] : chore))}
+          return {...member,chores:[...(member.chores),data[1]]}
         }
         else{
           return member
         }
-      })
+      }))
      
     }
     else{
-      users.map((member)=>{
+
+      setUsers(users.map((member)=>{
         if (member.id===data[0].user_id){
           return {...member,chores:member.chores.map((chore)=>(chore.id===data[0].id ? data[0] : chore))}
         }
         else{
           return member
         }
-    })
+    }))
     }
   }
 
@@ -214,13 +214,13 @@ function App() {
   
 
   return (
-    <div>{loading ? <h3>Loading...</h3>:
+    <div>{loading ? <h3 className="heading">Loading...</h3>:
       <div>
         <UserContext.Provider value={user}>
         <NavBar handleLogout={handleLogout}/>
         <Switch>
             <Route exact path="/login">
-              <CreateAccount onLogin={handleLogin}/>
+              <OpeningPage onLogin={handleLogin}/>
             </Route>
             <Route exact path="/chores">
               <ChorePage users={users} handleNewChore={handleNewChore} handleEditChore={handleEditChore} handleChoreClaim={handleChoreClaim} handleDelete={handleDelete}/>
@@ -238,7 +238,6 @@ function App() {
               <Home users={users} handleCheckChore={handleCheckChore} handleFinishedChore={handleFinishedChore} handleDelete={handleDelete} handleEditChore={handleEditChore}/>
             </Route>
         </Switch>
-        <Footer />
         </UserContext.Provider>
       </div>}
     </div>

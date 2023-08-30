@@ -52,10 +52,10 @@ class ChoresController < ApplicationController
         if chore.check
             check = chore.check
             chore.check.approved="pending"
-            check.save!
+            chore.save(validate: false)
         end
         chore.completed=1
-        chore.save!
+        chore.save(validate: false)
         render json: chore
     end
 

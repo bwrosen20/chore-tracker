@@ -22,7 +22,7 @@ return <div>
             {user.admin ? <div>
                 {newChoreForm ? <NewChoreForm onNewChore={onNewChore} users={users}/>:<div>
                 <h2 className="heading">Unnasigned Chores</h2>
-                <button className="PageHeading" onClick={()=>setNewChoreForm(!newChoreForm)}>Add new chore</button>
+                <a className="PageHeading" onClick={()=>setNewChoreForm(!newChoreForm)}>Add new chore</a>
                 </div>}
                 </div>: 
                     <div>

@@ -20,11 +20,17 @@ const [image,setImage]=useState(null)
 const [errors,setErrors]=useState([])
 
 function handleOptionChange(event){
-    console.log(formData.repeat_every)
-    if (event.target.value!="once"){
+        
+    if (event.target.value!=="once" && formData.participants.length>1){
         setShowParticipants(true)
+        setShowCycle(true)
+    }
+    else if (event.target.value!=="once" && formData.participants.length<=1){
+        setShowParticipants(true)
+        setShowCycle(false)
     }
     else{
+        setFormData({...formData,participants:[]})
         setShowParticipants(false)
         setShowCycle(false)
     }
@@ -42,7 +48,6 @@ function handleOptionChange(event){
             setFormData({...formData,repeat_every:[...(formData.repeat_every).filter((data)=>(!dayArray.includes(data))),(event.target.value)]})
         } 
     }
-    
 }
 
 function handleParticipantChange(event){
@@ -108,8 +113,10 @@ function handleSubmit(event){
     })
 }
 
-return <div>
+return <div className="newRepeatChoreForm">
 <form onSubmit={handleSubmit}>
+    <label>Title: </label>
+    <br></br>
     <input
     type="text"
     name="title"
@@ -117,6 +124,9 @@ return <div>
     placeholder="Title"
     onChange={handleChange}
     />
+    <br></br>
+    <label>Description: </label>
+    <br></br>
      <input
     rows="5"
     name="description"
@@ -124,6 +134,9 @@ return <div>
     placeholder="Description"
     onChange={handleChange}
     />
+    <br></br>
+    <label>Point Value: </label>
+    <br></br>
     <input
     type="text"
     name="point_value"
@@ -131,14 +144,18 @@ return <div>
     placeholder="Point Value"
     onChange={handleChange}
     />
-    <label>Due Date</label>
+    <br></br>
+    <label>First Due Date: </label>
+    <br></br>
     <input 
     type="datetime-local"
     name="due_date"
     value={formData.due_date}
     onChange={handleChange}
     />
-    <label>Repeat</label>
+    <br></br>
+    <label>Repeat: </label>
+    <br></br>
     {days ? <fieldset
     id="days"
     name="repeat_every"
@@ -213,6 +230,9 @@ return <div>
    <label for="specificDays">Choose Days</label>
    </fieldset>
    }
+   <br></br>
+    <label>Participants: </label>
+    <br></br>
     {showParticipants ?
     <div>
    <fieldset
@@ -280,15 +300,21 @@ return <div>
    
    </fieldset>
 }
+<br></br>
+    <label>Image: </label>
+    <br></br>
    <input
     type="file"
     accept="image/*"
     onChange={(e)=>setImage(e.target.files[0])}
    />
-   <button>Submit</button>
+   <br></br>
+    <br></br>
+   <button className="cardButton">Submit</button>
    </form>
-   <button onClick={returnFromForm}>Return</button>
-   {errors.map((error)=>(<error key={error}>{error}</error>))}
+   <div className="errorContainer">
+        {errors.map((error)=>(<div className="error"><error key={error}>{error}</error><br/></div>))}
+   </div>
 </div>
 
 }

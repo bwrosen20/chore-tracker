@@ -40,17 +40,18 @@ function RepeatChore({users,chore, handleEditRepeatChore, handleDeleteRepeatChor
                     <h3>{chore.title}</h3>
                     {youSure ? 
                     <div>
-                    <label>You Sure?</label>
                     <br></br>
-                    <button onClick={onDeleteRepeatChore}>I'm sure</button>
-                    <button onClick={()=>setYouSure(!youSure)}>Cancel</button>
+                    <button className="deleteButton" onClick={onDeleteRepeatChore}>Delete</button>
+                    <a className="return" onClick={()=>setYouSure(!youSure)}>Cancel</a>
                     </div>:
                     <div>
-                    <button onClick={()=>setShowEditRepeatChore(!showEditRepeatChore)}>Edit Repeating Chore</button>
+                    <a className="cardButton" onClick={()=>setShowEditRepeatChore(!showEditRepeatChore)}>Edit Repeating Chore</a>
                     <button className="delete" onClick={()=>setYouSure(!youSure)}>X</button>
                     </div>}
                 </div>}
-                {errors.map((error)=>(<error key={error}>{error}</error>))}
+                <div className="errorContainer">
+                        {errors.map((error)=>(<div className="error"><error key={error}>{error}</error><br/></div>))}
+                </div>
         </div>
 }
 

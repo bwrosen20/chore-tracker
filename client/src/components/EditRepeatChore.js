@@ -14,7 +14,7 @@ function EditChore({chore, users, returnFromEditChore, onEditRepeatChore}){
         participants:chore.participants
     })
     const [showParticipants,setShowParticipants]=useState(!chore.repeat_every.includes("once"))
-    const [showCycle,setShowCycle]=useState(true)
+    const [showCycle,setShowCycle]=useState(chore.participants.length>1)
     const [image,setImage]=useState(null)
     const [errors,setErrors]=useState([])
     const [loading,setLoading]=useState(false)
@@ -48,7 +48,6 @@ function EditChore({chore, users, returnFromEditChore, onEditRepeatChore}){
                 setFormData({...formData,repeat_every:[...(formData.repeat_every).filter((data)=>(!dayArray.includes(data))),(event.target.value)]})
             } 
         }
-        console.log(formData.participants)
     }
 
     function handleParticipantChange(event){
@@ -320,11 +319,12 @@ function EditChore({chore, users, returnFromEditChore, onEditRepeatChore}){
     />
     <br></br>
     <br></br>
-    <button>{loading ? "Loading..." : "Submit"}</button>
+    <a className="cardButton" onClick={handleSubmit}>{loading ? "Loading..." : "Submit"}</a>
     </form>
     <br></br>
-    <button onClick={returnFromEditChore}>Return</button>
-    {errors.map((error)=>(<error key={error}>{error}</error>))}
+    <div className="errorContainer">
+        {errors.map((error)=>(<div className="error"><error key={error}>{error}</error><br/></div>))}
+   </div>
     </div>
     
    

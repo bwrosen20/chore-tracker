@@ -2,9 +2,12 @@ import {useState} from 'react'
 
 function EditPrize({prize,onEditPrize}){
 
+    console.log(prize)
+
     const [formData,setFormData]=useState({
         title:prize.title,
         point_value:prize.point_value,
+        how_many_claims:prize.how_many_claims,
         image:null
     })
     const [errors,setErrors]=useState([])
@@ -18,6 +21,7 @@ function EditPrize({prize,onEditPrize}){
         const data = new FormData()
         data.append('title',formData.title)
         data.append('point_value',formData.point_value)
+        data.append('how_many_claims',parseInt(formData.how_many_claims))
         if (formData.image){data.append('image',formData.image)}
         fetch(`/prizes/${prize.id}`,{
             method:"PATCH",
@@ -50,6 +54,28 @@ function EditPrize({prize,onEditPrize}){
             name="point_value"
             value={formData.point_value}
             onChange={handleEditChange}/>
+             <br></br>
+            <label>How many claims left?</label>
+            <br></br>
+            <select 
+            name="how_many_claims"
+            value={formData.how_many_claims}
+            onChange={handleEditChange}
+            >
+            <option disabled value="no">How Many Claims?</option>
+            <option value="100">Keep Until Deleted</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+            </select>
+            <br></br>
             <br></br>
             <label>New Image: </label>
             <br></br>
@@ -60,7 +86,9 @@ function EditPrize({prize,onEditPrize}){
             <br></br>
             <a className="cardButton" onClick={handleSubmit}>Confirm</a>
         </form>
-        {errors.map((error)=>(<error key={error}>{error}</error>))}
+        <div className="errorContainer">
+                {errors.map((error)=>(<div className="error"><error key={error}>{error}</error><br/></div>))}
+        </div>
 
         
             

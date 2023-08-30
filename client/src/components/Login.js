@@ -7,12 +7,14 @@ function Login({onLoginClick,onLogin}){
         password:""
     })
     const [errors,setErrors]=useState([])
+    const [loading,setLoading]=useState(false)
 
     function handleChange(event){
         setFormData({...formData,[event.target.name]:event.target.value})
     }
 
     function handleLogin(event){
+        setLoading(true)
         event.preventDefault()
         fetch('/login',{
             method:"POST",
@@ -24,17 +26,22 @@ function Login({onLoginClick,onLogin}){
         .then((r)=>{
             if (r.ok){
                 r.json().then((data)=>onLogin(data,formData.email))
+                setLoading(false)
             }
             else{
                 r.json().then((err)=>setErrors(err.errors))
+                setLoading(false)
             }
         })
     }
 
 
-    return <div>
+    return <div className="loginCard">
         <form onSubmit={handleLogin}>
+            <label>Email: </label>
+            <br></br>
             <input
+                autoFocus
                 type="text"
                 placeholder="Email"
                 name="email"
@@ -42,6 +49,9 @@ function Login({onLoginClick,onLogin}){
                 value={formData.email}
                 onChange={handleChange}
             />
+            <br></br>
+            <label>Password: </label>
+            <br></br>
             <input
                 type="password"
                 placeholder="Password"
@@ -50,9 +60,16 @@ function Login({onLoginClick,onLogin}){
                 value={formData.password}
                 onChange={handleChange}
             />
-            <button>Login</button>
+            <br></br>
+            <br></br>
+            <button className="cardButton" onClick={handleLogin}>{loading ? "Loading..." : "Login"}</button>
         </form>
-        <button onClick={onLoginClick}>Return to Signup</button>
+        <div className="return" onClick={onLoginClick}>
+            <i class="fa-solid fa-arrow-left"></i>
+        </div>
+        <div className="errorContainer">
+                {errors.map((error)=>(<div className="error"><error key={error}>{error}</error><br/></div>))}
+        </div>
     </div>
 }
 

@@ -7,10 +7,15 @@ function Prize({prize,handleEditPrize,handleClaimPrize}){
     const user = useContext(UserContext)
     const [editPrize,setEditPrize]=useState(false)
     const [errors,setErrors]=useState([])
+    const [youSure,setYouSure]=useState(false)
 
     function onEditPrize(data){
         setEditPrize(!editPrize)
         handleEditPrize(data)
+    }
+
+    function onDelete(event){
+        console.log(event.target)
     }
 
     function onClaimPrize(event){
@@ -40,13 +45,28 @@ function Prize({prize,handleEditPrize,handleClaimPrize}){
                 <img src={prize.image} alt={prize.id} className="PrizePicture"/>
                 <h3 className="CenteredWords">{prize.title}</h3>
                 <h4 className="CenteredWords">{prize.point_value} Points</h4>
-                {user.admin?  
-            <a className="cardButton" onClick={()=>setEditPrize(!editPrize)}>Edit Prize</a>: 
+                {user.admin? 
+                youSure ? 
+                <div>
+                    <a className="deleteButton" onClick={onDelete} value="one">Delete</a>
+                    <div onClick={()=>{setYouSure(false)}}className="return">
+                        <i class="fa-solid fa-arrow-left"></i>
+                    </div>
+                </div>:
+                <div>
+                    <a className="cardButton" onClick={()=>setEditPrize(!editPrize)}>Edit Prize</a>
+                    {<button className="delete" onClick={()=>setYouSure(true)} value="one">X</button>} 
+                </div>:
+             
             user.prizes.includes(prize) ? null : <a className="cardButton" onClick={onClaimPrize}>Claim Prize</a>
             }
             </div>
         }
-        {errors.map((error)=>(<error key={error}>{error}</error>))}
+        {
+                                }
+        <div className="errorContainer">
+                {errors.map((error)=>(<div className="error"><error key={error}>{error}</error><br/></div>))}
+        </div>
     </div>
 }
 

@@ -11,12 +11,14 @@ function Signup({onSignupClick, onLogin}){
     })
     const [profileImage,setProfileImage]=useState(null)
     const [errors,setErrors]=useState([])
+    const [loading,setLoading]=useState(false)
 
     function handleChange(event){
         setData({...data,[event.target.name]:event.target.value})
     }
 
     function onFormSubmit(event){
+        setLoading(true)
         event.preventDefault()
         setErrors([])
         const formData= new FormData()
@@ -33,25 +35,32 @@ function Signup({onSignupClick, onLogin}){
             .then((r)=>{
                 if (r.ok){
                     r.json().then((user)=>onLogin(user))
+                    setLoading(false)
                 }
                 else{
                     r.json().then((err)=>setErrors(err.errors))
+                    setLoading(false)
                 }
             })
 
     }
 
 
-    return <div>
+    return <div className="loginCard">
        <form onSubmit={onFormSubmit}>
+            <label>Name: </label>
+            <br></br>
             <input
+            autoFocus
             type="text"
             placeholder="Name"
             name="userName"
             autoComplete="off"
             value={data.username}
             onChange={handleChange}/>
-
+            <br></br>
+            <label>Email: </label>
+            <br></br>
             <input
             type="text"
             placeholder="Email Address"
@@ -59,7 +68,9 @@ function Signup({onSignupClick, onLogin}){
             autoComplete="off"
             value={data.email}
             onChange={handleChange}/>
-
+            <br></br>
+            <label>Group Name: </label>
+            <br></br>
             <input
             type="text"
             placeholder="Group Name"
@@ -67,7 +78,9 @@ function Signup({onSignupClick, onLogin}){
             autoComplete="off"
             value={data.groupName}
             onChange={handleChange}/>
-
+            <br></br>
+            <label>Password: </label>
+            <br></br>
             <input
             type="password"
             placeholder="Password"
@@ -75,26 +88,34 @@ function Signup({onSignupClick, onLogin}){
             autoComplete="off"
             value={data.password}
             onChange={handleChange}/>
-
+            <br></br>
+            <label>Confirm Password: </label>
+            <br></br>
             <input
+            style={data.confirmPassword.length>0 ? data.confirmPassword===data.password ? {backgroundColor:"rgb(104, 211, 113)"} : {backgroundColor:"rgb(211, 104, 104)"} : {backgroundColor:"white"} }
             type="password"
             placeholder="Confirm Password"
             name="confirmPassword"
             autoComplete="off"
             value={data.confirmPassword}
             onChange={handleChange}/>
-
-            <label for="files">Select File</label>
+            <br></br>
+            <label>Profile Image: </label>
+            <br></br>
             <input
             type="file"
             placeholder="Profile Image"
             name="profileImage"
             value={data.profileImage}
             onChange={(e)=>setProfileImage(e.target.files[0])}/>
-            <button>Create Account</button>
+            <button className="cardButton" onClick={onFormSubmit}>{loading ? "Loading..." : "Create Account"}</button>
         </form>
-        {errors.map((error)=>(<error key={error}>{error}</error>))}
-        <button onClick={onSignupClick}>Return</button>
+        <div className="return" onClick={onSignupClick}>
+            <i class="fa-solid fa-arrow-left"></i>
+        </div>
+        <div className="errorContainer">
+                {errors.map((error)=>(<div className="error"><error key={error}>{error}</error><br/></div>))}
+        </div>
     </div>
 }
 
