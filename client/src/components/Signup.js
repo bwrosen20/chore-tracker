@@ -106,7 +106,6 @@ function Signup({onSignupClick, onLogin}){
             type="file"
             placeholder="Profile Image"
             name="profileImage"
-            value={data.profileImage}
             onChange={(e)=>setProfileImage(e.target.files[0])}/>
             <button className="cardButton" onClick={onFormSubmit}>{loading ? "Loading..." : "Create Account"}</button>
         </form>

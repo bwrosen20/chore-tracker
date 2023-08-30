@@ -9,7 +9,7 @@ class ChecksController < ApplicationController
             if chore.check
                 check = chore.check.update!(check_params)
             else
-                check = Check.create(check_params)
+                check = Check.new(check_params)
                 check.chore=chore
                 check.save!
             end
@@ -28,11 +28,16 @@ class ChecksController < ApplicationController
                     new_time = repeat_chore.due_date.to_s().slice(11,19)
                     if ["day","week","month"].include?(repeat_chore.repeat_every[0])
                         new_date = if repeat_chore.repeat_every[0]=="day"
-                                        Chronic.parse("tomorrow").to_s.slice(0,10)+"T"+new_time
+                                        Chronic.parse("tomorrow", now:time).to_s.slice(0,10)+"T"+new_time
+
+                                        # Chronic.parse('a week from now', now: Chronic.parse("tomorrow"))
+
                                     else
                                         
-                                        Chronic.parse("next #{repeat_chore.repeat_every[0]}").to_s.slice(0,10)+"T"+new_time
+                                        Chronic.parse("next #{repeat_chore.repeat_every[0]}", now:time).to_s.slice(0,10)+"T"+new_time
+
                                     end
+            
                                 
                     else
                         current_day = time.wday
@@ -85,8 +90,11 @@ class ChecksController < ApplicationController
                         new_chore.image.attach(repeat_chore.image.blob)
                         new_chore.save!
                     end
-
-            render json: [chore,new_chore], root:false
+            if new_chore
+                render json: [chore,new_chore], root: false
+            else
+                render json: chore
+            end
         else
             render json: {errors: ["Unauthorized"]}
         end

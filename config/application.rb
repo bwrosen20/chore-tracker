@@ -28,6 +28,8 @@ module ChoreTracker
 
     config.load_defaults 7.0
 
+    config.active_record.include_root_in_json = false
+
     # Configuration for the application, engines, and railties goes here.
     #
     # These settings can be overridden in specific environments using the files

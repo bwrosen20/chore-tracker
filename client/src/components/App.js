@@ -115,8 +115,8 @@ function App() {
     
     if (data[1]){
       setUsers(users.map((member)=>{
-        if ((data[1].id===data[0].id) && (data[0].id===member.id)){
-          return {...member,chores:[...member.chores.map((chore)=>(chore.id===data[0].id ? data[0] : chore)),data[1]]}
+        if ((data[1].user_id===data[0].user_id) && (data[0].user_id===member.id)){
+          return {...member,chores:[...(member.chores.map((chore)=>(chore.id===data[0].id ? data[0] : chore))),data[1]]}
         }
         else if (member.id===data[0].user_id){
           return {...member,chores:member.chores.map((chore)=>(chore.id===data[0].id ? data[0] : chore))}
@@ -133,8 +133,8 @@ function App() {
     else{
 
       setUsers(users.map((member)=>{
-        if (member.id===data[0].user_id){
-          return {...member,chores:member.chores.map((chore)=>(chore.id===data[0].id ? data[0] : chore))}
+        if (member.id===data.user_id){
+          return {...member,chores:(member.chores).map((chore)=>(chore.id===data.id ? data : chore))}
         }
         else{
           return member

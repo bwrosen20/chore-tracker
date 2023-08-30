@@ -8,13 +8,14 @@ function CreateAccount({onLogin,onCreateClick}){
         groupName:"",
         password:"",
         confirmPassword:"",
-        profileImage:null
     })
+    const [profileImage,setProfileImage]=useState(null)
     const [errors,setErrors]=useState([])
     const [loading,setLoading]=useState(false)
 
     function handleChange(event){
         setData({...data,[event.target.name]:event.target.value})
+        console.log(data)
     }
 
     function onFormSubmit(event){
@@ -27,7 +28,7 @@ function CreateAccount({onLogin,onCreateClick}){
         formData.append('group_name',data.groupName)
         formData.append('password',data.password)
         formData.append('password_confirmation',data.confirmPassword)
-        if (data.profileImage){formData.append('profile_image',data.profileImage)}
+        if (profileImage){formData.append('profile_image',profileImage)}
         fetch("/createAccount",{
             method: "POST",
             body: formData,
@@ -105,8 +106,8 @@ function CreateAccount({onLogin,onCreateClick}){
             type="file"
             placeholder="Profile Image"
             name="profileImage"
-            value={data.profileImage}
-            onChange={handleChange}/>
+            accept="image/*"
+            onChange={(e)=>setProfileImage(e.target.files[0])}/>
             <br></br>
             <br></br>
             <button className="cardButton" onClick={onFormSubmit}>{loading ? "Loading..." : "Create Account"}</button>
