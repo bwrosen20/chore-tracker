@@ -41,6 +41,7 @@ function CheckChore({chore,onCheckChore,returnFromCheckChore}){
             <input
             type="text"
             name="comment"
+            autocomplete="off"
             value={formData.comment}
             onChange={(e)=>setFormData({...formData,comment:e.target.value})}
             placeholder="Comment"

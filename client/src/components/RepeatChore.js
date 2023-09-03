@@ -1,7 +1,7 @@
 import {useState} from 'react'
 import EditRepeatChore from './EditRepeatChore'
 
-function RepeatChore({users,chore, handleEditRepeatChore, handleDeleteRepeatChore}){
+function RepeatChore({users,chore,handleEditRepeatChore,handleDeleteRepeatChore}){
 
     const [showEditRepeatChore,setShowEditRepeatChore]=useState(false)
     const [youSure,setYouSure]=useState(false)

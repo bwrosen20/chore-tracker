@@ -47,6 +47,7 @@ function NewPrizeForm({onNewPrize}){
             <input 
             type="text"
             name="title"
+            autocomplete="off"
             placeholder="Title"
             value={formData.title}
             onChange={handleChange}/>
@@ -57,6 +58,7 @@ function NewPrizeForm({onNewPrize}){
             rows="3"
             name="description"
             placeholder="Description"
+            autocomplete="off"
             value={formData.description}
             onChange={handleChange}/>
             <br></br>
@@ -100,7 +102,7 @@ function NewPrizeForm({onNewPrize}){
             />
             <br></br>
             <br></br>
-            <a className="cardButton">Submit</a>
+            <button className="cardButton" onClick={handleSubmit}>Submit</button>
         </form>
         <div className="errorContainer">
                 {errors.map((error)=>(<div className="error"><error key={error}>{error}</error><br/></div>))}

@@ -1,6 +1,6 @@
 import {useState} from 'react'
 
-function EditChore({chore, users, returnFromEditChore, onEditRepeatChore}){
+function EditChore({chore, users, onEditRepeatChore}){
 
     const userArray=users.filter((member)=>(!member.admin))
     const dayArray=["once","day","week","month"]
@@ -121,6 +121,7 @@ function EditChore({chore, users, returnFromEditChore, onEditRepeatChore}){
         <input
         type="text"
         name="title"
+        autocomplete="off"
         value={formData.title}
         placeholder="Title"
         onChange={handleChange}
@@ -131,6 +132,7 @@ function EditChore({chore, users, returnFromEditChore, onEditRepeatChore}){
         <textarea
         rows="3"
         name="description"
+        autocomplete="off"
         value={formData.description}
         placeholder="Description"
         onChange={handleChange}
@@ -141,6 +143,7 @@ function EditChore({chore, users, returnFromEditChore, onEditRepeatChore}){
         <input
         type="text"
         name="point_value"
+        autocomplete="off"
         value={formData.point_value}
         placeholder="Point Value"
         onChange={handleChange}

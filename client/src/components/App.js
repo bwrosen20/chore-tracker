@@ -83,6 +83,40 @@ function App() {
   }
   }
 
+  function handleNewRepeatChore(data){
+
+    console.log(data)
+
+    const repeatChore=data[data.length-1]
+    const chores=data.slice(0,data.length-1)
+    //array of chores and a new repeat chore
+
+    setUsers(users.map((member)=>{
+      if (repeatChore.participants.includes((member.id).toString())){
+        const new_chore = chores.find((chore)=>(chore.user_id===member.id))
+        return ({...member,chores:[...member.chores,new_chore],repeat_chores:[...member.repeat_chores,repeatChore]})
+      }
+      else{
+        return member
+      }
+    }))
+      if (repeatChore.participants.includes((user.id).toString())){
+        const new_chore = chores.find((chore)=>(chore.user_id===user.id))
+        setUser({...user,chores:[...user.chores,new_chore],repeat_chores:[...user.repeat_chores,repeatChore]})
+      }
+    // for (let i=0;i<chores.length;i++){
+    //   setUsers(users.map((member)=>{
+    //     console.log(member.id===chores[i].user_id)
+    //     return(member.id===chores[i].user_id ? {...member,chores:[...(member.chores),chores[i]]}: member)
+    //   }))
+    //   setUser({...user,chores:[...(user.chores),data[i]]})
+    // }
+    // setUsers(users.map((member)=>{
+    //   return(repeatChore.participants.includes((member.id).toString()) ? {...member,repeat_chores:[...member.repeat_chores,repeatChore]}: member)
+    // }))
+    // setUser(repeatChore.participants.includes((user.id).toString()) ? {...user,repeat_chores:[...user.repeat_chores,repeatChore]}: user)
+  }
+
   function handleEditChore(data){
     const user_id = users.map((member)=>(member.chores)).flat().find((chore)=>chore.id===data.id).user_id
 
@@ -109,10 +143,6 @@ function App() {
     }
 
   function handleCheckChore(data){
-
-    console.log(data)
-    
-    
     if (data[1]){
       setUsers(users.map((member)=>{
         if ((data[1].user_id===data[0].user_id) && (data[0].user_id===member.id)){
@@ -197,21 +227,58 @@ function App() {
 
   function handleEditRepeatChore(data){
     setUsers(users.map((member)=>{
-      return {...member,chores:member.chores.map((chore)=>(chore.repeat_chore.id===data.id ? {...chore,repeat_chore:data} : chore))}
+      return {...member,repeat_chores:member.repeat_chores.map((repeat_chore)=>(repeat_chore.id===data.id ? data : repeat_chore))}
     }))
-    setUser({...user,chores:user.chores.map((chore)=>(chore.repeat_chore.id===data.id ? {...chore,repeat_chore:data} : chore))})
+    setUser({...user,repeat_chores:user.repeat_chores.map((repeat_chore)=>(repeat_chore.id===data.id ? data : repeat_chore))})
   }
 
   function handleDeleteRepeatChore(data,id){
     setUsers(users.map((member)=>{
-      return {...member,chores:member.chores.map((chore)=>(chore.repeat_chore.id===id ? {...chore,repeat_chore:data} : chore))}
+      return {...member,chores:member.chores.map((chore)=>(chore.repeat_chore.id===id ? {...chore,repeat_chore:data} : chore)),
+              repeat_chores:member.repeat_chores.filter((repeat_chore)=>(repeat_chore.id!==id))}
     }))
-    setUser({...user,chores:user.chores.map((chore)=>(chore.repeat_chore.id===id ? data : chore))})
+    setUser({...user,chores:user.chores.map((chore)=>(chore.repeat_chore.id===id ? data : chore)),
+              repeat_chores:user.repeat_chores.filter((repeat_chore)=>(repeat_chore.id!==id))})
   }
 
-  console.log(users)
+  function handleDeletePrize(data){
+    setUsers(users.map((member)=>{
+      if (member.admin){
+        return {...member,prizes:member.prizes.filter((prize)=>(prize.id!==data))}
+      }
+      else {
+        return member
+      }
+    }))
+      setUser({...user,prizes:user.prizes.filter((prize)=>(prize.id!==data))})
+  }
 
-  
+  const repeatArray = []
+  const repeatChoreArray = users.map((participant)=>(participant.repeat_chores)).flat().filter((chore)=>(!chore.repeat_every.includes("once")))
+
+  if (repeatChoreArray.length>0){
+   repeatChoreArray.forEach((repeat_chore)=>{
+        repeatArray.push(repeat_chore)
+   })
+  }
+
+let uniqRepeatChores = []
+let count = 0
+let start = false
+
+for (let i = 0; i < repeatArray.length; i++) {
+  for (let j = 0; j < uniqRepeatChores.length; j++) {
+        if ( repeatArray[i].id == uniqRepeatChores[j].id ) {
+            start = true
+        }
+  }
+  count++
+if (count == 1 && start == false) {
+    uniqRepeatChores.push(repeatArray[i])
+}
+start = false;
+count = 0;
+}
 
   return (
     <div>{loading ? <h3 className="heading">Loading...</h3>:
@@ -226,13 +293,13 @@ function App() {
               <ChorePage users={users} handleNewChore={handleNewChore} handleEditChore={handleEditChore} handleChoreClaim={handleChoreClaim} handleDelete={handleDelete}/>
             </Route>
             <Route exact path="/repeat">
-              <RepeatChorePage handleNewChore={handleNewChore} handleEditRepeatChore={handleEditRepeatChore} handleDeleteRepeatChore={handleDeleteRepeatChore} users={users}/>
+              <RepeatChorePage handleNewRepeatChore={handleNewRepeatChore} handleEditRepeatChore={handleEditRepeatChore} handleDeleteRepeatChore={handleDeleteRepeatChore} users={users} uniqRepeatChores={uniqRepeatChores}/>
             </Route>
             <Route exact path="/prizes">
-              <PrizePage users={users} handleEditPrize={handleEditPrize} handleNewPrize={handleNewPrize} handleClaimPrize={handleClaimPrize}/>
+              <PrizePage users={users} handleDeletePrize={handleDeletePrize} handleEditPrize={handleEditPrize} handleNewPrize={handleNewPrize} handleClaimPrize={handleClaimPrize}/>
             </Route>
             <Route path="/users">
-              <UsersPage users={users}/>
+              <UsersPage users={users} uniqRepeatChores={uniqRepeatChores}/>
             </Route>
             <Route path="/">
               <Home users={users} handleCheckChore={handleCheckChore} handleFinishedChore={handleFinishedChore} handleDelete={handleDelete} handleEditChore={handleEditChore}/>

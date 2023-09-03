@@ -1,6 +1,6 @@
 import {useState} from 'react'
 
-function NewChoreForm({onNewChore,users, returnFromForm}){
+function NewChoreForm({onNewRepeatChore,users}){
 
 const dayArray=["once","day","week","month"]
 const [days,setDays]=useState(false)
@@ -90,7 +90,7 @@ function handleSubmit(event){
         data.append('title',formData.title)
         data.append('description',formData.description)
         data.append('point_value',parseInt(formData.point_value))
-        data.append('time_due',date)
+        data.append('due_date',date)
         for (let i = 0; i<(formData.repeat_every).length; i++){
             data.append('repeat_every[]',formData.repeat_every[i])
         }
@@ -105,7 +105,7 @@ function handleSubmit(event){
     })
     .then(r=>{
         if ((r).ok){
-            r.json().then((res)=>onNewChore(res))
+            r.json().then((res)=>onNewRepeatChore(res))
         }
         else{
             r.json().then((err)=>setErrors(err.errors))
@@ -120,6 +120,7 @@ return <div className="newRepeatChoreForm">
     <input
     type="text"
     name="title"
+    autocomplete="off"
     value={formData.title}
     placeholder="Title"
     onChange={handleChange}
@@ -127,9 +128,10 @@ return <div className="newRepeatChoreForm">
     <br></br>
     <label>Description: </label>
     <br></br>
-     <input
-    rows="5"
+     <textarea
+    rows="3"
     name="description"
+    autocomplete="off"
     value={formData.description}
     placeholder="Description"
     onChange={handleChange}
@@ -140,6 +142,7 @@ return <div className="newRepeatChoreForm">
     <input
     type="text"
     name="point_value"
+    autocomplete="off"
     value={formData.point_value}
     placeholder="Point Value"
     onChange={handleChange}
@@ -166,36 +169,43 @@ return <div className="newRepeatChoreForm">
        value={1}
        checked={formData.repeat_every.includes('1') ? true : false}/>
        <label>Monday</label>
+       <br></br>
        <input 
        type="checkbox"
        value={2}
        checked={formData.repeat_every.includes('2') ? true : false}/>
        <label>Tuesday</label>
+       <br></br>
        <input 
        type="checkbox"
        value={3}
        checked={formData.repeat_every.includes('3') ? true : false}/>
        <label>Wednesday</label>
+       <br></br>
       <input 
        type="checkbox"
        value={4}
        checked={formData.repeat_every.includes('4') ? true : false}/>
        <label>Thursday</label>
+       <br></br>
        <input 
        type="checkbox"
        value={5}
        checked={formData.repeat_every.includes('5') ? true : false}/>
        <label>Friday</label>
+       <br></br>
        <input 
        type="checkbox"
        value={6}
        checked={formData.repeat_every.includes('6') ? true : false}/>
        <label>Saturday</label>
+       <br></br>
        <input 
        type="checkbox"
        value={7}
        checked={formData.repeat_every.includes('7') ? true : false}/>
        <label>Sunday</label>
+       <br></br>
        <button onClick={()=>setDays(!days)}>Return</button>
    </fieldset>:
   <fieldset
@@ -207,21 +217,25 @@ return <div className="newRepeatChoreForm">
    checked = {(formData.repeat_every.includes("once")||formData.repeat_every==="") ? true : false}
    value="once"/>
     <label>Once</label>
+    <br></br>
    <input
    type="radio"
    checked = {formData.repeat_every.includes("day") ? true : false}
    value="day"/>
     <label>Daily</label>
+    <br></br>
    <input
    type="radio"
    checked = {formData.repeat_every.includes("week") ? true : false}
    value="week"/>
     <label>Weekly</label>
+    <br></br>
    <input
    type="radio"
    checked = {formData.repeat_every.includes("month") ? true : false}
    value="month"/>
    <label>Monthly</label>
+   <br></br>
    <input
    type="radio"
    id="specificDays"
@@ -252,6 +266,7 @@ return <div className="newRepeatChoreForm">
         checked={formData.participants.includes((member.id).toString()) ? true : false}
         value={member.id}/>
          <label>{member.username}</label>
+         <br></br>
          </div>
     ))}
    

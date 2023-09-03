@@ -64,6 +64,7 @@ function EditChore({onEditChore, chore, users}){
         <input
         type="text"
         name="title"
+        autocomplete="off"
         value={formData.title}
         placeholder="Title"
         onChange={handleChange}
@@ -74,6 +75,7 @@ function EditChore({onEditChore, chore, users}){
         <textarea
         rows="3"
         name="description"
+        autocomplete="off"
         value={formData.description}
         placeholder="Description"
         onChange={handleChange}
@@ -84,6 +86,7 @@ function EditChore({onEditChore, chore, users}){
         <input
         type="text"
         name="point_value"
+        autocomplete="off"
         value={formData.point_value}
         placeholder="Point Value"
         onChange={handleChange}

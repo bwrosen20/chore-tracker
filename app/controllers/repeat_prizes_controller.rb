@@ -1,4 +1,3 @@
 class RepeatPrizesController < ApplicationController
-
    
 end

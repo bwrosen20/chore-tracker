@@ -3,7 +3,7 @@ import NewPrizeForm from './NewPrizeForm'
 import {UserContext} from './App'
 import {useContext, useState} from 'react'
 
-function PrizePage({users,handleEditPrize,handleNewPrize,handleClaimPrize}){
+function PrizePage({users,handleEditPrize,handleNewPrize,handleClaimPrize,handleDeletePrize}){
 
     const user = useContext(UserContext)
     const admin = users.find((member)=>(member.admin))
@@ -25,7 +25,7 @@ function PrizePage({users,handleEditPrize,handleNewPrize,handleClaimPrize}){
             :<a className="PageHeading" onClick={()=>setNewPrize(!newPrize)}>Add new Prize</a> : null}
         <div className="PrizeContainer">
             {prizes.map((prize)=>(
-                <Prize prize={prize} key={prize.id} handleEditPrize={handleEditPrize} handleClaimPrize={handleClaimPrize}/>
+                <Prize prize={prize} key={prize.id} handleDeletePrize={handleDeletePrize} handleEditPrize={handleEditPrize} handleClaimPrize={handleClaimPrize}/>
             ))}
         </div>
     </div>

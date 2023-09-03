@@ -55,6 +55,7 @@ return <div className="newChoreForm">
     <input
     type="text"
     name="title"
+    autocomplete="off"
     value={formData.title}
     placeholder="Title"
     onChange={handleChange}
@@ -65,6 +66,7 @@ return <div className="newChoreForm">
      <textarea
     rows="3"
     name="description"
+    autocomplete="off"
     value={formData.description}
     placeholder="Description"
     onChange={handleChange}
@@ -75,6 +77,7 @@ return <div className="newChoreForm">
     <input
     type="text"
     name="point_value"
+    autocomplete="off"
     value={formData.point_value}
     placeholder="Point Value"
     onChange={handleChange}

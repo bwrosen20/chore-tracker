@@ -34,6 +34,20 @@ class PrizesController < ApplicationController
         end
     end
 
+    def destroy
+        user = User.find(session[:user_id])
+        if user.admin
+            prize = Prize.find(params[:id])
+            repeat_prize = RepeatPrize.find(prize.repeat_prize.id)
+            if repeat_prize.how_many_claims!=1
+                repeat_prize.destroy
+            end
+            prize.destroy
+
+            head :no_content
+        end
+    end
+
 
     private
 

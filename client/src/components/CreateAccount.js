@@ -35,7 +35,7 @@ function CreateAccount({onLogin,onCreateClick}){
         })
             .then((r)=>{
                 if (r.ok){
-                    r.json().then((user)=>onLogin(user))
+                    r.json().then((res)=>onLogin(res,data.email))
                     setLoading(false)
                 }
                 else{

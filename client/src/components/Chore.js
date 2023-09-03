@@ -126,7 +126,10 @@ function Chore({chore,users,handleEditChore,handleCheckChore,handleChoreClaim,ha
                             </div>:
                             checkChore ?
                                 <CheckChore returnFromCheckChore={returnFromCheckChore} onCheckChore={onCheckChore} chore={chore}/>:
-                                <a className="cardButton" onClick={()=>setCheckChore(!checkChore)}>Check Chore</a>): 
+                                <div>
+                                <h4>Due: {due_date} @{time}</h4>
+                                <a className="cardButton" onClick={()=>setCheckChore(!checkChore)}>Check Chore</a>
+                                </div>): 
 
                     //if user is not admin
                                     chore.check ? 
@@ -135,8 +138,9 @@ function Chore({chore,users,handleEditChore,handleCheckChore,handleChoreClaim,ha
                                     <div>
                                         <h3>Approved</h3>
                                         <h4>{dateCompleted} @{completedTime}</h4>
+                                        <p>{chore.check.comment}</p>
                                         </div>: 
-                                        chore.check.approved==="rejected"?<div><h3 className="BottomWords">Rejected</h3><button className="BottomWords" onClick={iDidIt}>Try Again</button></div>:<h3 className="BottomWords">Pending</h3>:
+                                        chore.check.approved==="rejected"?<div><h3>Rejected</h3><p>{chore.check.comment}</p><button onClick={iDidIt}>Try Again</button></div>:<h3>Pending</h3>:
                                     
                                 //chore does not have a check    
                                         chore.completed ?

@@ -1,18 +1,6 @@
-function User({user, users}){
+function User({user,uniqRepeatChores}){
 
-   const repeat_array = []
-
-   const chore_array = users.map((participant)=>(participant.chores)).flat()
-
-   if (user.user_repeat_chores.length>0){
-    user.user_repeat_chores.forEach((repeat_chore)=>{
-        const chore_image = chore_array.find((chore)=>(repeat_chore.id==chore.repeat_chore.id)).image
-         repeat_array.push({...repeat_chore,image:chore_image})
-    })
-   }
-   
-
-    console.log(repeat_array)
+    const repeat_array = uniqRepeatChores.filter((chore)=>(chore.participants.includes((user.id).toString())))
 
     return <div className={user.admin ? "adminCard":"userCard"}>
         <div>

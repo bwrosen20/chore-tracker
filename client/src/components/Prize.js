@@ -2,7 +2,7 @@ import {UserContext} from './App'
 import {useContext, useState} from 'react'
 import EditPrize from './EditPrize'
 
-function Prize({prize,handleEditPrize,handleClaimPrize}){
+function Prize({prize,handleEditPrize,handleClaimPrize,handleDeletePrize}){
 
     const user = useContext(UserContext)
     const [editPrize,setEditPrize]=useState(false)
@@ -14,8 +14,11 @@ function Prize({prize,handleEditPrize,handleClaimPrize}){
         handleEditPrize(data)
     }
 
-    function onDelete(event){
-        console.log(event.target)
+    function onDelete(){
+        fetch( `/prizes/${prize.id}`,{
+            method:"DELETE"
+        })
+        .then(handleDeletePrize(prize.id))
     }
 
     function onClaimPrize(event){

@@ -32,9 +32,10 @@ class ChecksController < ApplicationController
 
                                         # Chronic.parse('a week from now', now: Chronic.parse("tomorrow"))
 
-                                    else
+                                    else 
                                         
-                                        Chronic.parse("next #{repeat_chore.repeat_every[0]}", now:time).to_s.slice(0,10)+"T"+new_time
+                                        Chronic.parse("a #{repeat_chore.repeat_every[0]} from now", now:time).to_s.slice(0,10)+"T"+new_time
+
 
                                     end
             

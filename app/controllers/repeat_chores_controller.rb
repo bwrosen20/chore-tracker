@@ -40,7 +40,7 @@ class RepeatChoresController < ApplicationController
                     new_chore.user=user
                     new_chore.image.attach(new_repeat_chore.image.blob)
                     new_chore.save!
-                    render json: [new_chore], status: :created
+                    render json: [new_chore,new_repeat_chore], root: false, status: :created
 
                 elsif new_repeat_chore.cycle_between
                     new_chore = new_repeat_chore.chores.new(
@@ -54,7 +54,7 @@ class RepeatChoresController < ApplicationController
                     new_chore.user=next_participant
                     new_chore.image.attach(new_repeat_chore.image.blob)
                     new_chore.save!
-                    render json: [new_chore], status: :created
+                    render json: [new_chore,new_repeat_chore], root: false, status: :created
 
                 else
                     new_chore_array = []
@@ -73,7 +73,7 @@ class RepeatChoresController < ApplicationController
                         new_chore_array << new_chore
                     end
 
-                    render json: new_chore_array, status: :created
+                    render json: [*new_chore_array,new_repeat_chore], root: false, status: :created
                 end  
 
 
@@ -91,35 +91,3 @@ class RepeatChoresController < ApplicationController
     end
 
 end
-
-
-# if ["day","week","month"].include?(new_repeat_chore.repeat_every[0])
-#     new_date = if new_repeat_chore.repeat_every[0]=="day"
-#                     Chronic.parse("tomorrow").time.to_s.slice(0,10)+"T"+new_time
-#                 else
-                    
-#                     Chronic.parse("next #{new_repeat_chore.repeat_every[0]}").time.to_s.slice(0,10)+"T"+new_time
-#                 end
-            
-# else
-#     current_day = time.wday
-#     day_array = ((new_repeat_chore.repeat_every).map{|day| day.to_i}).sort
-#     next_chore_day = day_array.filter{|day|day>current_day}[0]? day_array.filter{|day|day>current_day}[0] : day_array[0]
-#     new_date=case next_chore_day
-#     when 1  
-#         Chronic.parse("monday").time.to_s.slice(0,10)+"T"+new_time
-#     when 2
-#         Chronic.parse("tuesday").time.to_s.slice(0,10)+"T"+new_time
-#     when 3
-#         Chronic.parse("wednesday").time.to_s.slice(0,10)+"T"+new_time
-#     when 4
-#         Chronic.parse("thursday").time.to_s.slice(0,10)+"T"+new_time
-#     when 5
-#         Chronic.parse("friday").time.to_s.slice(0,10)+"T"+new_time
-#     when 6
-#         Chronic.parse("saturday").time.to_s.slice(0,10)+"T"+new_time
-#     when 7
-#         Chronic.parse("sunday").time.to_s.slice(0,10)+"T"+new_time
-#     end
-    
-# end

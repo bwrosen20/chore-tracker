@@ -2,6 +2,8 @@ class PrizeSerializer < ActiveModel::Serializer
   include Rails.application.routes.url_helpers
   attributes :id, :title, :description, :point_value, :updated_at, :how_many_claims, :image
 
+  belongs_to :repeat_prize
+
   def image
     rails_blob_path(object.image, only_path: true) if object.image.attached?
   end

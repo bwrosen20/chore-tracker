@@ -44,6 +44,7 @@ function EditPrize({prize,onEditPrize}){
              <input 
             type="text"
             name="title"
+            autocomplete="off"
             value={formData.title}
             onChange={handleEditChange}/>
             <br></br>
@@ -52,6 +53,7 @@ function EditPrize({prize,onEditPrize}){
             <input 
             type="text"
             name="point_value"
+            autocomplete="off"
             value={formData.point_value}
             onChange={handleEditChange}/>
              <br></br>
@@ -59,6 +61,7 @@ function EditPrize({prize,onEditPrize}){
             <br></br>
             <select 
             name="how_many_claims"
+            autocomplete="off"
             value={formData.how_many_claims}
             onChange={handleEditChange}
             >
