@@ -23,7 +23,7 @@ function PrizePage({users,handleEditPrize,handleNewPrize,handleClaimPrize,handle
         {user.admin ? 
             newPrize ? 
             <NewPrizeForm onNewPrize={onNewPrize}/>
-            :<div className="headingContainer"><a className="PageHeading" onClick={()=>setNewPrize(!newPrize)}>Add new Prize</a><div className="info" onMouseOver={()=>setShowInfo(true)} onMouseLeave={()=>(setShowInfo(false))}> <i class="fa-solid fa-question"></i></div>
+            :<div className="headingContainer"><a className="PageHeading" onClick={()=>setNewPrize(!newPrize)}>Add new Prize</a><div className={showInfo ? "infoFocus":"info"} onMouseOver={()=>setShowInfo(true)} onMouseLeave={()=>(setShowInfo(false))} onClick={()=>(setShowInfo(!showInfo))}> <i class="fa-solid fa-question"></i></div>
             <p className={showInfo ? "buttonInfo" : "buttonInfoNone"}>Create a new prize. You can update the amount of claims at any point.
                 Users will be able to spend their points on prizes. When a user claims a prize, it will appear on 
                 your home page where you can award it.</p></div> : null}

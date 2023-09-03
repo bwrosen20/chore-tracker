@@ -8,6 +8,7 @@ function ChorePage({users,handleNewChore,handleEditChore,handleChoreClaim,handle
     const user = useContext(UserContext)
     const admin=users.find((member)=>member.admin)
     const [newChoreForm,setNewChoreForm]=useState(false)
+    const [showInfo,setShowInfo]=useState(false)
 
     function onNewChore(data){
         setNewChoreForm(!newChoreForm)
@@ -22,7 +23,9 @@ return <div>
             {user.admin ? <div>
                 {newChoreForm ? <NewChoreForm onNewChore={onNewChore} users={users}/>:<div>
                 <h2 className="heading">Unnasigned Chores</h2>
-                <a className="PageHeading" onClick={()=>setNewChoreForm(!newChoreForm)}>Add new chore</a>
+                <div className="headingContainer"><a className="PageHeading" onClick={()=>setNewChoreForm(!newChoreForm)}>Add new Chore</a><div className={showInfo ? "infoFocus":"info"} onMouseOver={()=>setShowInfo(true)} onMouseLeave={()=>(setShowInfo(false))} onClick={()=>(setShowInfo(!showInfo))}> <i class="fa-solid fa-question"></i></div>
+            <p className={showInfo ? "buttonInfo" : "buttonInfoNone"}>Create a new single chore. This chore will never repeat.
+            If you would like to make a repeating chore, please go to the repeating chore page.</p></div>
                 </div>}
                 </div>: 
                     <div>

@@ -72,7 +72,7 @@ function Home({users,handleCheckChore,handleFinishedChore,handleDelete,handleEdi
                 <div className="HomeContainer">
                     <div className="UserInfo">
                         <img className="HomeImage" src={user.profile_image} alt={user.name}/>  
-                        <h3 className="points">You have {user.points} points</h3>
+                        <h3 className="points">You have {user.points ? user.points : "0"} points</h3>
                     </div>
 
                     <div className="ChoreSection">
