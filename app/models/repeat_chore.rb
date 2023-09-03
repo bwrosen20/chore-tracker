@@ -7,7 +7,8 @@ class RepeatChore < ApplicationRecord
     validates :title, presence: :true
     validates :description, presence: :true
     validates :point_value, numericality: {
-        greater_than_or_equal_to: 1
+        greater_than_or_equal_to: 1,
+        less_than_or_equal_to: 100000
     }
     validates :repeat_every, presence: :true
     validates :due_date, presence: :true

@@ -131,7 +131,7 @@ function EditChore({onEditChore, chore, users}){
     />
     <br></br>
      <br></br>
-    <a className="cardButton" onClick={handleSubmit}>{loading ? "Loading..." : "Submit"}</a>
+    <button className="cardButton" onClick={handleSubmit}>{loading ? "Loading..." : "Submit"}</button>
     </form>
     <br></br>
    

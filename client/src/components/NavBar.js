@@ -66,7 +66,7 @@ function NavBar({handleLogout}) {
         </ul>
       </div>
       <a className="LogoutButton" onClick={handleLogout}>Logout</a>
-      <div className="NavBars" class="NavBars" onClick={toggleClass}>
+      <div class="NavBars" onClick={toggleClass}>
       <i className={isOpen ? 'fa-solid fa-xmark' : 'fa-solid fa-bars'}></i>
       </div>
       </div>

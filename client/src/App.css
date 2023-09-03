@@ -494,6 +494,10 @@ footer{
     cursor:pointer;
     transition:width .2s cubic-bezier(0.075, 0.82, 0.165, 1)
   }
+
+  .info{
+    display:block;
+  }
 }
 
 @media(min-width:721px){
@@ -515,7 +519,7 @@ footer{
     display:block;
     margin: 40px auto 40px;
     text-align:center;
-    width:30%;
+    width:75%;
     background-color:lightblue;
     padding:0.5rem 1rem;
     border:none;
@@ -524,7 +528,52 @@ footer{
     font-size:20px;
     font-weight:bold;
     cursor:pointer;
-    transition:width .2s cubic-bezier(0.075, 0.82, 0.165, 1)
+    transition:width .2s cubic-bezier(0.075, 0.82, 0.165, 1);
+  }
+
+  .headingContainer{
+    display:flex;
+    position:relative;
+    margin:auto;
+    width:50%;
+  }
+
+  .info{
+    scale:1.2;
+    background-color:rgba(173, 216, 230, 0.459);
+    justify-content:center;
+    margin-top:45px;
+    padding:5px;
+    border-radius:25px;
+    border:.5px solid black;
+    margin-right:20px;
+    align-items:center;
+    height:min-content;
+    width:min-content;
+  }
+
+    .info:hover{
+      background-color:lightblue;
+    }
+
+  .buttonInfo{
+    position:absolute;
+    width:90%;
+    text-align:center;
+    justify-content:center;
+    background:rgba(132, 143, 182, 0.4);
+    box-shadow:1px 3px 3px rgba(0, 0, 0, 0.15);
+    border-radius:10px;
+    top:75px;
+    margin-left:30px;
+    z-index:5;
+    backdrop-filter:blur(10px);
+    transition:.4s;
+    
+  }
+
+  .buttonInfoNone{
+    display:none;
   }
   
 }

@@ -122,7 +122,7 @@ return <div className="newChoreForm">
    />
    <br></br>
    <br></br>
-   <a className="cardButton" onClick={handleSubmit}>Submit</a>
+   <button className="cardButton" onClick={handleSubmit}>Submit</button>
    </form>
    <div className="errorContainer">
         {errors.map((error)=>(<div className="error"><error key={error}>{error}</error><br/></div>))}

@@ -8,7 +8,8 @@ class Chore < ApplicationRecord
     validates :title, presence: :true, on: [:create,:update]
     validates :description, presence: :true, on: [:create,:update]
     validates :point_value, numericality: {
-        greater_than_or_equal_to: 1
+        greater_than_or_equal_to: 1,
+        less_than_or_equal_to: 10000
     }, on: [:create,:update]
     validate :due_date_acceptable, on: [:create,:update]
     validate :acceptable_image, on: :create

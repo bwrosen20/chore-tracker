@@ -88,7 +88,7 @@ function EditPrize({prize,onEditPrize}){
             name="image"/>
             <br></br>
             <br></br>
-            <a className="cardButton" onClick={handleSubmit}>Confirm</a>
+            <button className="cardButton" onClick={handleSubmit}>Confirm</button>
         </form>
         <div className="errorContainer">
                 {errors.map((error)=>(<div className="error"><error key={error}>{error}</error><br/></div>))}

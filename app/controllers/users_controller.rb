@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-    skip_before_action :authorized, only: [:createAccount, :signup, :index]
+    skip_before_action :authorized, only: [:createAccount, :signup]
     include Rails.application.routes.url_helpers
 
     def createAccount
@@ -26,9 +26,8 @@ class UsersController < ApplicationController
     end
 
     def index
-        # current_user = User.find(session[:user_id])
-        # users = User.where(group_name:current_user.group_name)
-        users = User.all
+        current_user = User.find(session[:user_id])
+        users = User.where(group_name:current_user.group_name)
         render json: users
     end
 

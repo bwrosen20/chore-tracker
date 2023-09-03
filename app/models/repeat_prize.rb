@@ -6,7 +6,8 @@ class RepeatPrize < ApplicationRecord
     validates :title, presence: :true
     validates :description, presence: :true
     validates :point_value, numericality: {
-        greater_than_or_equal_to:1
+        greater_than_or_equal_to:1,
+        less_than_or_equal_to:10000
     }
     validates :how_many_claims, presence: :true
     validate :acceptable_image
