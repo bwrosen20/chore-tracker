@@ -44,6 +44,7 @@ class UsersController < ApplicationController
             user.points-=prize.point_value
             prize.user = user
             prize.save!
+            user.save!
             if repeat_prize.how_many_claims!=100
                 repeat_prize.how_many_claims-=1
                 repeat_prize.save!

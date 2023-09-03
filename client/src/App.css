@@ -457,6 +457,7 @@ footer{
   display:flex;
   flex-direction:row;
   column-gap:15px;
+  row-gap:15px;
   flex-wrap:wrap;
   justify-content:center;
   align-items:center;
@@ -473,7 +474,7 @@ footer{
       justify-content:center;
       align-items:center;
       flex: 1;
-      min-width:100px;
+      min-width:200px;
       min-height:200px;
       max-width:300px;
   }
