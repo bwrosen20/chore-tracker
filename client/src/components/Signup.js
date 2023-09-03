@@ -34,7 +34,7 @@ function Signup({onSignupClick, onLogin}){
         })
             .then((r)=>{
                 if (r.ok){
-                    r.json().then((user)=>onLogin(user))
+                    r.json().then((res)=>onLogin(res,data.email))
                     setLoading(false)
                 }
                 else{
@@ -107,7 +107,9 @@ function Signup({onSignupClick, onLogin}){
             placeholder="Profile Image"
             name="profileImage"
             onChange={(e)=>setProfileImage(e.target.files[0])}/>
-            <button className="cardButton" onClick={onFormSubmit}>{loading ? "Loading..." : "Create Account"}</button>
+            <br></br>
+            <br></br>
+            <button className="cardButton" onClick={onFormSubmit}>{loading ? "Loading..." : "Signup"}</button>
         </form>
         <br></br>
         <div className="return" onClick={onSignupClick}>

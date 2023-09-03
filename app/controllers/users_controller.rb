@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-    skip_before_action :authorized, only: [:createAccount, :signup]
+    skip_before_action :authorized, only: [:createAccount, :signup, :index]
     include Rails.application.routes.url_helpers
 
     def createAccount
@@ -17,16 +17,18 @@ class UsersController < ApplicationController
                 new_user = User.new(user_params)
                 new_user.admin=false
                 new_user.save!
+                users = User.where("group_name=?",new_user.group_name)
                 session[:user_id]=new_user.id
-                render json: [new_user], status: :created
+                render json: [*users], status: :created
             else
                 render json: {errors: ["Group must have admin"]}, status: :not_found
             end
     end
 
     def index
-        current_user = User.find(session[:user_id])
-        users = User.where(group_name:current_user.group_name)
+        # current_user = User.find(session[:user_id])
+        # users = User.where(group_name:current_user.group_name)
+        users = User.all
         render json: users
     end
 
