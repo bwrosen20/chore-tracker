@@ -66,6 +66,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_29_152005) do
     t.string "title"
     t.text "description"
     t.integer "point_value"
+    t.boolean "awarded"
     t.integer "user_id"
     t.integer "repeat_prize_id"
     t.datetime "created_at", null: false

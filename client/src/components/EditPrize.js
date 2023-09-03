@@ -44,6 +44,7 @@ function EditPrize({prize,onEditPrize}){
              <input 
             type="text"
             name="title"
+            autoFocus
             autocomplete="off"
             value={formData.title}
             onChange={handleEditChange}/>

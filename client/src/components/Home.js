@@ -3,9 +3,7 @@ import Prize from './Prize'
 import {useContext,useState} from 'react'
 import {UserContext} from './App'
 
-function Home({users,handleCheckChore,handleFinishedChore,handleDelete,handleEditChore}){
-
-    console.log(users)
+function Home({users,handleCheckChore,handleFinishedChore,handleDelete,handleEditChore,handleAwardPrize}){
     
 
     const user = useContext(UserContext)
@@ -14,6 +12,7 @@ function Home({users,handleCheckChore,handleFinishedChore,handleDelete,handleEdi
     const completedChores=user.chores.filter((chore)=>(chore.completed)).sort((a,b)=>(new Date(b.updated_at)-new Date(a.updated_at))).slice(0,3)
     const recentPrizes=user.prizes.sort((a,b)=>(new Date(b.updated_at)-new Date(a.updated_at))).slice(0,3)
     const toDoList = user.chores.filter((chore)=>(!chore.completed))
+    const prizesToAward = users.filter((member)=>(!member.admin)).map((participant)=>(participant.prizes)).flat().filter((prize)=>(!prize.awarded))
     
 
         const choreArray=[]
@@ -26,6 +25,8 @@ function Home({users,handleCheckChore,handleFinishedChore,handleDelete,handleEdi
 
     return <div>
         {user.admin?
+
+        //User is admin
         <div>
             <div className="HomeContainer">
                 <div className="UserInfo">
@@ -39,6 +40,14 @@ function Home({users,handleCheckChore,handleFinishedChore,handleDelete,handleEdi
                     ))}
                     </div>
                </div>
+               <div className="ChoreSection">
+                    <h1 className="heading">Prizes Earned</h1>
+                    <div className="ChoreContainer">
+                        {prizesToAward.map((prize)=>(
+                            <Prize key={prize.id} prize={prize} handleAwardPrize={handleAwardPrize}/>
+                        ))}
+                    </div>
+                </div>
                </div>
 
                <h2 className="heading">User To Do Lists</h2>
@@ -56,6 +65,9 @@ function Home({users,handleCheckChore,handleFinishedChore,handleDelete,handleEdi
                 </div>
            
         </div>:
+
+        //User is not admin
+
             <div>
                 <div className="HomeContainer">
                     <div className="UserInfo">

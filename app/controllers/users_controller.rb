@@ -44,7 +44,6 @@ class UsersController < ApplicationController
             user.points-=prize.point_value
             prize.user = user
             prize.save!
-            user.save!
             if repeat_prize.how_many_claims!=100
                 repeat_prize.how_many_claims-=1
                 repeat_prize.save!
@@ -59,7 +58,7 @@ class UsersController < ApplicationController
                 new_prize.repeat_prize = repeat_prize
                 new_prize.save!
             end
-            render json: [prize,new_prize]
+            render json: [prize,new_prize], root: false
         else
             render json: {errors: ["Not enough points"]}, status: :unprocessable_entity 
         

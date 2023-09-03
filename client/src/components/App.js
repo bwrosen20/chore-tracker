@@ -104,17 +104,7 @@ function App() {
         const new_chore = chores.find((chore)=>(chore.user_id===user.id))
         setUser({...user,chores:[...user.chores,new_chore],repeat_chores:[...user.repeat_chores,repeatChore]})
       }
-    // for (let i=0;i<chores.length;i++){
-    //   setUsers(users.map((member)=>{
-    //     console.log(member.id===chores[i].user_id)
-    //     return(member.id===chores[i].user_id ? {...member,chores:[...(member.chores),chores[i]]}: member)
-    //   }))
-    //   setUser({...user,chores:[...(user.chores),data[i]]})
-    // }
-    // setUsers(users.map((member)=>{
-    //   return(repeatChore.participants.includes((member.id).toString()) ? {...member,repeat_chores:[...member.repeat_chores,repeatChore]}: member)
-    // }))
-    // setUser(repeatChore.participants.includes((user.id).toString()) ? {...user,repeat_chores:[...user.repeat_chores,repeatChore]}: user)
+  
   }
 
   function handleEditChore(data){
@@ -174,18 +164,12 @@ function App() {
   }
 
   function handleClaimPrize(data){
-    const admin = users.find((member)=>member.admin)
-    admin.prizes=admin.prizes.filter((prize)=>(prize.id!==data[0].id))
-    if (data[1]){
-      admin.prizes=[...admin.prizes,data[1]]
-      console.log(admin.prizes)
-    }
     setUsers(users.map((member)=>{
       if (member.id===user.id){
-        return {...user,prizes:[...(user.prizes),data[0]],points:user.points-data[0].point_value}
+        return {...member,prizes:[...(member.prizes),data[0]],points:member.points-data[0].point_value}
       }
-      else if (member.admin){
-        return admin
+      else if (member.admin && data[1]){
+        return {...member,prizes:[...member.prizes.filter((prize)=>(prize.id!==data[0].id)),data[1]]}
       }
       else{
         return member
@@ -230,6 +214,12 @@ function App() {
       return {...member,repeat_chores:member.repeat_chores.map((repeat_chore)=>(repeat_chore.id===data.id ? data : repeat_chore))}
     }))
     setUser({...user,repeat_chores:user.repeat_chores.map((repeat_chore)=>(repeat_chore.id===data.id ? data : repeat_chore))})
+  }
+
+  function handleAwardPrize(data){
+    setUsers(users.map((member)=>{
+      return {...member,prizes:member.prizes.map((prize)=>(prize.id===data.id ? data : prize))}
+    }))
   }
 
   function handleDeleteRepeatChore(data,id){
@@ -302,7 +292,7 @@ count = 0;
               <UsersPage users={users} uniqRepeatChores={uniqRepeatChores}/>
             </Route>
             <Route path="/">
-              <Home users={users} handleCheckChore={handleCheckChore} handleFinishedChore={handleFinishedChore} handleDelete={handleDelete} handleEditChore={handleEditChore}/>
+              <Home users={users} handleAwardPrize={handleAwardPrize} handleCheckChore={handleCheckChore} handleFinishedChore={handleFinishedChore} handleDelete={handleDelete} handleEditChore={handleEditChore}/>
             </Route>
         </Switch>
         </UserContext.Provider>

@@ -47,6 +47,7 @@ function NewPrizeForm({onNewPrize}){
             <input 
             type="text"
             name="title"
+            autoFocus
             autocomplete="off"
             placeholder="Title"
             value={formData.title}

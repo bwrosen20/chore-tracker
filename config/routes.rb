@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   delete '/logout', to: 'sessions#destroy'
   patch '/chores/claim', to:'chores#claim'
   patch '/chores/finished', to:'chores#finished'
+  patch '/award/:id', to:'prizes#award'
   resources :repeat_prizes
   resources :repeat_chores
   resources :checks

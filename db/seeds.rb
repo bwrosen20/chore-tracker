@@ -43,15 +43,15 @@ allowance=RepeatPrize.new(title:"$20 Allowance",description:"All three of you sh
     allowance.save!
 
 
-    allowance_one=Prize.new(title:"$20 Allowance", description:"All three of you should be able to do enough to earn your allowance",point_value:20,user_id:mom.id,repeat_prize_id:allowance.id)
-    disney=Prize.new(title:"Disney World", description:"We go to disney world",point_value:500,user_id:mom.id,repeat_prize_id:repeat_prize_token.id)
+    allowance_one=Prize.new(title:"$20 Allowance", description:"All three of you should be able to do enough to earn your allowance",point_value:20,awarded:0,user_id:mom.id,repeat_prize_id:allowance.id)
+    disney=Prize.new(title:"Disney World", description:"We go to disney world",point_value:500,awarded:0,user_id:mom.id,repeat_prize_id:repeat_prize_token.id)
 chilis=RepeatPrize.new(title:"Chilis", description:"Dinner at Chilis",point_value:50,how_many_claims:3)
     chilis.image.attach(io: File.open(Rails.root.join('db/images/chilis.jpeg')),filename:'chilis.jpeg')
     chilis.save!
 
 
-    chilis_one=Prize.new(title:"Chilis", description:"Dinner at Chilis",point_value:50,user_id:mom.id,repeat_prize_id:chilis.id)
-dave=Prize.new(title:"Dave and Busters", description:"One night at Dave and Busters. You all get a $40 power card",point_value:100,user_id:mom.id,repeat_prize_id:repeat_prize_token.id)
+    chilis_one=Prize.new(title:"Chilis", description:"Dinner at Chilis",point_value:50,awarded:0,user_id:mom.id,repeat_prize_id:chilis.id)
+dave=Prize.new(title:"Dave and Busters", description:"One night at Dave and Busters. You all get a $40 power card",point_value:100,awarded:0,user_id:mom.id,repeat_prize_id:repeat_prize_token.id)
 
 
 

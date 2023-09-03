@@ -64,6 +64,7 @@ function EditChore({onEditChore, chore, users}){
         <input
         type="text"
         name="title"
+        autoFocus
         autocomplete="off"
         value={formData.title}
         placeholder="Title"

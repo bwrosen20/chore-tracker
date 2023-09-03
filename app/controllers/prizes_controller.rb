@@ -34,6 +34,15 @@ class PrizesController < ApplicationController
         end
     end
 
+    def award
+        user = User.find(session[:user_id])
+        if user.admin
+            prize = Prize.find(params[:id])
+            prize.update!(awarded:1)
+            render json: prize
+        end
+    end
+
     def destroy
         user = User.find(session[:user_id])
         if user.admin

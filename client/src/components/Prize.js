@@ -2,7 +2,8 @@ import {UserContext} from './App'
 import {useContext, useState} from 'react'
 import EditPrize from './EditPrize'
 
-function Prize({prize,handleEditPrize,handleClaimPrize,handleDeletePrize}){
+function Prize({prize,handleEditPrize,handleClaimPrize,handleDeletePrize,handleAwardPrize}){
+    console.log(prize)
 
     const user = useContext(UserContext)
     const [editPrize,setEditPrize]=useState(false)
@@ -40,33 +41,54 @@ function Prize({prize,handleEditPrize,handleClaimPrize,handleDeletePrize}){
         })
     }
 
+    function onAward(){
+        fetch (`/award/${prize.id}`,{
+            method:'PATCH'
+        })
+        .then(r=>{
+            if (r.ok){
+                r.json().then(data=>handleAwardPrize(data))
+            }
+            else{
+                r.json().then(err=>setErrors(err.errors))
+            }
+        })
+    }
+
 
     return <div className="PrizeCard">
         {editPrize?
         <EditPrize prize={prize} onEditPrize={onEditPrize}/>:
         <div>
                 <img src={prize.image} alt={prize.id} className="PrizePicture"/>
-                <h3 className="CenteredWords">{prize.title}</h3>
-                <h4 className="CenteredWords">{prize.point_value} Points</h4>
+                <h3>{prize.title}</h3>
+                {user.admin && prize.user_id!==user.id ? <h4>{prize.kid}</h4>:<h4>{prize.point_value} Points</h4>}
                 {user.admin? 
-                youSure ? 
-                <div>
-                    <a className="deleteButton" onClick={onDelete} value="one">Delete</a>
-                    <div onClick={()=>{setYouSure(false)}}className="return">
-                        <i class="fa-solid fa-arrow-left"></i>
-                    </div>
-                </div>:
-                <div>
-                    <a className="cardButton" onClick={()=>setEditPrize(!editPrize)}>Edit Prize</a>
-                    {<button className="delete" onClick={()=>setYouSure(true)} value="one">X</button>} 
-                </div>:
-             
-            user.prizes.includes(prize) ? null : <a className="cardButton" onClick={onClaimPrize}>Claim Prize</a>
-            }
+                //User is admin
+                    prize.user_id!==user.id?
+                //Prize has been claimed
+                    <div>
+                        <button className="cardButton" onClick={onAward}>Award Prize</button>
+                    </div>:
+                //Prize has not been claimed
+                    youSure ? 
+                        <div>
+                            <a className="deleteButton" onClick={onDelete} value="one">Delete</a>
+                            <div onClick={()=>{setYouSure(false)}}className="return">
+                                <i class="fa-solid fa-arrow-left"></i>
+                            </div>
+                        </div>:
+                        <div>
+                            <a className="cardButton" onClick={()=>setEditPrize(!editPrize)}>Edit Prize</a>
+                            {<button className="delete" onClick={()=>setYouSure(true)} value="one">X</button>} 
+                        </div>:
+
+
+                //User is not admin
+                user.prizes.includes(prize) ? null : <a className="cardButton" onClick={onClaimPrize}>Claim Prize</a>
+                }
             </div>
         }
-        {
-                                }
         <div className="errorContainer">
                 {errors.map((error)=>(<div className="error"><error key={error}>{error}</error><br/></div>))}
         </div>
