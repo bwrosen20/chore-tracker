@@ -20,9 +20,9 @@ mom=User.new(username:"Mom",email:"bwrosen20@gmail.com",password:"password",pass
 
 mom.profile_image.attach(io: File.open(Rails.root.join('db/images/mom.jpeg')),filename:'mom.jpeg')
 
-adam=User.new(username:"Adam",email:"brianrosen20@yahoo.com",password:"password",password_confirmation:"password",admin:false,group_name:"Rosen",points:0)
-brian=User.new(username:"Brian",email:"brianrosen20@aol.com",password:"password",password_confirmation:"password",admin:false,group_name:"Rosen",points:0)
-brandon=User.new(username:"Brandon",email:"bwrosen20@icloud.com",password:"password",password_confirmation:"password",admin:false,group_name:"Rosen",points:500)
+adam=User.new(username:"Adam",email:"brianrosen20@yahoo.com",password:"password",password_confirmation:"password",admin:false,group_name:"Rosen",points:35)
+brian=User.new(username:"Brian",email:"brianrosen20@aol.com",password:"password",password_confirmation:"password",admin:false,group_name:"Rosen",points:20)
+brandon=User.new(username:"Brandon",email:"bwrosen20@icloud.com",password:"password",password_confirmation:"password",admin:false,group_name:"Rosen",points:60)
 
 adam.profile_image.attach(io: File.open(Rails.root.join('db/images/pabloSanchez.jpeg')),filename:'pabloSanchez.jpeg')
 brian.profile_image.attach(io: File.open(Rails.root.join('db/images/ronSwanson.jpeg')),filename:'ronSwanson.jpeg')
@@ -106,7 +106,6 @@ brians.image.attach(io: File.open(Rails.root.join('db/images/tableSet.jpeg')),fi
 adams.image.attach(io: File.open(Rails.root.join('db/images/groceries.jpeg')),filename:'groceries.jpeg')
 brandons.image.attach(io: File.open(Rails.root.join('db/images/tire.jpeg')),filename:'tire.jpeg')
 extra_chore.image.attach(io: File.open(Rails.root.join('db/images/broom.jpeg')),filename:'broom.jpeg')
-
 
 brians_room.save!
 adams_room.save!

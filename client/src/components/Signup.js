@@ -106,6 +106,7 @@ function Signup({onSignupClick, onLogin}){
             type="file"
             placeholder="Profile Image"
             name="profileImage"
+            accept="image/*"
             onChange={(e)=>setProfileImage(e.target.files[0])}/>
             <br></br>
             <br></br>

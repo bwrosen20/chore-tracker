@@ -50,6 +50,7 @@ function App() {
   function handleLogin(data,email){
     setUser(data.find((member)=>(email.toString()===(member.email.toString()))))
     setUsers(data)
+    history.push('/')
   }
 
   function handleLogout(){
