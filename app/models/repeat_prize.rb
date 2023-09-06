@@ -10,7 +10,7 @@ class RepeatPrize < ApplicationRecord
         less_than_or_equal_to:10000
     }
     validates :how_many_claims, presence: :true
-    validate :acceptable_image
+    # validate :acceptable_image
 
     def acceptable_image
         errors.add(:image, "can't be blank") unless image.attached?
