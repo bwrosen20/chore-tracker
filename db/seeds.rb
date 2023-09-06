@@ -10,18 +10,20 @@
 puts"It's time to seed the data"
 
 
-    # User.destroy_all
-    # Chore.destroy_all
-    # RepeatChore.destroy_all
-    # Prize.destroy_all
-    # RepeatPrize.destroy_all
-    # Check.destroy_all
+    User.destroy_all
+    Chore.destroy_all
+    RepeatChore.destroy_all
+    Prize.destroy_all
+    RepeatPrize.destroy_all
+    Check.destroy_all
 
 mom=User.new(username:"Mom",email:"bwrosen20@gmail.com",password:"password",password_confirmation:"password",admin:true,group_name:"Rosen",points:0)
 
 puts("I made a user")
 
 mom.profile_image.attach(io: File.open(Rails.root.join('db/images/mom.jpeg')),filename:'mom.jpeg')
+
+puts("I attached an image")
 
 adam=User.new(username:"Adam",email:"brianrosen20@yahoo.com",password:"password",password_confirmation:"password",admin:false,group_name:"Rosen",points:35)
 brian=User.new(username:"Brian",email:"brianrosen20@aol.com",password:"password",password_confirmation:"password",admin:false,group_name:"Rosen",points:20)
