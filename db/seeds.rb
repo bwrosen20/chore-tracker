@@ -9,12 +9,15 @@
 
 puts"It's time to seed the data"
 
-User.destroy_all
-Chore.destroy_all
-RepeatChore.destroy_all
-Prize.destroy_all
-RepeatPrize.destroy_all
-Check.destroy_all
+
+if User.first
+    User.destroy_all
+    Chore.destroy_all
+    RepeatChore.destroy_all
+    Prize.destroy_all
+    RepeatPrize.destroy_all
+    Check.destroy_all
+end
 
 mom=User.new(username:"Mom",email:"bwrosen20@gmail.com",password:"password",password_confirmation:"password",admin:true,group_name:"Rosen",points:0)
 
