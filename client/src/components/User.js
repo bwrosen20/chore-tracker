@@ -4,7 +4,7 @@ function User({user,uniqRepeatChores}){
 
     return <div className={user.admin ? "adminCard":"userCard"}>
         <div>
-            <img src={user.profile_image} alt={user.username} className="UserPicture"/>
+            <img src={user.profile_image} alt={user.username} className="userPicture"/>
             <h2 >{user.username}</h2>
             {!user.admin ? <h3>Points: {user.points}</h3> : null}
         </div>

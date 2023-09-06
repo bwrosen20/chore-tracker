@@ -32,11 +32,11 @@ function RepeatChore({users,chore,handleEditRepeatChore,handleDeleteRepeatChore}
     }
 
     
-    return <div className="ChoreCard">
+    return <div className="choreCard">
                 {showEditRepeatChore ?
                 <EditRepeatChore onEditRepeatChore={onEditRepeatChore} returnFromEditChore={returnFromEditChore} chore={chore} users={users}/>:
                 <div>
-                    <img src={chore.image} alt={chore.id} className="ChorePicture"/>
+                    <img src={chore.image} alt={chore.id} className="chorePicture"/>
                     <h3>{chore.title}</h3>
                     {youSure ? 
                     <div>

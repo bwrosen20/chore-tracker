@@ -99,11 +99,11 @@ function Chore({chore,users,handleEditChore,handleCheckChore,handleChoreClaim,ha
     }
 
 
-    return <div className={chore.check ? chore.check.approved==="approved" ? "ChoreCardAccepted" : chore.check.approved==="rejected" ? "ChoreCardRejected" :"ChoreCard" : "ChoreCard"}>
+    return <div className={chore.check ? chore.check.approved==="approved" ? "choreCardAccepted" : chore.check.approved==="rejected" ? "choreCardRejected" :"choreCard" : "choreCard"}>
                 {showEditChore ? 
                 <EditChore onEditChore={onEditChore} returnFromEditChore={returnFromEditChore} chore={chore} users={users}/>:
                 <div>
-                    <img src={chore.image} alt={chore.id} className="ChorePicture"/>
+                    <img src={chore.image} alt={chore.id} className="chorePicture"/>
                     <h3>{(user.admin && chore.completed)? `${chore.kid}: ` : null} {chore.title}</h3>
                     <h3>{chore.point_value} points</h3>
                     {chore.completed ? null : <h4>Due: {due_date} @{time}</h4>}

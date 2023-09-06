@@ -55,11 +55,11 @@ function Prize({prize,handleEditPrize,handleClaimPrize,handleDeletePrize,handleA
     }
 
 
-    return <div className="PrizeCard">
+    return <div className="prizeCard">
         {editPrize?
         <EditPrize prize={prize} onEditPrize={onEditPrize}/>:
         <div>
-                <img src={prize.image} alt={prize.id} className="PrizePicture"/>
+                <img src={prize.image} alt={prize.id} className="prizePicture"/>
                 <h3>{prize.title}</h3>
                 {user.admin && prize.user_id!==user.id ? <h4>{prize.kid}</h4>:<h4>{prize.point_value} Points</h4>}
                 {user.admin? 

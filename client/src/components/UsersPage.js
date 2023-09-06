@@ -4,14 +4,14 @@ function UsersPage({users,uniqRepeatChores}){
 
     const admins = users.filter((member)=>member.admin)
     const kids = users.filter((member)=>!member.admin)
-    return <div className="UserContainer">
-                <div className="UserSection">
+    return <div className="userContainer">
+                <div className="userSection">
                     <h2 className="heading">Admins</h2>
                     {admins.map((user)=>(
                         <User user={user} users={users} uniqRepeatChores={uniqRepeatChores}/>
                     ))}
                 </div>
-                <div className="UserSection">
+                <div className="userSection">
                     <h2 className="heading">Users</h2>
                     {kids.map((user)=>
                     <User user={user} users={users} uniqRepeatChores={uniqRepeatChores}/>)}

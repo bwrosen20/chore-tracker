@@ -215,7 +215,7 @@ button{
 
 /*Home Page*/
 
-.HomeContainer{
+.homeContainer{
   margin:auto;
   display:flex;
   flex-wrap:wrap;
@@ -235,13 +235,13 @@ button{
   border: 2px solid #CDCDCD;
 }
 
-.UserInfo{
+.userInfo{
   margin:40px auto;
   display:block;
   text-align:center;
 }
 
-.HomeImage{
+.homeImage{
   height:200px;
   width:200px;
   border-radius:30px;
@@ -284,13 +284,13 @@ header{
 
 /*Chore Card*/
 
-.ChoreSection{
+.choreSection{
   display:inline-block;
   /* max-width:70%; */
   margin:auto;
 }
 
-.ChoreContainer{
+.choreContainer{
   display:flex;
   flex-direction:row;
   column-gap:15px;
@@ -302,7 +302,7 @@ header{
   row-gap:20px;
 }
 
-.ChoreCard{
+.choreCard{
   border-radius: 5px;
   padding:10px;
   color:rgba(234, 236, 250, 0.884);
@@ -321,7 +321,7 @@ header{
 
 
 
-.ChoreCardAccepted{
+.choreCardAccepted{
   background-color:rgba(0, 128, 53, 0.575);
   box-shadow: 1px 3px 3px 1px rgba(0, 0, 0, 0.5);
   padding:10px;
@@ -336,7 +336,7 @@ header{
   position:relative;
 }
 
-.ChoreCardRejected{
+.choreCardRejected{
   background-color:rgba(255, 0, 0, 0.486);
   box-shadow: 1px 3px 3px 1px rgba(0, 0, 0, 0.5);
   padding:10px;
@@ -399,7 +399,7 @@ header{
 
 
 
-.ChorePicture{
+.chorePicture{
   width:100px;
   height:100px;
   border-radius:10px;
@@ -432,7 +432,7 @@ header{
 
 /*User Cards*/
 
-.UserContainer{
+.userContainer{
   display:flex;
   flex-direction:row;
   column-gap:15px;
@@ -474,7 +474,7 @@ header{
   z-index:2;
 }
 
-.UserPicture{
+.userPicture{
   width:100px;
   height:100px;
   cursor:default;
@@ -507,7 +507,7 @@ header{
 
 /*Prize Cards & Info*/
 
-.PrizeContainer{
+.prizeContainer{
   display:flex;
   flex-direction:row;
   column-gap:15px;
@@ -519,7 +519,7 @@ header{
 }
 
 @media(max-width:720px){
-  .PrizeCard{
+  .prizeCard{
       border-radius: 5px;
       color:rgba(234, 236, 250, 0.884);
       box-shadow: 1px 3px 3px 1px rgba(0, 0, 0, 0.5);
@@ -533,7 +533,7 @@ header{
       max-width:300px;
   }
 
-  .PageHeading{
+  .pageHeading{
     display:block;
     margin: 40px auto 40px;
     text-align:center;
@@ -609,7 +609,7 @@ header{
 }
 
 @media(min-width:721px){
-  .PrizeCard{
+  .prizeCard{
     border-radius: 5px;
     color:rgba(234, 236, 250, 0.884);
     box-shadow: 1px 3px 3px 1px rgba(0, 0, 0, 0.5);
@@ -623,7 +623,7 @@ header{
     max-width:300px;
   }
 
-  .PageHeading{
+  .pageHeading{
     display:block;
     margin: 40px auto 40px;
     text-align:center;
@@ -688,14 +688,14 @@ header{
   }
   
 }
-    .PageHeading:hover{
+    .pageHeading:hover{
       box-shadow:1px 3px 3px 1px rgba(0,0,0,.3);
       scale:1.05;
     }
 
 
 
-.PrizePicture{
+.prizePicture{
   width:100px;
   height:100px;
   border-radius:10px;
@@ -751,7 +751,7 @@ header{
 
 /*NavBars*/
 
-.NavBar{
+.navBar{
   width:100%;
   height:60%;
   max-width:1200px;
@@ -761,12 +761,12 @@ header{
   justify-content:space-between;
 }
 
-.NavBar .NavLinks{
+.navBar .navLinks{
   display:flex;
   gap:2rem;
 }
 
-.Intro{
+.intro{
   display:block;
   color:white;
   backdrop-filter:blur(5px);
@@ -775,11 +775,11 @@ header{
   border-radius:20px;
 }
 
-.NavOption{
+.navOption{
   color:white;
 }
 
-.LogoutButton{
+.logoutButton{
   background-color:lightblue;
   padding:0.5rem 1rem;
   border:none;
@@ -790,23 +790,23 @@ header{
   cursor:pointer;
 }
 
-    .LogoutButton:hover{
+    .logoutButton:hover{
       scale:1.05;
     }
 
-.NavBars{
+.navBars{
   color:white;
   font-size:2rem;
   cursor:pointer;
   display:none;
 }
-    .NavOption.active{
+    .navOption.active{
       scale:1.05;
       color:rgba(197, 198, 207, 0.8);
       font-weight:bold;
     }
 
-    .NavOption:hover{
+    .navOption:hover{
       color:orange;
       transform:scale(1.05);
     }
@@ -907,12 +907,12 @@ header{
 /*Responsive NavBar*/
 
 @media(max-width:720px){
-  .NavBar .NavLinks,
-  .NavBar .LogoutButton{
+  .navBar .navLinks,
+  .navBar .logoutButton{
     display:none;
   }
 
-  .NavBar .NavBars{
+  .navBar .navBars{
     display:block;
   }
 

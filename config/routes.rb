@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  root "users#show"
   post '/createAccount', to: 'users#createAccount'
   post '/signup', to: 'users#signup'
   get '/me', to: 'users#show'
@@ -18,5 +19,5 @@ Rails.application.routes.draw do
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")
-  # root "articles#index"
+  
 end

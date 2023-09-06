@@ -23,7 +23,7 @@ return <div>
             {user.admin ? <div>
                 {newChoreForm ? <NewChoreForm onNewChore={onNewChore} users={users}/>:<div>
                 <h2 className="heading">Unnasigned Chores</h2>
-                <div className="headingContainer"><a className="PageHeading" onClick={()=>setNewChoreForm(!newChoreForm)}>Add new Chore</a><div className={showInfo ? "infoFocus":"info"} onMouseOver={()=>setShowInfo(true)} onMouseLeave={()=>(setShowInfo(false))} onClick={()=>(setShowInfo(!showInfo))}> <i class="fa-solid fa-question"></i></div>
+                <div className="headingContainer"><a className="pageHeading" onClick={()=>setNewChoreForm(!newChoreForm)}>Add new Chore</a><div className={showInfo ? "infoFocus":"info"} onMouseOver={()=>setShowInfo(true)} onMouseLeave={()=>(setShowInfo(false))} onClick={()=>(setShowInfo(!showInfo))}> <i class="fa-solid fa-question"></i></div>
             <p className={showInfo ? "buttonInfo" : "buttonInfoNone"}>Create a new single chore. This chore will never repeat.
             If you would like to make a repeating chore, please go to the repeating chore page.</p></div>
                 </div>}

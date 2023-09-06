@@ -13,18 +13,18 @@ function NavBar({handleLogout}) {
     }
 
     return <header>
-      <div className="NavBar">
+      <div className="navBar">
  
-      <div className="Intro">
+      <div className="intro">
         {user ? <h3>Hi {user.username}!</h3> : null}
       </div>
       
 
-      <div className="Navigation" >
-        <ul className="NavLinks" >
+      <div className="navigation" >
+        <ul className="navLinks" >
           <li>
             <NavLink
-            className="NavOption"
+            className="navOption"
             to="/"
             exact>
               Home
@@ -32,7 +32,7 @@ function NavBar({handleLogout}) {
           </li>
           <li>
             <NavLink
-            className="NavOption"
+            className="navOption"
             to="prizes"
             exact>
               Prizes
@@ -40,7 +40,7 @@ function NavBar({handleLogout}) {
           </li>
           <li>
             <NavLink
-            className="NavOption"
+            className="navOption"
             to="chores"
             exact>
               {user.admin ? "Single Chores" : "Chores"}
@@ -49,7 +49,7 @@ function NavBar({handleLogout}) {
           {user.admin? 
           <li>
             <NavLink
-            className="NavOption"
+            className="navOption"
             to="repeat"
             exact>
               Repeat Chores
@@ -57,7 +57,7 @@ function NavBar({handleLogout}) {
           </li>:null
           }<li>
             <NavLink
-            className="NavOption"
+            className="navOption"
             to="users"
             exact>
               Users
@@ -65,7 +65,7 @@ function NavBar({handleLogout}) {
           </li>
         </ul>
       </div>
-      <a className="LogoutButton" onClick={handleLogout}>Logout</a>
+      <a className="logoutButton" onClick={handleLogout}>Logout</a>
       <div class="NavBars" onClick={toggleClass}>
       <i className={isOpen ? 'fa-solid fa-xmark' : 'fa-solid fa-bars'}></i>
       </div>
@@ -73,7 +73,7 @@ function NavBar({handleLogout}) {
       <div className={isOpen ? "dropdownMenu open" : "dropdownMenu"} class={isOpen ? "dropdownMenu open" : "dropdownMenu"} onClick={toggleClass}>
           <li>
             <NavLink
-            className="NavOption"
+            className="navOption"
             to="/"
             exact>
               Home
@@ -81,7 +81,7 @@ function NavBar({handleLogout}) {
           </li>
           <li>
             <NavLink
-            className="NavOption"
+            className="navOption"
             to="prizes"
             exact>
               Prizes
@@ -89,7 +89,7 @@ function NavBar({handleLogout}) {
           </li>
           <li>
             <NavLink
-            className="NavOption"
+            className="navOption"
             to="chores"
             exact>
               {user.admin ? "Single Chores" : "Chores"}
@@ -98,7 +98,7 @@ function NavBar({handleLogout}) {
           {user.admin? 
           <li>
             <NavLink
-            className="NavOption"
+            className="navOption"
             to="repeat"
             exact>
               Repeat Chores
@@ -106,13 +106,13 @@ function NavBar({handleLogout}) {
           </li>:null
           }<li>
             <NavLink
-            className="NavOption"
+            className="navOption"
             to="users"
             exact>
               Users
             </NavLink>
           </li>
-          <li><a className="LogoutButton" onClick={handleLogout}>Logout</a></li>
+          <li><a className="logoutButton" onClick={handleLogout}>Logout</a></li>
       </div>
       </header>
   }
