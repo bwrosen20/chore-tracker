@@ -82,6 +82,3 @@ test:
 production:
   <<: *default
   url: <%= ENV['DATABASE_URL'] %>
-  database: chore_tracker_production
-  username: chore_tracker
-  password: <%= ENV["CHORE_TRACKER_DATABASE_PASSWORD"] %>
