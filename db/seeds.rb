@@ -33,7 +33,12 @@ adam.profile_image.attach(io: File.open(Rails.root.join('db/images/pabloSanchez.
 brian.profile_image.attach(io: File.open(Rails.root.join('db/images/ronSwanson.jpeg')),filename:'ronSwanson.jpeg')
 brandon.profile_image.attach(io: File.open(Rails.root.join('db/images/draco.jpeg')),filename:'draco.jpeg')
 
+puts"I'm bout to save this user to the database"
+
 mom.save!
+
+puts"I saved a user to the database"
+
 adam.save!
 brian.save!
 brandon.save!
