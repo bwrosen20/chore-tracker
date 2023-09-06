@@ -14,12 +14,12 @@ class RepeatChore < ApplicationRecord
     validates :due_date, presence: :true
     validates :participants, presence: :true
     validate :due_date_acceptable, on: :create
-    validate :acceptable_image
+    # validate :acceptable_image
 
 
-    # def acceptable_image
-    #     errors.add(:image, "can't be blank") unless image.attached?
-    # end
+    def acceptable_image
+        errors.add(:image, "can't be blank") unless image.attached?
+    end
     
     def due_date_acceptable
         errors.add(:due_date, "must be future date") unless due_date && due_date > Time.now
