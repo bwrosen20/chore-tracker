@@ -41,6 +41,8 @@ repeat_prize_token=RepeatPrize.new(title:"Any Single Prize",description:"Use thi
 # repeat_prize_token.image.attach(io: File.open(Rails.root.join('db/images/cash.jpeg')),filename:'cash.jpeg')
 repeat_prize_token.save!
 
+puts("I made a token")
+
 # allowance=RepeatPrize.new(title:"$20 Allowance",description:"All three of you should be able to do enough to earn your allowance",point_value:20,how_many_claims:100)
 #     allowance.image.attach(io: File.open(Rails.root.join('db/images/cash.jpeg')),filename:'cash.jpeg')
 #     allowance.save!
