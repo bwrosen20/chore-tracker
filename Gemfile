@@ -36,3 +36,5 @@ gem "active_model_serializers", "~> 0.10.12"
 
 
 gem "whenever", "~> 1.0"
+
+gem "aws-sdk-s3"
