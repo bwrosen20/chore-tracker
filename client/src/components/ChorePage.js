@@ -33,7 +33,7 @@ return <div>
                             <h1 className="heading">Get Some Extra Points</h1>:
                             <h1 className="heading">There are currently no extra chores available</h1>}
                     </div>}
-                    <div className="ChoreContainer">
+                    <div className="choreContainer">
                         {admin.chores.map((chore)=>(
                             <Chore chore={chore} key={chore.id} handleEditChore={handleEditChore} handleChoreClaim={handleChoreClaim} handleDelete={handleDelete} users={users}/>
                         ))}
