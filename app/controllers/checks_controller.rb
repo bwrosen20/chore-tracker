@@ -17,6 +17,7 @@ class ChecksController < ApplicationController
                 participant.points+=20
                 chore.completed=1
                 participant.save(validate: false)
+                ChoreCheckedMailer.with(user: participant, chore: chore).chore_was_checked.deliver_now
             else
                 chore.completed=0
             end
